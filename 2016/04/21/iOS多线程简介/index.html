@@ -3,33 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>iOS多线程简介 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: iOS多线程简介date: 2016-04-21 15:17:22
-tags: iOS##一.NSThread
+  <meta name="description" content="##一.NSThread
 ###NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等
 ####使用方法
 #####1.动态方法
-1.- (id)initWithTarget:(id)target selector:(SEL)selector object:">
+1.- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;
+1234NSThread *thread = [[NSThread all">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="iOS多线程简介">
 <meta property="og:url" content="http://github.com/ws00801526/2016/04/21/iOS多线程简介/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="title: iOS多线程简介date: 2016-04-21 15:17:22
-tags: iOS##一.NSThread
+<meta property="og:description" content="##一.NSThread
 ###NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等
 ####使用方法
 #####1.动态方法
-1.- (id)initWithTarget:(id)target selector:(SEL)selector object:">
-<meta property="og:updated_time" content="2016-04-21T07:17:47.000Z">
+1.- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;
+1234NSThread *thread = [[NSThread all">
+<meta property="og:updated_time" content="2016-04-21T07:19:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="title: iOS多线程简介date: 2016-04-21 15:17:22
-tags: iOS##一.NSThread
+<meta name="twitter:title" content="iOS多线程简介">
+<meta name="twitter:description" content="##一.NSThread
 ###NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等
 ####使用方法
 #####1.动态方法
-1.- (id)initWithTarget:(id)target selector:(SEL)selector object:">
+1.- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;
+1234NSThread *thread = [[NSThread all">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -107,11 +107,6 @@ tags: iOS##一.NSThread
                             <div class="ribbon"></div>
                         </div>
                         
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
                         
                         <div class="icon-wrap icon-me hide" data-idx="3">
                             <div class="user"></div>
@@ -124,13 +119,11 @@ tags: iOS##一.NSThread
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
-                        
-                        <li>Friends</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -171,30 +164,18 @@ tags: iOS##一.NSThread
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-面试/">iOS 面试</a></li></ul>
                     </div>
                 </section>
                 
                 
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
-                    </div>
-                </section>
                 
 
                 
                 
-                <section class="switch-part switch-part4">
+                <section class="switch-part switch-part3">
                 
-                    <div id="js-aboutme">专注于前端</div>
+                    <div id="js-aboutme">XMFraker &amp; XMN</div>
                 </section>
                 
             </div>
@@ -251,7 +232,7 @@ tags: iOS##一.NSThread
   
     <div class="article-meta">
       <a href="/2016/04/21/iOS多线程简介/" class="article-date">
-      <time datetime="2016-04-21T07:17:47.000Z" itemprop="datePublished">2016-04-21</time>
+      <time datetime="2016-04-21T07:17:22.000Z" itemprop="datePublished">2016-04-21</time>
 </a>
     </div>
   
@@ -260,12 +241,32 @@ tags: iOS##一.NSThread
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS多线程简介
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
           
-        <hr>
-<p>title: iOS多线程简介<br>date: 2016-04-21 15:17:22</p>
-<h2 id="tags-iOS"><a href="#tags-iOS" class="headerlink" title="tags: iOS"></a>tags: iOS</h2><p>##一.NSThread</p>
+        <p>##一.NSThread</p>
 <p>###NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等</p>
 <p>####使用方法</p>
 <p>#####1.动态方法</p>
@@ -314,17 +315,17 @@ tags: iOS##一.NSThread
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2016/04/21/iOS多线程简介/"></a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">XMFraker</a></p>
-        <p><span>Created:</span>2016-04-21, 15:17:47</p>
-        <p><span>Updated:</span>2016-04-21, 15:17:47</p>
+        <p><span>本文标题:</span><a href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">XMFraker</a></p>
+        <p><span>发布时间:</span>2016-04-21, 15:17:22</p>
+        <p><span>最后更新:</span>2016-04-21, 15:19:40</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2016/04/21/iOS多线程简介/" title="">http://github.com/ws00801526/2016/04/21/iOS多线程简介/</a>
-            <span class="copy-path" data-clipboard-text="From http://github.com/ws00801526/2016/04/21/iOS多线程简介/　　By XMFraker" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/21/iOS多线程简介/" title="iOS多线程简介">http://github.com/ws00801526/2016/04/21/iOS多线程简介/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://github.com/ws00801526/2016/04/21/iOS多线程简介/　　作者: XMFraker" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -335,7 +336,7 @@ tags: iOS##一.NSThread
         
             <div id="article-nav-older" class="article-nav-title">
                 <a href="/2016/04/21/iOS问题收集/">
-                    
+                    iOS面试问题收集
                 </a>
             </div>
         
@@ -345,8 +346,8 @@ tags: iOS##一.NSThread
 </article>
 
     <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags-iOS"><span class="toc-number">1.</span> <span class="toc-text">tags: iOS</span></a></li></ol>
+    <strong class="toc-title">文章目录</strong>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -357,10 +358,10 @@ tags: iOS##一.NSThread
     }
 </style>
 
-<input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 <script>
-    var valueHide = "Hide";
-    var valueShow = "Show";
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
 
     if ($(".left-col").is(":hidden")) {
         $("#tocButton").attr("value", valueShow);
@@ -403,7 +404,7 @@ tags: iOS##一.NSThread
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"　| Hexo　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"iOS多线程简介　| Hexo　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -419,7 +420,7 @@ tags: iOS##一.NSThread
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/04/21/iOS多线程简介/" data-title="" data-url="http://github.com/ws00801526/2016/04/21/iOS多线程简介/"></div>
+    <div class="ds-thread" data-thread-key="2016/04/21/iOS多线程简介/" data-title="iOS多线程简介" data-url="http://github.com/ws00801526/2016/04/21/iOS多线程简介/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -445,19 +446,19 @@ tags: iOS##一.NSThread
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/04/21/iOS问题收集/" title="Next: ">
+            <a href="/2016/04/21/iOS问题收集/" title="下一篇: iOS面试问题收集">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS问题收集/">iOS问题收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS框架/">iOS框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS问题收集/">iOS面试问题收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS框架/">iOS框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></li></ul>
 
 
 
@@ -473,14 +474,14 @@ tags: iOS##一.NSThread
                 <i class="fa fa-copyright"></i> 2016 XMFraker
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visitors: 
+                        <span id="site-visit" >本站到访数: 
                             <span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
@@ -490,7 +491,7 @@ tags: iOS##一.NSThread
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Hits: 
+                        <span id="page-visit">本页阅读量: 
                             <span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
@@ -512,7 +513,7 @@ tags: iOS##一.NSThread
                 $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
             }
             else {
-                var backgroundnum = 5;
+                var backgroundnum = 10;
                 var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
                 $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
             }
@@ -523,9 +524,9 @@ tags: iOS##一.NSThread
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
