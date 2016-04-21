@@ -484,7 +484,8 @@ tcp服务器可以访问本地文件
         var ds = document.createElement('script');
         ds.type = 'text/javascript';ds.async = true;
 //        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.src = 'https://github.com/ws00801526/ws00801526.github.io/blob/master/js/embed.js'
+        //使用自己的js 不适用多说自带的n
+        ds.src = 'https://ws00801526.github.io/js/embed.js'
         ds.charset = 'UTF-8';
         (document.getElementsByTagName('head')[0] 
          || document.getElementsByTagName('body')[0]).appendChild(ds);
