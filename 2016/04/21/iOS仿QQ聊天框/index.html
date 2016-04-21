@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: iOS仿QQ聊天框date: 2016-04-21 14:24:55
+tags: iOSiOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView具体demo,示例:XMChatBar
+一:封装的思路1.实现目标
+
+
+目标
+解决方法
+
+
+
+
+可以左右翻页
+使用UIScrollView 解决
+
+
+
+每页可以根据屏幕自适应表情大小
+根据屏幕尺寸,定义好每一行显示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: iOS仿QQ聊天框date: 2016-04-21 14:24:55
+tags: iOSiOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView具体demo,示例:XMChatBar
+一:封装的思路1.实现目标
+
+
+目标
+解决方法
+
+
+
+
+可以左右翻页
+使用UIScrollView 解决
+
+
+
+每页可以根据屏幕自适应表情大小
+根据屏幕尺寸,定义好每一行显示">
+<meta property="og:updated_time" content="2016-04-21T06:33:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="title: iOS仿QQ聊天框date: 2016-04-21 14:24:55
+tags: iOSiOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView具体demo,示例:XMChatBar
+一:封装的思路1.实现目标
+
+
+目标
+解决方法
+
+
+
+
+可以左右翻页
+使用UIScrollView 解决
+
+
+
+每页可以根据屏幕自适应表情大小
+根据屏幕尺寸,定义好每一行显示">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">XMFraker</a></h1>
+        </hgroup>
+
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="Email"><a class="Email" target="_blank" href="mailto:3057600441@qq.com" title="Email"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/ws00801526" title="GitHub"></a></li>
+                            
+                                <li id="RSS"><a class="RSS" target="_blank" href="/atom.xml" title="RSS"></a></li>
+                            
+                                <li id="QQ"><a class="QQ" target="_blank" href="/3057600441" title="QQ"></a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">XMFraker</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">XMFraker</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="Email"><a class="Email" target="_blank" href="mailto:3057600441@qq.com" title="Email"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/ws00801526" title="GitHub"></a></li>
+                            
+                                <li id="RSS"><a class="RSS" target="_blank" href="/atom.xml" title="RSS"></a></li>
+                            
+                                <li id="QQ"><a class="QQ" target="_blank" href="/3057600441" title="QQ"></a></li>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-iOS仿QQ聊天框" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/21/iOS仿QQ聊天框/" class="article-date">
+      <time datetime="2016-04-21T06:33:01.000Z" itemprop="datePublished">2016-04-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <hr>
+<p>title: iOS仿QQ聊天框<br>date: 2016-04-21 14:24:55</p>
+<h2 id="tags-iOS"><a href="#tags-iOS" class="headerlink" title="tags: iOS"></a>tags: iOS</h2><h1 id="iOS仿QQ聊天框XMChatBar系列之一-–-封装XMChatFaceView"><a href="#iOS仿QQ聊天框XMChatBar系列之一-–-封装XMChatFaceView" class="headerlink" title="iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView"></a>iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView</h1><p>具体demo,示例:<a href="https://github.com/ws00801526/XMChatBarExample">XMChatBar</a></p>
+<h3 id="一-封装的思路"><a href="#一-封装的思路" class="headerlink" title="一:封装的思路"></a>一:封装的思路</h3><h4 id="1-实现目标"><a href="#1-实现目标" class="headerlink" title="1.实现目标"></a>1.实现目标</h4><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可以左右翻页</td>
+<td>使用UIScrollView 解决</td>
+<td></td>
+</tr>
+<tr>
+<td>每页可以根据屏幕自适应表情大小</td>
+<td>根据屏幕尺寸,定义好每一行显示几个(demo中5S=7个 6plus=8个)根据屏幕宽度计算</td>
+<td></td>
+</tr>
+<tr>
+<td>每页最后个是一个删除按钮</td>
+<td>计算出每页显示多少个,在每一页最后增加个删除按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>带有pageControl指示当前是第几页</td>
+<td>使用UIPageControl</td>
+<td></td>
+</tr>
+<tr>
+<td>有经典,最近两种选择,底部带有一个发送按钮</td>
+<td>使用UIView作为bottomView</td>
+<td></td>
+</tr>
+<tr>
+<td>点击每个表情,可以直接将对应中文名显示在输入框,点击删除表情,可以删除上一个选择的表情</td>
+<td>每个显示表情的UIImageView添加UITapGestureRecognizer手势,增加XMChatFaceViewDelegate,重写个发送表情的代理事件</td>
+<td></td>
+</tr>
+<tr>
+<td>长按每个表情,可以显示一个放大预览</td>
+<td>自定义XMFacePreviewView,给UIScrollView添加UILongPressGestureRecognizer手势,根据点击的点来确定点击的是那个表情</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-前期准备"><a href="#2-前期准备" class="headerlink" title="2. 前期准备"></a>2. 前期准备</h4><table>
+<thead>
+<tr>
+<th>前期准备</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所有的表情图片</td>
+<td>可以从QQ,WeChat里面获取,或者网上搜索</td>
+<td></td>
+</tr>
+<tr>
+<td>表情图片对应的中文名字,对应的表情id,表情图片名称</td>
+<td>自己做个,或者网上也可以找到,推荐自己做个,比较繁琐(但是功能可以做的比较强大),保存成一个plist</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-实现步骤"><a href="#3-实现步骤" class="headerlink" title="3. 实现步骤"></a>3. 实现步骤</h4><h5 id="1-主要类"><a href="#1-主要类" class="headerlink" title="1.主要类"></a>1.主要类</h5><table>
+<thead>
+<tr>
+<th>类名</th>
+<th>主要功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XMFaceManager</td>
+<td>获取所有的emoji的Dict,最近使用的表情dict数组,保存最近使用的表情</td>
+<td></td>
+</tr>
+<tr>
+<td>XMChatFaceView</td>
+<td>具体的faceView</td>
+<td></td>
+</tr>
+<tr>
+<td>XMFacePreviewView</td>
+<td>私有类,写在XMChatFaceView中,表情预览view</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="2-具体思路"><a href="#2-具体思路" class="headerlink" title="2.具体思路"></a>2.具体思路</h5><h5 id="XMFaceManager-–-表情管理manager"><a href="#XMFaceManager-–-表情管理manager" class="headerlink" title="XMFaceManager – 表情管理manager"></a>XMFaceManager – 表情管理manager</h5><ol>
+<li>可以获取所有表情的NSArray - 里面包含多个NSDictionary(包括face_id,face_name两个key-value键值对,其中face_id名就是图片名称,face_name就是图片的中文名称,<del>命名有点问题,请大家自动忽略</del>)</li>
+<li>可以通过face_id获取face_name</li>
+<li>可以通过face_name 获取 face_id</li>
+<li>可以将含有face_name的字符串转化成一个包含表情图片的NSMutableAttributedString的字符串</li>
+<li>可以获取最近使用过的表情NSArray</li>
+<li>保存一个最近使用的表情</li>
+</ol>
+<h5 id="XMFacePreviewView-–-表情预览View"><a href="#XMFacePreviewView-–-表情预览View" class="headerlink" title="XMFacePreviewView – 表情预览View"></a>XMFacePreviewView – 表情预览View</h5><p>#####私有属性</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>faceImageView</td>
+<td>显示表情图片</td>
+<td></td>
+</tr>
+<tr>
+<td>backgroundImageView</td>
+<td>表情图片的背景</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>#####私有方法<br><code>- (void)setFaceImage:(UIImage *)image</code>  – 设置表情图片,如果图片变化了 添加一个放大缩小的动画</p>
+<h5 id="XMChatFaceView"><a href="#XMChatFaceView" class="headerlink" title="XMChatFaceView"></a>XMChatFaceView</h5><h5 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h5><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> scrollView</td>
+<td>放置所有表情imageVIew的</td>
+<td></td>
+</tr>
+<tr>
+<td> pageControl</td>
+<td>指示当前页面的</td>
+<td></td>
+</tr>
+<tr>
+<td> facePreviewView</td>
+<td>预览view</td>
+<td></td>
+</tr>
+<tr>
+<td> bottomView</td>
+<td>底部view(上面有sendButton,recentButton,emojiButton)</td>
+<td></td>
+</tr>
+<tr>
+<td> sendButton</td>
+<td>发送按钮,点击后调用XMChatBar 发送消息</td>
+<td></td>
+</tr>
+<tr>
+<td> recentButton</td>
+<td>显示最近使用的表情</td>
+<td></td>
+</tr>
+<tr>
+<td> emojiButton</td>
+<td>显示所有emoji表情</td>
+<td></td>
+</tr>
+<tr>
+<td> maxPerLine(readOnly)</td>
+<td>设置默认每一行最多显示几个表情,因为从0开始 应该是 返回n-1个</td>
+<td></td>
+</tr>
+<tr>
+<td> maxLine</td>
+<td>显示多少行表情,demo中,最近表情为两行,emoji表情为3行</td>
+<td></td>
+</tr>
+<tr>
+<td> facePage</td>
+<td>emoji表情显示当前页,用于最近表情切换回emoji表情,自动返回到上次emoji表情浏览页</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>#####私有方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> - (void)setup</td>
+<td>仅初始化的时候调用,完成添加bottomView,scrollView,pageControl,给scrollView添加长按手势</td>
+<td></td>
+</tr>
+<tr>
+<td> - (void)resetScrollView</td>
+<td>切换显示不同表情页面时候调用,更改按钮状态,删除scrollView的subViews,修改scrollView的contentSize,contentOffset</td>
+<td></td>
+</tr>
+<tr>
+<td> - (void)changeFaceType:(UIButton *)button</td>
+<td>emojiButton,recentButton对应的点击事件</td>
+<td></td>
+</tr>
+<tr>
+<td> - (void)sendAction:(UIButton *)button</td>
+<td>发送按钮对应点击事件</td>
+<td></td>
+</tr>
+<tr>
+<td> - (UIImageView *)faceViewWitnInPoint:(CGPoint)point</td>
+<td>通过点击的点,获取对应点击的具体UIImageView</td>
+<td></td>
+</tr>
+<tr>
+<td> - (void)handleLongPress:(UILongPressGestureRecognizer *)longPress</td>
+<td>处理scrollView的长按手势</td>
+<td></td>
+</tr>
+<tr>
+<td> - (void)handleTap:(UITapGestureRecognizer *)tap</td>
+<td>处理所有UIImageView的点击手势</td>
+<td></td>
+</tr>
+<tr>
+<td> - (void)setupEmojiFaces</td>
+<td>初始化所有的emoji表情</td>
+<td></td>
+</tr>
+<tr>
+<td> - (void)setupRecentFaces</td>
+<td>初始化最近使用的emoji表情</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>#####设计思路</p>
+<ol>
+<li>整个XMChatFaceView分成两块 UIScrollView(用来放所有的表情UIImageVIew),UIView(bottomView,用户放一些功能按钮)</li>
+<li>切换显示不同类型FaceView的时候,直接移除掉scrollView上所有子视图,重新添加即可</li>
+</ol>
+<h3 id="二-总结"><a href="#二-总结" class="headerlink" title="二: 总结"></a>二: 总结</h3><h5 id="1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅"><a href="#1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅" class="headerlink" title="1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅"></a>1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅</h5><h5 id="2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整"><a href="#2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整" class="headerlink" title="2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载demo实例,注释我已经添加了,应该算比较完整."></a>2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载<a href="https://github.com/ws00801526/XMChatBarExample">demo实例</a>,注释我已经添加了,应该算比较完整.</h5><h5 id="3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441"><a href="#3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441" class="headerlink" title="3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441"></a>3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441</h5>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/04/21/iOS仿QQ聊天框/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">XMFraker</a></p>
+        <p><span>发布时间:</span>2016-04-21, 14:33:01</p>
+        <p><span>最后更新:</span>2016-04-21, 14:33:01</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/21/iOS仿QQ聊天框/" title="">http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/　　作者: XMFraker" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags-iOS"><span class="toc-number">1.</span> <span class="toc-text">tags: iOS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS仿QQ聊天框XMChatBar系列之一-–-封装XMChatFaceView"><span class="toc-number"></span> <span class="toc-text">iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-封装的思路"><span class="toc-number">0.1.</span> <span class="toc-text">一:封装的思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-实现目标"><span class="toc-number">0.1.1.</span> <span class="toc-text">1.实现目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-前期准备"><span class="toc-number">0.1.2.</span> <span class="toc-text">2. 前期准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-实现步骤"><span class="toc-number">0.1.3.</span> <span class="toc-text">3. 实现步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-主要类"><span class="toc-number">0.1.3.1.</span> <span class="toc-text">1.主要类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-具体思路"><span class="toc-number">0.1.3.2.</span> <span class="toc-text">2.具体思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMFaceManager-–-表情管理manager"><span class="toc-number">0.1.3.3.</span> <span class="toc-text">XMFaceManager – 表情管理manager</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMFacePreviewView-–-表情预览View"><span class="toc-number">0.1.3.4.</span> <span class="toc-text">XMFacePreviewView – 表情预览View</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMChatFaceView"><span class="toc-number">0.1.3.5.</span> <span class="toc-text">XMChatFaceView</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#私有属性"><span class="toc-number">0.1.3.6.</span> <span class="toc-text">私有属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-总结"><span class="toc-number">0.2.</span> <span class="toc-text">二: 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅"><span class="toc-number">0.2.0.1.</span> <span class="toc-text">1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整"><span class="toc-number">0.2.0.2.</span> <span class="toc-text">2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载demo实例,注释我已经添加了,应该算比较完整.</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441"><span class="toc-number">0.2.0.3.</span> <span class="toc-text">3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| Hexo　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/04/21/iOS仿QQ聊天框/" data-title="" data-url="http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xmfraker"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+//        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        //使用自己的js 不适用多说自带的n
+        ds.src = 'https://ws00801526.github.io/js/embed.js'
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 2016 XMFraker
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
