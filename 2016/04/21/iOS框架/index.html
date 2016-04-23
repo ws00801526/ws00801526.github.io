@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS框架 | Hexo</title>
+  <title>iOS框架 | XMFraker &amp; XMN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Cocoa Touch,Media,Core Service框架简介">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS框架">
 <meta property="og:url" content="http://github.com/ws00801526/2016/04/21/iOS框架/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="XMFraker & XMN">
 <meta property="og:description" content="Cocoa Touch,Media,Core Service框架简介">
-<meta property="og:updated_time" content="2016-04-21T07:39:53.000Z">
+<meta property="og:updated_time" content="2016-04-21T08:35:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS框架">
 <meta name="twitter:description" content="Cocoa Touch,Media,Core Service框架简介">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="XMFraker &amp; XMN" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -79,7 +79,6 @@
         
                 
 
-
         
             <div id="switch-btn" class="switch-btn">
                 <div class="icon">
@@ -93,22 +92,15 @@
                         </div>
                         
                         
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
                     </div>
                     
                 </div>
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        
-                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -125,9 +117,7 @@
                         
                             <li><a href="/archives/">所有文章</a></li>
                         
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
+                            <li><a href="/product/">我的作品</a></li>
                         
                         </ul>
                     </nav>
@@ -149,19 +139,13 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/控件/">控件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
                     </div>
                 </section>
                 
                 
                 
 
-                
-                
-                <section class="switch-part switch-part3">
-                
-                    <div id="js-aboutme">XMFraker &amp; XMN</div>
-                </section>
                 
             </div>
         </div>
@@ -190,9 +174,7 @@
                 
                     <li><a href="/archives/">所有文章</a></li>
                 
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
+                    <li><a href="/product/">我的作品</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -227,7 +209,8 @@
     
     
       <header class="article-header">
-        
+        <!--显示文章标题-->
+
   
     <h1 class="article-title" itemprop="name">
       iOS框架
@@ -239,7 +222,8 @@
       <div class="article-info article-info-post">
         
 
-        
+        <!--显示当前文章的标签-->
+
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
@@ -253,25 +237,16 @@
           
         <p>Cocoa Touch,Media,Core Service框架简介</p>
 <a id="more"></a>
-<p>###一.Cocoa Touch<br>Cocoa Touch层包含创建 iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。</p>
-<p>####高级特性</p>
-<p>#####多任务<br>应用程序进入后台后,不会被消除,用户可以在程序进入后台后</p>
-<p>#####数据保护</p>
-<p>#####苹果推送通知</p>
-<p>#####本地通知</p>
-<p>#####手势识别<br>提供UIGestureRecognizer</p>
-<p>#####文件共享支持</p>
-<p>#####点对点服务</p>
-<p>#####标准视图控制器</p>
-<ul>
+<p>Cocoa Touch</p>
+<h2 id="Cocoa-Touch层包含创建-iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。"><a href="#Cocoa-Touch层包含创建-iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。" class="headerlink" title="Cocoa Touch层包含创建 iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。"></a>Cocoa Touch层包含创建 iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。</h2><h4 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h4><h5 id="多任务"><a href="#多任务" class="headerlink" title="多任务"></a>多任务</h5><p>应用程序进入后台后,不会被消除,用户可以在程序进入后台后</p>
+<h5 id="数据保护"><a href="#数据保护" class="headerlink" title="数据保护"></a>数据保护</h5><h5 id="苹果推送通知"><a href="#苹果推送通知" class="headerlink" title="苹果推送通知"></a>苹果推送通知</h5><h5 id="本地通知"><a href="#本地通知" class="headerlink" title="本地通知"></a>本地通知</h5><h5 id="手势识别"><a href="#手势识别" class="headerlink" title="手势识别"></a>手势识别</h5><p>提供UIGestureRecognizer</p>
+<h5 id="文件共享支持"><a href="#文件共享支持" class="headerlink" title="文件共享支持"></a>文件共享支持</h5><h5 id="点对点服务"><a href="#点对点服务" class="headerlink" title="点对点服务"></a>点对点服务</h5><h5 id="标准视图控制器"><a href="#标准视图控制器" class="headerlink" title="标准视图控制器"></a>标准视图控制器</h5><ul>
 <li>选择照片,视频,拍照,录制视频 - UIImagePickerController</li>
 <li>显示编辑联系人页面 - 参考Contacts,或者AddressBookUI框架</li>
 <li>显示发送短信,邮件页面 - 参考MessageUIKit框架</li>
-<li>显示日历事件编辑,修改页面 -  参考EventUIKit框架<br>#####外部设备支持</li>
+<li>显示日历事件编辑,修改页面 -  参考EventUIKit框架<h5 id="外部设备支持"><a href="#外部设备支持" class="headerlink" title="外部设备支持"></a>外部设备支持</h5></li>
 </ul>
-<p>####Cocoa Touch层包含的框架</p>
-<p>#####UIKit(UIKit.Framework):Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础,具有以下核心功能</p>
-<ul>
+<h4 id="Cocoa-Touch层包含的框架"><a href="#Cocoa-Touch层包含的框架" class="headerlink" title="Cocoa Touch层包含的框架"></a>Cocoa Touch层包含的框架</h4><h5 id="UIKit-UIKit-Framework-Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础-具有以下核心功能"><a href="#UIKit-UIKit-Framework-Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础-具有以下核心功能" class="headerlink" title="UIKit(UIKit.Framework):Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础,具有以下核心功能"></a>UIKit(UIKit.Framework):Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础,具有以下核心功能</h5><ul>
 <li>应该用程序管理  - UIApplication</li>
 <li>用户界面管理 - UIWindow</li>
 <li>图形,窗口支持 - UIWindow</li>
@@ -283,11 +258,10 @@
 <li>调用相机,设备支持</li>
 <li>加速器数据</li>
 <li>用户图片库</li>
-<li>远程通知,本地通知<br>#####AddressBookUI(AddressBookUI.Framework)-iOS9弃用:提供选择联系人,编辑联系人界面接口<br>#####Contacts(Contacts.Framework)-iOS8+:替代AddressBookUI,提供选择,编辑联系人界面的接口<br>#####EventUIKit(EventUIKit.Framework):提供日历事件编辑,添加接口<br>#####MapKit(MapKit.Framework):提供地图编程接口<br>#####MessageUIKit(MessageUIKit):提供信息,邮件发送界面接口<br>#####PhotosUI(PhotosUI):提供图片选择界面接口<br>#####WatchKit:苹果手表开发接口<br>#####Twitter:推特编程相关接口<br>#####iAd:广告编程接口,使用苹果广告服务<br>#####NotificationCenter 系统通知</li>
+<li>远程通知,本地通知<h5 id="AddressBookUI-AddressBookUI-Framework-iOS9弃用-提供选择联系人-编辑联系人界面接口"><a href="#AddressBookUI-AddressBookUI-Framework-iOS9弃用-提供选择联系人-编辑联系人界面接口" class="headerlink" title="AddressBookUI(AddressBookUI.Framework)-iOS9弃用:提供选择联系人,编辑联系人界面接口"></a>AddressBookUI(AddressBookUI.Framework)-iOS9弃用:提供选择联系人,编辑联系人界面接口</h5><h5 id="Contacts-Contacts-Framework-iOS8-替代AddressBookUI-提供选择-编辑联系人界面的接口"><a href="#Contacts-Contacts-Framework-iOS8-替代AddressBookUI-提供选择-编辑联系人界面的接口" class="headerlink" title="Contacts(Contacts.Framework)-iOS8+:替代AddressBookUI,提供选择,编辑联系人界面的接口"></a>Contacts(Contacts.Framework)-iOS8+:替代AddressBookUI,提供选择,编辑联系人界面的接口</h5><h5 id="EventUIKit-EventUIKit-Framework-提供日历事件编辑-添加接口"><a href="#EventUIKit-EventUIKit-Framework-提供日历事件编辑-添加接口" class="headerlink" title="EventUIKit(EventUIKit.Framework):提供日历事件编辑,添加接口"></a>EventUIKit(EventUIKit.Framework):提供日历事件编辑,添加接口</h5><h5 id="MapKit-MapKit-Framework-提供地图编程接口"><a href="#MapKit-MapKit-Framework-提供地图编程接口" class="headerlink" title="MapKit(MapKit.Framework):提供地图编程接口"></a>MapKit(MapKit.Framework):提供地图编程接口</h5><h5 id="MessageUIKit-MessageUIKit-提供信息-邮件发送界面接口"><a href="#MessageUIKit-MessageUIKit-提供信息-邮件发送界面接口" class="headerlink" title="MessageUIKit(MessageUIKit):提供信息,邮件发送界面接口"></a>MessageUIKit(MessageUIKit):提供信息,邮件发送界面接口</h5><h5 id="PhotosUI-PhotosUI-提供图片选择界面接口"><a href="#PhotosUI-PhotosUI-提供图片选择界面接口" class="headerlink" title="PhotosUI(PhotosUI):提供图片选择界面接口"></a>PhotosUI(PhotosUI):提供图片选择界面接口</h5><h5 id="WatchKit-苹果手表开发接口"><a href="#WatchKit-苹果手表开发接口" class="headerlink" title="WatchKit:苹果手表开发接口"></a>WatchKit:苹果手表开发接口</h5><h5 id="Twitter-推特编程相关接口"><a href="#Twitter-推特编程相关接口" class="headerlink" title="Twitter:推特编程相关接口"></a>Twitter:推特编程相关接口</h5><h5 id="iAd-广告编程接口-使用苹果广告服务"><a href="#iAd-广告编程接口-使用苹果广告服务" class="headerlink" title="iAd:广告编程接口,使用苹果广告服务"></a>iAd:广告编程接口,使用苹果广告服务</h5><h5 id="NotificationCenter-系统通知"><a href="#NotificationCenter-系统通知" class="headerlink" title="NotificationCenter 系统通知"></a>NotificationCenter 系统通知</h5></li>
 </ul>
-<p>###二.Media 媒体服务接口层<br>媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。</p>
-<p>####高级特性</p>
-<p>#####图形技术<br>高质量的图形是iOS应用程序的重要组成部分。创建应用程序最简单最有效的方法是使用事先渲染过的图片，搭配上标准视图以及UIKit框架的控件，然后把绘制任务交给系统来执行。但是在某些情况下，您可能需要一些UIKit所不具有的功能，而且需要定制某些行为。在这种情况下，您可以使用下述技术管理应用程序的图形内容：</p>
+<p>Media 媒体服务接口层</p>
+<h2 id="媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。"><a href="#媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。" class="headerlink" title="媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。"></a>媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。</h2><h4 id="高级特性-1"><a href="#高级特性-1" class="headerlink" title="高级特性"></a>高级特性</h4><h5 id="图形技术"><a href="#图形技术" class="headerlink" title="图形技术"></a>图形技术</h5><p>高质量的图形是iOS应用程序的重要组成部分。创建应用程序最简单最有效的方法是使用事先渲染过的图片，搭配上标准视图以及UIKit框架的控件，然后把绘制任务交给系统来执行。但是在某些情况下，您可能需要一些UIKit所不具有的功能，而且需要定制某些行为。在这种情况下，您可以使用下述技术管理应用程序的图形内容：</p>
 <ol>
 <li>Core Graphics (也被称为Quartz)，用于处理本地2D向量渲染和图片渲染。</li>
 <li>Core Animation ( Quartz Core框架的一部分)，为动画视图和其他内容提供更高级别支持。</li>
@@ -296,38 +270,36 @@
 <li>Image I/O，提供读取及编写大多数图形格式的接口。</li>
 <li>资产库框架（Assets Library framework），可用于访问用户照片库中的照片和视频。</li>
 </ol>
-<p>#####音频技术<br>iOS音频技术可帮助您为用户提供丰富多彩的音响体验。您可以使用音频技术来播放或录制高质量的音频，也可以用于触发发设备的震动功能（具有震动功能的设备）。</p>
+<h5 id="音频技术"><a href="#音频技术" class="headerlink" title="音频技术"></a>音频技术</h5><p>iOS音频技术可帮助您为用户提供丰富多彩的音响体验。您可以使用音频技术来播放或录制高质量的音频，也可以用于触发发设备的震动功能（具有震动功能的设备）。</p>
 <ol>
 <li>媒体播放器框架。该框架可以让访问用户的iTune库变得很容易，并且支持播放曲目和播放列表。</li>
 <li>AV Foundation框架。它提供一组简单易用的Objective-C接口，可用于管理音频的播放或录制。.</li>
 <li>OpenAL框架。它提供一组跨平台，用于发布方位音频的接口。</li>
 <li>Core Audio框架。它提供的接口简单而精密，可用于播放或录制音频内容。您可以使用这些接口播放系统的警报声音、触发备的震动功能、管理多声道的缓冲和播放、对音频内容进行流化处理。</li>
 </ol>
-<p>#####视频技术<br>iOS有数种技术可用于播放应用程序包的电影文件以及来自网络的数据流内容。如果设备具有合适的视频硬件，这些技术也可用于捕捉视频，并可将捕获到的视频集成到应用程序。</p>
+<h5 id="视频技术"><a href="#视频技术" class="headerlink" title="视频技术"></a>视频技术</h5><p>iOS有数种技术可用于播放应用程序包的电影文件以及来自网络的数据流内容。如果设备具有合适的视频硬件，这些技术也可用于捕捉视频，并可将捕获到的视频集成到应用程序。</p>
 <p>系统提供也提供多种方法用于播放或录制视频内容，您可以根据需要选择。选择视频技术的时候，请尽可能选择高级框架，因为高级框架可以简化为提供对某种功能的支持所需的工作。下面列出的框架由高级到低级排列。其中，媒体播放器框架提供最高级的接口：</p>
 <ol>
 <li>媒体播放器模块:提供一组易用的接口,播放音视频文件</li>
 <li>AVFoundation:提供一组Objective-C接口,用户自定义接口,播放音视频,也可以捕捉音视频数据</li>
 <li>CoreMedia:底层的音视频C语言接口</li>
 </ol>
-<p>####媒体层包含的常用框架</p>
-<p>#####AssetsLibrary(iOS8+推荐使用Photo):<br>该框架提供一个查询界面，您可以通过它查找用户照片和数据。通过使用该框架，您可以访问Photos管理的资产，包括用户保存的相册以及导入到设备中的图片或视频。而且您也可以将照片或者视频保存到用户的相册</p>
-<p>#####AVFoundation:<br>该框架包含的Objective-C 类可用于播放音频内容。通过使用该框架，您可以播放声音文件或播放内存中的音频数据，也可以同时播放多个声音，并对各个声音的播放特定进行控制。</p>
+<h4 id="媒体层包含的常用框架"><a href="#媒体层包含的常用框架" class="headerlink" title="媒体层包含的常用框架"></a>媒体层包含的常用框架</h4><h5 id="AssetsLibrary-iOS8-推荐使用Photo"><a href="#AssetsLibrary-iOS8-推荐使用Photo" class="headerlink" title="AssetsLibrary(iOS8+推荐使用Photo):"></a>AssetsLibrary(iOS8+推荐使用Photo):</h5><p>该框架提供一个查询界面，您可以通过它查找用户照片和数据。通过使用该框架，您可以访问Photos管理的资产，包括用户保存的相册以及导入到设备中的图片或视频。而且您也可以将照片或者视频保存到用户的相册</p>
+<h5 id="AVFoundation"><a href="#AVFoundation" class="headerlink" title="AVFoundation:"></a>AVFoundation:</h5><p>该框架包含的Objective-C 类可用于播放音频内容。通过使用该框架，您可以播放声音文件或播放内存中的音频数据，也可以同时播放多个声音，并对各个声音的播放特定进行控制。</p>
 <ol>
 <li>媒体数据管理</li>
 <li>媒体编辑</li>
 <li>音视频捕捉</li>
 <li>音视频播放</li>
 </ol>
-<p>#####CoreGraphics:<br>包含Quartz 2D绘图API接口 。Quartz 是Mac OS X系统使用的向量绘图引擎，它支持基于路径绘图、抗锯齿渲染、渐变、图片、颜色、坐标空间转换、PDF文件的创建、显示和解析。虽然API基于C语言，但是它使用基于对象的抽象以表示基本绘图对象，这样可以让开发者可以更方便地保存并复用图像内容。</p>
-<p>#####CoreText框架:<br>Core Text框架提供一个完整的文本布局引擎，您可以通过它管理文本在屏幕上的摆放。所管理的文本也可以使用不同的字体和渲染属性。该框架专为诸如字处理程序这类需要具有精密文本处理功能的应用程序而设计。如果您的应用程序只需要一种文本输入和显示，则应使用UIKit框架中已有的类。</p>
-<p>#####媒体播放框架(MediaPlayer-iOS9+推荐AVKit):<br>媒体播放器框架 (MediaPlayer.framework)为应用程序播放视频和音频内容提供高级支持。通过该框架，您就可以使用标准系统界面播放视频。 iOS 3.0增加了对访问用户iTune库的支持。因此，您可以利用该框架播放音乐曲目、播放列表、搜索歌曲并向用户显示媒体选取界面。</p>
+<h5 id="CoreGraphics"><a href="#CoreGraphics" class="headerlink" title="CoreGraphics:"></a>CoreGraphics:</h5><p>包含Quartz 2D绘图API接口 。Quartz 是Mac OS X系统使用的向量绘图引擎，它支持基于路径绘图、抗锯齿渲染、渐变、图片、颜色、坐标空间转换、PDF文件的创建、显示和解析。虽然API基于C语言，但是它使用基于对象的抽象以表示基本绘图对象，这样可以让开发者可以更方便地保存并复用图像内容。</p>
+<h5 id="CoreText框架"><a href="#CoreText框架" class="headerlink" title="CoreText框架:"></a>CoreText框架:</h5><p>Core Text框架提供一个完整的文本布局引擎，您可以通过它管理文本在屏幕上的摆放。所管理的文本也可以使用不同的字体和渲染属性。该框架专为诸如字处理程序这类需要具有精密文本处理功能的应用程序而设计。如果您的应用程序只需要一种文本输入和显示，则应使用UIKit框架中已有的类。</p>
+<h5 id="媒体播放框架-MediaPlayer-iOS9-推荐AVKit"><a href="#媒体播放框架-MediaPlayer-iOS9-推荐AVKit" class="headerlink" title="媒体播放框架(MediaPlayer-iOS9+推荐AVKit):"></a>媒体播放框架(MediaPlayer-iOS9+推荐AVKit):</h5><p>媒体播放器框架 (MediaPlayer.framework)为应用程序播放视频和音频内容提供高级支持。通过该框架，您就可以使用标准系统界面播放视频。 iOS 3.0增加了对访问用户iTune库的支持。因此，您可以利用该框架播放音乐曲目、播放列表、搜索歌曲并向用户显示媒体选取界面。</p>
 <p>在 iOS 3.2系统中，该框架发生了变化，开始支持在可改变尺寸的视图中播放视频（之前只支持全屏）。另外还新增数个界面用于支持配置和管理电影播放。</p>
 <p>如需进一步了解媒体播放器框架中的类，请查看媒体播放器框架参考 。如需了解如何使用该框架访问用户的 iTunes库，请查看iPod 库访问编程指南。</p>
-<p>#####QuartzCore框架:<br>Quartz Core框架 (QuartzCore.framework)包含Core Animation接口。Core Animation是高级动画制作和混合技术，它使用经过优化的渲染路径实现复杂的动画和视觉效果。它提供的高级Objective-C接口可对动画效果进行配置，然后在设备硬件中进行渲染，以此来提高程序的性能。Core Animation框架被整合到iOS的许多部分（包括UIKit框架中的许多类（如UIView）），可以为多种系统行为提供动画效果。您也可以使用该框架中的Objective-C接口直接创建定制动画。</p>
-<p>###三.CoreService 层<br>Core Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。</p>
-<p>####高阶特性</p>
-<p>#####块对象<br>引入block概念,从本质上说，块对象本质上是一个匿名函数加上该函数的伴随数据。有些时候，其他语言也称块对象为 closure或者lambda。块对象非常适用于回调函数。如果您需要有很便捷的方法将执行代码和相关数据组合在一起，块对象也是很好的选择。</p>
+<h5 id="QuartzCore框架"><a href="#QuartzCore框架" class="headerlink" title="QuartzCore框架:"></a>QuartzCore框架:</h5><p>Quartz Core框架 (QuartzCore.framework)包含Core Animation接口。Core Animation是高级动画制作和混合技术，它使用经过优化的渲染路径实现复杂的动画和视觉效果。它提供的高级Objective-C接口可对动画效果进行配置，然后在设备硬件中进行渲染，以此来提高程序的性能。Core Animation框架被整合到iOS的许多部分（包括UIKit框架中的许多类（如UIView）），可以为多种系统行为提供动画效果。您也可以使用该框架中的Objective-C接口直接创建定制动画。</p>
+<p>CoreService 层</p>
+<h2 id="Core-Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。"><a href="#Core-Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。" class="headerlink" title="Core Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。"></a>Core Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。</h2><h4 id="高阶特性"><a href="#高阶特性" class="headerlink" title="高阶特性"></a>高阶特性</h4><h5 id="块对象"><a href="#块对象" class="headerlink" title="块对象"></a>块对象</h5><p>引入block概念,从本质上说，块对象本质上是一个匿名函数加上该函数的伴随数据。有些时候，其他语言也称块对象为 closure或者lambda。块对象非常适用于回调函数。如果您需要有很便捷的方法将执行代码和相关数据组合在一起，块对象也是很好的选择。</p>
 <p>在 iOS系统中，块对象通常用于下述场合：</p>
 <ul>
 <li>作为委托或委托方法的替代品。</li>
@@ -336,36 +308,34 @@
 <li>简化在群体所有子项上迭代执行某种任务的操作。</li>
 <li>配合分发队列。可用于执行异步任务。</li>
 </ul>
-<p>#####Grand Central Dispatch (GCD):<br>iOS 4.0引入了 Grand Central Dispatch (GCD)，它是BSD级别的技术，可用于在应用程序内管理多个任务的执行。GCD技术将异步编程模型和高度优化内核结合在一起，可作为多线程的便捷（且更高效）替代。同时，它也为许多种底层任务（ 例如读写文件描述符、实现定时器、监视信号和处理事件等）提供替代方案。</p>
-<p>#####应用内付费购买:<br>iOS 3.0引入了应用程序内购买功能。通过该功能，您可以在应用程序内出售内容或服务。该功能使用Store Kit框架来实现，它可以为使用iTunes账户进行的财务交易的处理提供基础支持，应用程序只需处理用户体验及待售内容或服务的展现。</p>
-<p>#####定位服务:<br>应用程序可使用Core Location框架提供的接口追踪用户位置。此框架利用当前可用的硬件无线电波（包括Wi-Fi、蜂窝无线或者GPS）定位用户的当前位置。应用程序可以对框架提供的信息进行裁剪，然后再将其发送给客户， 或是用于实现某些特定功能。举个例子，社交应用程序允许您找到附近其他应用程序用户，然后再与之进行通讯。</p>
-<p>#####SQLite:<br>SQLite库允许开发者将一个轻量级SQL数据库嵌入到应用程序，而且开发者不需要运行独立的远程数据库服务器进程。在此之后，开发者可以在应用程序中创建本地数据库文件，管理文件中的表和记录。虽然SQLite数据库出于通用目的而设计，但它还是针对数据库记录的快速访问做过优化。</p>
-<p>#####XML 支持<br>Foundation框架支持使用NSXMLParser 类从XML文档中解析元素，而libXML2库则为操作XML内容提供支持。 libXML2库是开源的，它可以让您快速地解析或写入任意的XML数据，也可将XML内容转化为HTML文件。</p>
-<p>####Core Service层包含的常用框架</p>
-<p>#####AddressBook:<br>支持编程访问存储于用户设备中的联系人信息。如果应用程序使用到联系人信息，则可通过该框架访问并修改用户联系人数据库的记录。举个例子，通过使用该框架，聊天程序可以获取一个联系人列表，利用此列表初始化聊天会话，并在联系人视图显示列表的联系人。</p>
-<p>#####CFNetwork<br>CFNetwork框架 (CFNetwork.framework)提供一组高性能基于C语言的接口，它们为使用网络协议提供面向对象抽象。通过这些抽象，您可以对协议栈进行更精细的控制，而且可以使用诸如 BSD socket这类底层结构。您也可以通过该框架简化诸如与FTP或HTTP服务器通讯以及DNS主机解析这类任务。下面列举一些可以使用 CFNetwork框架执行的任务：</p>
-<p>#####Core Data 框架<br>iOS提供的一种MV应用程序存储方案</p>
-<p>#####CoreFoundation:<br>提供Foundation的C语言实现</p>
-<p>#####CoreLocation框架:<br>Core Location框架 (CoreLocation.framework)可用于定位某个设备当前经纬度。它可以利用设备具备的硬件，通过附近的GPS、蜂窝基站或者WiFi信号等信息计算用户方位。Maps应用程序就是利用此功能在地图上显示用户当前位置。您可以将此技术结合到应用程序，以此向用户提供方位信息。例如，应用程序可根据用户当前位置搜索附近饭店、商店或其他设施 。<br>在iOS 3.0系统中，该框架开始支持访问iOS设备（具有相应硬件的设备）的方向信息。<br>在iOS 4.0系统中，该框架开始支持低能耗的方位监视服务，该服务利用蜂窝基站跟踪用户方位。</p>
-<p>#####Core Media 框架<br>iOS 4.0引入了Core Media框架 (CoreMedia.framework)。此框架提供AV Foundation框架使用的底层媒体类型。只有少数需要对音频或视频创建及展示进行精确控制的应用程序才会涉及该框架，其他大部分应用程序应该都用不上。</p>
+<h5 id="Grand-Central-Dispatch-GCD"><a href="#Grand-Central-Dispatch-GCD" class="headerlink" title="Grand Central Dispatch (GCD):"></a>Grand Central Dispatch (GCD):</h5><p>iOS 4.0引入了 Grand Central Dispatch (GCD)，它是BSD级别的技术，可用于在应用程序内管理多个任务的执行。GCD技术将异步编程模型和高度优化内核结合在一起，可作为多线程的便捷（且更高效）替代。同时，它也为许多种底层任务（ 例如读写文件描述符、实现定时器、监视信号和处理事件等）提供替代方案。</p>
+<h5 id="应用内付费购买"><a href="#应用内付费购买" class="headerlink" title="应用内付费购买:"></a>应用内付费购买:</h5><p>iOS 3.0引入了应用程序内购买功能。通过该功能，您可以在应用程序内出售内容或服务。该功能使用Store Kit框架来实现，它可以为使用iTunes账户进行的财务交易的处理提供基础支持，应用程序只需处理用户体验及待售内容或服务的展现。</p>
+<h5 id="定位服务"><a href="#定位服务" class="headerlink" title="定位服务:"></a>定位服务:</h5><p>应用程序可使用Core Location框架提供的接口追踪用户位置。此框架利用当前可用的硬件无线电波（包括Wi-Fi、蜂窝无线或者GPS）定位用户的当前位置。应用程序可以对框架提供的信息进行裁剪，然后再将其发送给客户， 或是用于实现某些特定功能。举个例子，社交应用程序允许您找到附近其他应用程序用户，然后再与之进行通讯。</p>
+<h5 id="SQLite"><a href="#SQLite" class="headerlink" title="SQLite:"></a>SQLite:</h5><p>SQLite库允许开发者将一个轻量级SQL数据库嵌入到应用程序，而且开发者不需要运行独立的远程数据库服务器进程。在此之后，开发者可以在应用程序中创建本地数据库文件，管理文件中的表和记录。虽然SQLite数据库出于通用目的而设计，但它还是针对数据库记录的快速访问做过优化。</p>
+<h5 id="XML-支持"><a href="#XML-支持" class="headerlink" title="XML 支持"></a>XML 支持</h5><p>Foundation框架支持使用NSXMLParser 类从XML文档中解析元素，而libXML2库则为操作XML内容提供支持。 libXML2库是开源的，它可以让您快速地解析或写入任意的XML数据，也可将XML内容转化为HTML文件。</p>
+<h4 id="Core-Service层包含的常用框架"><a href="#Core-Service层包含的常用框架" class="headerlink" title="Core Service层包含的常用框架"></a>Core Service层包含的常用框架</h4><h5 id="AddressBook"><a href="#AddressBook" class="headerlink" title="AddressBook:"></a>AddressBook:</h5><p>支持编程访问存储于用户设备中的联系人信息。如果应用程序使用到联系人信息，则可通过该框架访问并修改用户联系人数据库的记录。举个例子，通过使用该框架，聊天程序可以获取一个联系人列表，利用此列表初始化聊天会话，并在联系人视图显示列表的联系人。</p>
+<h5 id="CFNetwork"><a href="#CFNetwork" class="headerlink" title="CFNetwork"></a>CFNetwork</h5><p>CFNetwork框架 (CFNetwork.framework)提供一组高性能基于C语言的接口，它们为使用网络协议提供面向对象抽象。通过这些抽象，您可以对协议栈进行更精细的控制，而且可以使用诸如 BSD socket这类底层结构。您也可以通过该框架简化诸如与FTP或HTTP服务器通讯以及DNS主机解析这类任务。下面列举一些可以使用 CFNetwork框架执行的任务：</p>
+<h5 id="Core-Data-框架"><a href="#Core-Data-框架" class="headerlink" title="Core Data 框架"></a>Core Data 框架</h5><p>iOS提供的一种MV应用程序存储方案</p>
+<h5 id="CoreFoundation"><a href="#CoreFoundation" class="headerlink" title="CoreFoundation:"></a>CoreFoundation:</h5><p>提供Foundation的C语言实现</p>
+<h5 id="CoreLocation框架"><a href="#CoreLocation框架" class="headerlink" title="CoreLocation框架:"></a>CoreLocation框架:</h5><p>Core Location框架 (CoreLocation.framework)可用于定位某个设备当前经纬度。它可以利用设备具备的硬件，通过附近的GPS、蜂窝基站或者WiFi信号等信息计算用户方位。Maps应用程序就是利用此功能在地图上显示用户当前位置。您可以将此技术结合到应用程序，以此向用户提供方位信息。例如，应用程序可根据用户当前位置搜索附近饭店、商店或其他设施 。<br>在iOS 3.0系统中，该框架开始支持访问iOS设备（具有相应硬件的设备）的方向信息。<br>在iOS 4.0系统中，该框架开始支持低能耗的方位监视服务，该服务利用蜂窝基站跟踪用户方位。</p>
+<h5 id="Core-Media-框架"><a href="#Core-Media-框架" class="headerlink" title="Core Media 框架"></a>Core Media 框架</h5><p>iOS 4.0引入了Core Media框架 (CoreMedia.framework)。此框架提供AV Foundation框架使用的底层媒体类型。只有少数需要对音频或视频创建及展示进行精确控制的应用程序才会涉及该框架，其他大部分应用程序应该都用不上。</p>
 <p>如需进一步了解此框架的函数和数据类型，请阅读Core Media 框架参考。</p>
-<p>#####Core Telephony 框架<br>iOS 4.0引入了Core Telephony框架(CoreTelephony.framework)。此框架为访问具有蜂窝无线的设备上的电话信息提供接口，应用程序可通过它获取用户蜂窝无线服务的提供商信息。如果应用程序对于电话呼叫感兴趣，也可以在相应事件发生时得到通知。</p>
-<p>#####Event Kit 框架<br>iOS 4.0引入了 Event Kit框架 (EventKit.framework)。此框架为访问用户设备的日历事件提供接口。您可以通过该框架访问用户日历中现有事件，可以增加新事件。日历事件可包含闹铃，而且可以配置闹铃激活规则。</p>
-<p>#####Foundation 框架<br>Foundation框架 (Foundation.framework)为 Core Foundation框架的许多功能提供Objective-C封装。您可以参考Core Foundation框架了解前面对Core Foundation框架的描述。 </p>
-<p>#####Mobile Core Services 框架<br>iOS 3.0引入了Mobile Core Services框架 (MobileCoreServices.framework)。此框架定义统一类型标识符 (UTIs)使用的底层类型。</p>
-<p>#####Quick Look 框架<br>iOS 4.0引入Quick Look框架(QuickLook.framework），应用程序可以用过该框架预览无法直接支持查看的文件内容。如果应用程序从网络下载文件或者需处理来源未知的文件，则非常适合使用此框架。因为应用程序只要在获得文件后，调用框架提供的视图控制器就可以直接在界面中显示文件的内容。</p>
-<p>#####Store Kit 框架<br>iOS 3.0引入Store Kit 框架(StoreKit.framework)，此框架为iOS应用程序内购买内容或服务提供支持。例如，开发者可以利用此框架允许用户解锁应用程序的额外功能。或者假设您是一名游戏开发人员，则可使用此特性向玩家出售附加游戏级别。在上述的两种情况中，Store Kit 框架会处于交易过程中和财务相关的事件，包括处理用户通过 iTunes Store账号发出的支付请求并且向应用程序提供交易相关信息。</p>
+<h5 id="Core-Telephony-框架"><a href="#Core-Telephony-框架" class="headerlink" title="Core Telephony 框架"></a>Core Telephony 框架</h5><p>iOS 4.0引入了Core Telephony框架(CoreTelephony.framework)。此框架为访问具有蜂窝无线的设备上的电话信息提供接口，应用程序可通过它获取用户蜂窝无线服务的提供商信息。如果应用程序对于电话呼叫感兴趣，也可以在相应事件发生时得到通知。</p>
+<h5 id="Event-Kit-框架"><a href="#Event-Kit-框架" class="headerlink" title="Event Kit 框架"></a>Event Kit 框架</h5><p>iOS 4.0引入了 Event Kit框架 (EventKit.framework)。此框架为访问用户设备的日历事件提供接口。您可以通过该框架访问用户日历中现有事件，可以增加新事件。日历事件可包含闹铃，而且可以配置闹铃激活规则。</p>
+<h5 id="Foundation-框架"><a href="#Foundation-框架" class="headerlink" title="Foundation 框架"></a>Foundation 框架</h5><p>Foundation框架 (Foundation.framework)为 Core Foundation框架的许多功能提供Objective-C封装。您可以参考Core Foundation框架了解前面对Core Foundation框架的描述。 </p>
+<h5 id="Mobile-Core-Services-框架"><a href="#Mobile-Core-Services-框架" class="headerlink" title="Mobile Core Services 框架"></a>Mobile Core Services 框架</h5><p>iOS 3.0引入了Mobile Core Services框架 (MobileCoreServices.framework)。此框架定义统一类型标识符 (UTIs)使用的底层类型。</p>
+<h5 id="Quick-Look-框架"><a href="#Quick-Look-框架" class="headerlink" title="Quick Look 框架"></a>Quick Look 框架</h5><p>iOS 4.0引入Quick Look框架(QuickLook.framework），应用程序可以用过该框架预览无法直接支持查看的文件内容。如果应用程序从网络下载文件或者需处理来源未知的文件，则非常适合使用此框架。因为应用程序只要在获得文件后，调用框架提供的视图控制器就可以直接在界面中显示文件的内容。</p>
+<h5 id="Store-Kit-框架"><a href="#Store-Kit-框架" class="headerlink" title="Store Kit 框架"></a>Store Kit 框架</h5><p>iOS 3.0引入Store Kit 框架(StoreKit.framework)，此框架为iOS应用程序内购买内容或服务提供支持。例如，开发者可以利用此框架允许用户解锁应用程序的额外功能。或者假设您是一名游戏开发人员，则可使用此特性向玩家出售附加游戏级别。在上述的两种情况中，Store Kit 框架会处于交易过程中和财务相关的事件，包括处理用户通过 iTunes Store账号发出的支付请求并且向应用程序提供交易相关信息。</p>
 <p>Store Kit框架主要关注交易过程中和财务相关的事务，目的是为了确保交易安全准确。应用程序需要处理交易事物的其他因素，包括购买界面和下载（或者解锁）恰当的内容。通过这种任务划分方式，您就拥有购买内容的控制权，可以决定希望展示给用户的购买界面以及何时向用户展示这些界面，同时也可以决定和应用程序最匹配的交付机制。</p>
-<p>#####System Configuration 框架<br>System Configuration框架(SystemConfiguration.framework) 可用于确定设备的网络配置。您可以使用该框架判断Wi-Fi或者蜂窝连接是否正在使用中，也可以用于判断某个主机服务是否可以使用。</p>
-<p>#####HomeKit<br>iOS8引入,智能家居控制</p>
-<p>#####HealthKit<br>iOS8引入的,基于设备管理用户健康数据</p>
-<p>#####PassKit<br>pass凭证相关接口</p>
-<p>###四.Core OS<br>Core OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。</p>
-<p>####Core OS层包含的框架</p>
-<p>#####Security 框架<br>iOS系统不但提供内建的安全功能，还提供Security框架（Security.framework）用于保证应用程序所管理之数据的安全。该框架提供的接口可用于管理证书、公钥、私钥以及信任策略。它支持生成加密的安全伪随机数。同时，它也支持对证书和Keychain密钥进行保存，是用户敏感数据的安全仓库。</p>
+<h5 id="System-Configuration-框架"><a href="#System-Configuration-框架" class="headerlink" title="System Configuration 框架"></a>System Configuration 框架</h5><p>System Configuration框架(SystemConfiguration.framework) 可用于确定设备的网络配置。您可以使用该框架判断Wi-Fi或者蜂窝连接是否正在使用中，也可以用于判断某个主机服务是否可以使用。</p>
+<h5 id="HomeKit"><a href="#HomeKit" class="headerlink" title="HomeKit"></a>HomeKit</h5><p>iOS8引入,智能家居控制</p>
+<h5 id="HealthKit"><a href="#HealthKit" class="headerlink" title="HealthKit"></a>HealthKit</h5><p>iOS8引入的,基于设备管理用户健康数据</p>
+<h5 id="PassKit"><a href="#PassKit" class="headerlink" title="PassKit"></a>PassKit</h5><p>pass凭证相关接口</p>
+<p>Core OS</p>
+<h2 id="Core-OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。"><a href="#Core-OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。" class="headerlink" title="Core OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。"></a>Core OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。</h2><h4 id="Core-OS层包含的框架"><a href="#Core-OS层包含的框架" class="headerlink" title="Core OS层包含的框架"></a>Core OS层包含的框架</h4><h5 id="Security-框架"><a href="#Security-框架" class="headerlink" title="Security 框架"></a>Security 框架</h5><p>iOS系统不但提供内建的安全功能，还提供Security框架（Security.framework）用于保证应用程序所管理之数据的安全。该框架提供的接口可用于管理证书、公钥、私钥以及信任策略。它支持生成加密的安全伪随机数。同时，它也支持对证书和Keychain密钥进行保存，是用户敏感数据的安全仓库。</p>
 <p>CommonCrypto接口另外还支持对称加密、HMAC以及Digests。实际上，Digests的功能实和OpenSSL库常用的功能兼容，但是iOS无法使用OpenSSL库。</p>
 <p>在 iOS 3.0及其后续版本的系统中， 您可以让所创建的多个应用程序共享某些Keychain项，这样可以让相同套件内的应用程序的互用更流畅。举个例子，您可以在应用程序间共享用户密码和及其他元素。通过这种方法，您就不需要在每个应用程序单独对用户作出提示。如应用程序需要共享数据，则每个应用程序的Xcode工程必须配备恰当的资格。</p>
-<p>#####CoreBlueTooth<br>底层蓝牙编程实现模块</p>
+<h5 id="CoreBlueTooth"><a href="#CoreBlueTooth" class="headerlink" title="CoreBlueTooth"></a>CoreBlueTooth</h5><p>底层蓝牙编程实现模块</p>
 
       
     </div>
@@ -373,22 +343,25 @@
   </div>
   
     
+<!--显示版权信息-->
+
     <div class="copyright">
-        <p><span>Title:</span><a href="/2016/04/21/iOS框架/">iOS框架</a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">XMFraker</a></p>
-        <p><span>Created:</span>2016-04-21, 14:35:55</p>
-        <p><span>Updated:</span>2016-04-21, 15:39:53</p>
+        <p><span>本文标题:</span><a href="/2016/04/21/iOS框架/">iOS框架</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">XMFraker</a></p>
+        <p><span>发布时间:</span>2016-04-21, 14:35:55</p>
+        <p><span>最后更新:</span>2016-04-21, 16:35:31</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2016/04/21/iOS框架/" title="iOS框架">http://github.com/ws00801526/2016/04/21/iOS框架/</a>
-            <span class="copy-path" data-clipboard-text="From http://github.com/ws00801526/2016/04/21/iOS框架/　　By XMFraker" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/21/iOS框架/" title="iOS框架">http://github.com/ws00801526/2016/04/21/iOS框架/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://github.com/ws00801526/2016/04/21/iOS框架/　　作者: XMFraker" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
 
+<!--显示上一篇文章,下一篇文章-->
 
     <nav id="article-nav">
         
@@ -411,8 +384,8 @@
 </article>
 
     <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cocoa-Touch层包含创建-iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。"><span class="toc-number">1.</span> <span class="toc-text">Cocoa Touch层包含创建 iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#高级特性"><span class="toc-number">1.0.1.</span> <span class="toc-text">高级特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#多任务"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">多任务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#数据保护"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">数据保护</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#苹果推送通知"><span class="toc-number">1.0.1.3.</span> <span class="toc-text">苹果推送通知</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#本地通知"><span class="toc-number">1.0.1.4.</span> <span class="toc-text">本地通知</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#手势识别"><span class="toc-number">1.0.1.5.</span> <span class="toc-text">手势识别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件共享支持"><span class="toc-number">1.0.1.6.</span> <span class="toc-text">文件共享支持</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#点对点服务"><span class="toc-number">1.0.1.7.</span> <span class="toc-text">点对点服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#标准视图控制器"><span class="toc-number">1.0.1.8.</span> <span class="toc-text">标准视图控制器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#外部设备支持"><span class="toc-number">1.0.1.9.</span> <span class="toc-text">外部设备支持</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cocoa-Touch层包含的框架"><span class="toc-number">1.0.2.</span> <span class="toc-text">Cocoa Touch层包含的框架</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#UIKit-UIKit-Framework-Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础-具有以下核心功能"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">UIKit(UIKit.Framework):Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础,具有以下核心功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AddressBookUI-AddressBookUI-Framework-iOS9弃用-提供选择联系人-编辑联系人界面接口"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">AddressBookUI(AddressBookUI.Framework)-iOS9弃用:提供选择联系人,编辑联系人界面接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Contacts-Contacts-Framework-iOS8-替代AddressBookUI-提供选择-编辑联系人界面的接口"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">Contacts(Contacts.Framework)-iOS8+:替代AddressBookUI,提供选择,编辑联系人界面的接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#EventUIKit-EventUIKit-Framework-提供日历事件编辑-添加接口"><span class="toc-number">1.0.2.4.</span> <span class="toc-text">EventUIKit(EventUIKit.Framework):提供日历事件编辑,添加接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MapKit-MapKit-Framework-提供地图编程接口"><span class="toc-number">1.0.2.5.</span> <span class="toc-text">MapKit(MapKit.Framework):提供地图编程接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MessageUIKit-MessageUIKit-提供信息-邮件发送界面接口"><span class="toc-number">1.0.2.6.</span> <span class="toc-text">MessageUIKit(MessageUIKit):提供信息,邮件发送界面接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PhotosUI-PhotosUI-提供图片选择界面接口"><span class="toc-number">1.0.2.7.</span> <span class="toc-text">PhotosUI(PhotosUI):提供图片选择界面接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#WatchKit-苹果手表开发接口"><span class="toc-number">1.0.2.8.</span> <span class="toc-text">WatchKit:苹果手表开发接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Twitter-推特编程相关接口"><span class="toc-number">1.0.2.9.</span> <span class="toc-text">Twitter:推特编程相关接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#iAd-广告编程接口-使用苹果广告服务"><span class="toc-number">1.0.2.10.</span> <span class="toc-text">iAd:广告编程接口,使用苹果广告服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#NotificationCenter-系统通知"><span class="toc-number">1.0.2.11.</span> <span class="toc-text">NotificationCenter 系统通知</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。"><span class="toc-number">2.</span> <span class="toc-text">媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#高级特性-1"><span class="toc-number">2.0.1.</span> <span class="toc-text">高级特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#图形技术"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">图形技术</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#音频技术"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">音频技术</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#视频技术"><span class="toc-number">2.0.1.3.</span> <span class="toc-text">视频技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#媒体层包含的常用框架"><span class="toc-number">2.0.2.</span> <span class="toc-text">媒体层包含的常用框架</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#AssetsLibrary-iOS8-推荐使用Photo"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">AssetsLibrary(iOS8+推荐使用Photo):</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#AVFoundation"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">AVFoundation:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CoreGraphics"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">CoreGraphics:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CoreText框架"><span class="toc-number">2.0.2.4.</span> <span class="toc-text">CoreText框架:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#媒体播放框架-MediaPlayer-iOS9-推荐AVKit"><span class="toc-number">2.0.2.5.</span> <span class="toc-text">媒体播放框架(MediaPlayer-iOS9+推荐AVKit):</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#QuartzCore框架"><span class="toc-number">2.0.2.6.</span> <span class="toc-text">QuartzCore框架:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Core-Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。"><span class="toc-number">3.</span> <span class="toc-text">Core Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#高阶特性"><span class="toc-number">3.0.1.</span> <span class="toc-text">高阶特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#块对象"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">块对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Grand-Central-Dispatch-GCD"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">Grand Central Dispatch (GCD):</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#应用内付费购买"><span class="toc-number">3.0.1.3.</span> <span class="toc-text">应用内付费购买:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#定位服务"><span class="toc-number">3.0.1.4.</span> <span class="toc-text">定位服务:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SQLite"><span class="toc-number">3.0.1.5.</span> <span class="toc-text">SQLite:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XML-支持"><span class="toc-number">3.0.1.6.</span> <span class="toc-text">XML 支持</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Core-Service层包含的常用框架"><span class="toc-number">3.0.2.</span> <span class="toc-text">Core Service层包含的常用框架</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#AddressBook"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">AddressBook:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CFNetwork"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">CFNetwork</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Core-Data-框架"><span class="toc-number">3.0.2.3.</span> <span class="toc-text">Core Data 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CoreFoundation"><span class="toc-number">3.0.2.4.</span> <span class="toc-text">CoreFoundation:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CoreLocation框架"><span class="toc-number">3.0.2.5.</span> <span class="toc-text">CoreLocation框架:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Core-Media-框架"><span class="toc-number">3.0.2.6.</span> <span class="toc-text">Core Media 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Core-Telephony-框架"><span class="toc-number">3.0.2.7.</span> <span class="toc-text">Core Telephony 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Event-Kit-框架"><span class="toc-number">3.0.2.8.</span> <span class="toc-text">Event Kit 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Foundation-框架"><span class="toc-number">3.0.2.9.</span> <span class="toc-text">Foundation 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Mobile-Core-Services-框架"><span class="toc-number">3.0.2.10.</span> <span class="toc-text">Mobile Core Services 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Quick-Look-框架"><span class="toc-number">3.0.2.11.</span> <span class="toc-text">Quick Look 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Store-Kit-框架"><span class="toc-number">3.0.2.12.</span> <span class="toc-text">Store Kit 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#System-Configuration-框架"><span class="toc-number">3.0.2.13.</span> <span class="toc-text">System Configuration 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HomeKit"><span class="toc-number">3.0.2.14.</span> <span class="toc-text">HomeKit</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HealthKit"><span class="toc-number">3.0.2.15.</span> <span class="toc-text">HealthKit</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PassKit"><span class="toc-number">3.0.2.16.</span> <span class="toc-text">PassKit</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Core-OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。"><span class="toc-number">4.</span> <span class="toc-text">Core OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Core-OS层包含的框架"><span class="toc-number">4.0.1.</span> <span class="toc-text">Core OS层包含的框架</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Security-框架"><span class="toc-number">4.0.1.1.</span> <span class="toc-text">Security 框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CoreBlueTooth"><span class="toc-number">4.0.1.2.</span> <span class="toc-text">CoreBlueTooth</span></a></li></ol></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -423,10 +396,10 @@
     }
 </style>
 
-<input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 <script>
-    var valueHide = "Hide";
-    var valueShow = "Show";
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
 
     if ($(".left-col").is(":hidden")) {
         $("#tocButton").attr("value", valueShow);
@@ -455,7 +428,7 @@
 
 
 
-    
+    <!--显示分享列-->
 <div class="share">
     
         <div class="bdsharebuttonbox">
@@ -465,11 +438,11 @@
             <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
             <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
             <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"iOS框架　| Hexo　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"iOS框架　| XMFraker & XMN　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -511,21 +484,21 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/04/21/iOS问题收集/" title="Pre: iOS面试问题收集">
+            <a href="/2016/04/21/iOS问题收集/" title="上一篇: iOS面试问题收集">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/04/21/iOS仿QQ聊天框/" title="Next: iOS仿QQ聊天框">
+            <a href="/2016/04/21/iOS仿QQ聊天框/" title="下一篇: iOS仿QQ聊天框">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/ReactiveCocoa框架学习/">ReactiveCocoa框架学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS问题收集/">iOS面试问题收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS框架/">iOS框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/图片选择控件/">iOS 图片选择控件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/ReactiveCocoa框架学习/">ReactiveCocoa框架学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS问题收集/">iOS面试问题收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS框架/">iOS框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></li></ul>
 
 
 
@@ -541,14 +514,14 @@
                 <i class="fa fa-copyright"></i> 2016 XMFraker
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visitors: 
+                        <span id="site-visit" >本站到访数: 
                             <span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
@@ -558,7 +531,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Hits: 
+                        <span id="page-visit">本页阅读量: 
                             <span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
@@ -591,9 +564,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">

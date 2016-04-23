@@ -1,4 +1,3 @@
-
 //HelloDog -  http://wsgzao.github.io/post/duoshuo/
 //More info: http://moxfive.xyz/2015/09/29/duosuo-style
 //移动客户端判断开始

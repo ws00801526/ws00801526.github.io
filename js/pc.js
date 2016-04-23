@@ -65,35 +65,49 @@ define([], function(){
         var isEnterBtn = false;
         var isEnterTips = false;
 
-        $(".icon").bind("mouseenter", function(){
-            isEnterBtn = true;
-            Tips.show();
-        }).bind("mouseleave", function(){
-            isEnterBtn = false;
-            setTimeout(function(){
-                if(!isEnterTips){
-                    Tips.hide();
-                }
-            }, 100);
+        // 默认icon切换页面的位置0
+        var currentIndex = 0;
+        // 获取一共有多少个switch-wrap section
+        var maxSections = $('.switch-wrap')[0].getElementsByTagName('section').length;
+        // 增加tips-box点击切换
+        $(".icon").bind('click',function() {
+            currentIndex ++;
+            if (currentIndex >= maxSections) {
+                currentIndex = 0;
+            }
+            slide(currentIndex);
         });
 
-        $(".tips-box").bind("mouseenter", function(){
-            isEnterTips = true;
-            Tips.show();
-        }).bind("mouseleave", function(){
-            isEnterTips = false;
-            setTimeout(function(){
-                if(!isEnterBtn){
-                    Tips.hide();
-                }
-            }, 100);
-        });
+        //$(".icon").bind("mouseenter", function(){
+        //    isEnterBtn = true;
+        //    Tips.show();
+        //}).bind("mouseleave", function(){
+        //    isEnterBtn = false;
+        //    setTimeout(function(){
+        //        if(!isEnterTips){
+        //            Tips.hide();
+        //        }
+        //    }, 100);
+        //});
 
-        $(".tips-inner li").bind("click", function(){
-            var idx = $(this).index();
-            slide(idx);
-            Tips.hide();
-        });
+        //取消tips-box的切换惨淡
+        //$(".tips-box").bind("mouseenter", function(){
+        //    isEnterTips = true;
+        //    Tips.show();
+        //}).bind("mouseleave", function(){
+        //    isEnterTips = false;
+        //    setTimeout(function(){
+        //        if(!isEnterBtn){
+        //            Tips.hide();
+        //        }
+        //    }, 100);
+        //});
+        //
+        //$(".tips-inner li").bind("click", function(){
+        //    var idx = $(this).index();
+        //    slide(idx);
+        //    Tips.hide();
+        //});
     }
 
     var miniArchives = function(){

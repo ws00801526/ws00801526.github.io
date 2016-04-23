@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS多线程简介 | Hexo</title>
+  <title>iOS多线程简介 | XMFraker &amp; XMN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="NSThread,GCD,NSOperation实现简单多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS多线程简介">
 <meta property="og:url" content="http://github.com/ws00801526/2016/04/21/iOS多线程简介/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="XMFraker & XMN">
 <meta property="og:description" content="NSThread,GCD,NSOperation实现简单多线程">
-<meta property="og:updated_time" content="2016-04-21T07:47:58.000Z">
+<meta property="og:updated_time" content="2016-04-21T08:31:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS多线程简介">
 <meta name="twitter:description" content="NSThread,GCD,NSOperation实现简单多线程">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="XMFraker &amp; XMN" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -79,7 +79,6 @@
         
                 
 
-
         
             <div id="switch-btn" class="switch-btn">
                 <div class="icon">
@@ -93,22 +92,15 @@
                         </div>
                         
                         
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
                     </div>
                     
                 </div>
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        
-                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -125,9 +117,7 @@
                         
                             <li><a href="/archives/">所有文章</a></li>
                         
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
+                            <li><a href="/product/">我的作品</a></li>
                         
                         </ul>
                     </nav>
@@ -149,19 +139,13 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/控件/">控件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
                     </div>
                 </section>
                 
                 
                 
 
-                
-                
-                <section class="switch-part switch-part3">
-                
-                    <div id="js-aboutme">XMFraker &amp; XMN</div>
-                </section>
                 
             </div>
         </div>
@@ -190,9 +174,7 @@
                 
                     <li><a href="/archives/">所有文章</a></li>
                 
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
+                    <li><a href="/product/">我的作品</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -227,7 +209,8 @@
     
     
       <header class="article-header">
-        
+        <!--显示文章标题-->
+
   
     <h1 class="article-title" itemprop="name">
       iOS多线程简介
@@ -239,7 +222,8 @@
       <div class="article-info article-info-post">
         
 
-        
+        <!--显示当前文章的标签-->
+
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
@@ -253,46 +237,58 @@
           
         <p>NSThread,GCD,NSOperation实现简单多线程</p>
 <a id="more"></a>
-<p>##一.NSThread</p>
-<p>###NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等</p>
-<p>####使用方法</p>
-<p>#####1.动态方法</p>
-<p>1.<code>- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;</code></p>
+<h2 id="NSThread-是一种比较方便的线程操作方式-但是需要用户自己去管理线程的周期-同步-互斥等"><a href="#NSThread-是一种比较方便的线程操作方式-但是需要用户自己去管理线程的周期-同步-互斥等" class="headerlink" title="NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等"></a>NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等</h2><h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h5 id="动态方法"><a href="#动态方法" class="headerlink" title="动态方法"></a>动态方法</h5><ol>
+<li><code>- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;</code></li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selectore(name) object:nil];</span><br><span class="line">thread.threadPriority = 1;//设置线程的优先级</span><br><span class="line">[thread start]; //开启线程</span><br></pre></td></tr></table></figure>
-<p>#####2.静态方法</p>
-<p>1.<code>+ (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(id)argument;</code></p>
+<h5 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h5><ol>
+<li><code>+ (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(id)argument;</code></li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//调用完毕后,立刻执行</span><br><span class="line">[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];</span><br></pre></td></tr></table></figure>
-<p>#####3.隐式创建线程</p>
-<p>1.<code>[self performSelectorInBackground:@selector(run) withObject:nil];</code></p>
-<p>2.<code>[self performSelectorOnMainThread:@selector(name) withObject:nil watiUntilDone:NO]</code></p>
-<p>3.<code>[self performSelector:@selector(name) withObject:nil];</code></p>
-<p>##二.NSOperation,NSOperationQueue</p>
-<p>###三种NSOperation,NSOperation仅仅是创建线程操作,并非创建线程,操作在什么线程中开始,取决于NSOperation的开始方式</p>
-<p>例如直接在主线程中[operation start]  = 在主线程中执行</p>
+<h5 id="隐式创建线程"><a href="#隐式创建线程" class="headerlink" title="隐式创建线程"></a>隐式创建线程</h5><ol>
+<li><p><code>[self performSelectorInBackground:@selector(run) withObject:nil];</code></p>
+</li>
+<li><p><code>[self performSelectorOnMainThread:@selector(name) withObject:nil watiUntilDone:NO]</code></p>
+</li>
+<li><p><code>[self performSelector:@selector(name) withObject:nil];</code></p>
+</li>
+</ol>
+<h2 id="NSOperation-NSOperationQueue-三种NSOperation-NSOperation仅仅是创建线程操作-并非创建线程-操作在什么线程中开始-取决于NSOperation的开始方式"><a href="#NSOperation-NSOperationQueue-三种NSOperation-NSOperation仅仅是创建线程操作-并非创建线程-操作在什么线程中开始-取决于NSOperation的开始方式" class="headerlink" title="NSOperation,NSOperationQueue,三种NSOperation,NSOperation仅仅是创建线程操作,并非创建线程,操作在什么线程中开始,取决于NSOperation的开始方式"></a>NSOperation,NSOperationQueue,三种NSOperation,NSOperation仅仅是创建线程操作,并非创建线程,操作在什么线程中开始,取决于NSOperation的开始方式</h2><p>例如直接在主线程中[operation start]  = 在主线程中执行</p>
 <p>[queue addOperation]  = 在创建的线程队列中执行</p>
-<p>1.自定义NSOperation的子类,实现其内部方法 – 常见的是AFNetworking中的AFURLConnectionOperation<br>2.NSInvacationOpertaion,可以与已有的selector关联<br>3.NSBlockOpertaion,可以添加多个block执行任务</p>
+<ol>
+<li>自定义NSOperation的子类,实现其内部方法 – 常见的是AFNetworking中的AFURLConnectionOperation</li>
+<li>NSInvacationOpertaion,可以与已有的selector关联</li>
+<li>NSBlockOpertaion,可以添加多个block执行任务</li>
+</ol>
 <p>线程之间的顺序通过addDependency解决<br>同步问题通过NSLock,NSCondition,NSConditionLock解决</p>
-<p>###NSOperationQueue 线程队列<br>常用于,需要用户控制线程并发数量,减小系统开销的时候,将NSOperation添加到操作队列中,</p>
-<p>##三.GCD </p>
-<p>###什么是GCD</p>
-<p>Grand Central Dispatch是Apple提供的一种多线程操作的解决办法.</p>
-<p>###GCD几种使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//全局并发队列 第一个参数是队列优先级,第二个参数默认为0</span><br><span class="line">dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)</span><br><span class="line"></span><br><span class="line">//获取当前队列  </span><br><span class="line">dispatch_get_current_queue()</span><br><span class="line"></span><br><span class="line">//获取主线程的串行队列</span><br><span class="line">dispatch_get_main_queue()</span><br><span class="line"></span><br><span class="line">//执行队列</span><br><span class="line">dispatch_resume()</span><br><span class="line"></span><br><span class="line">//挂起队列,挂起队列并不会停止掉当前正在执行的block,而是会在block执行前或者执行后挂起</span><br><span class="line">dispatch_suspend()</span><br><span class="line"></span><br><span class="line">//后台异步运行 使用global线程队列</span><br><span class="line">dispatch_async(dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//后台异步运行,自己创建线程队列</span><br><span class="line">dispatch_queue_t myQueue = dispatch_queue_create(&quot;identifier&quot;,NULL);</span><br><span class="line">dispatch_async(myQueue,^&#123;&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//后台主线程运行</span><br><span class="line">dispatch_asycn(dispatch_get_main_queue(),^&#123;&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//一次执行,常用语单例模式</span><br><span class="line">static dispatch_once_t onceToken;</span><br><span class="line">dispatch_once(&amp;onceToken,^&#123;//只执行一次的方法&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//延迟执行</span><br><span class="line">dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW,10*NESC_PER_SEC);</span><br><span class="line">dispatch_after(delayTime,^&#123;//延迟后执行&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//异步并发任务</span><br><span class="line">dispatch_group_t myGroup = dispatch_group_create();</span><br><span class="line">dispatch_group_async(myGroup,dispatch_get_global_queue(0,0),^&#123;//执行任务1&#125;);</span><br><span class="line">dispatch_group_async(myGroup,dispatch_get_global_queue(0,0),^&#123;//执行任务2&#125;);</span><br><span class="line">dispatch_group_notify(group,dispatch_get_global_queue(0,0),^&#123;//任务执行完成后回调&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//定时循环执行 </span><br><span class="line">static dispatch_source_t source;</span><br><span class="line">source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0,0,dispatch_get_global_queue(0,0));</span><br><span class="line">dispatch_source_set_event_handler(source,^&#123;&#125;);</span><br><span class="line">dispatch_resume(source)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//信号量机制,参数代表信号值,例如传0在两个线程使用同一个资源时,可以让互斥,避免死锁</span><br><span class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(0)</span><br><span class="line"></span><br><span class="line">//释放信号,通知可用状态</span><br><span class="line">dispatch_semaphore_signal(semaphore)</span><br><span class="line"></span><br><span class="line">//监听信号量是否可用</span><br><span class="line">dispatch_semaphore_wait(semaphore,dispatch_time(DISPATCH_TIME_NOW,10*NSEC_PER_SEC));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//并发执行重复任务,替代for循环,提高效率,一般在并发队列中做 第一个参数循环次数,第二个参数所处队列,第三个参数是目前执行次数</span><br><span class="line">利用dispatch_aply(count,dispatch_get_global_queue(0,0),^(size_t doCount) &#123;&#125;)</span><br></pre></td></tr></table></figure>
-<p>###GCD具体实例</p>
-<p>1.dispatch_async的使用</p>
+<h3 id="NSOperationQueue-线程队列"><a href="#NSOperationQueue-线程队列" class="headerlink" title="NSOperationQueue 线程队列"></a>NSOperationQueue 线程队列</h3><p>常用于,需要用户控制线程并发数量,减小系统开销的时候,将NSOperation添加到操作队列中,</p>
+<h2 id="Grand-Central-Dispatch是Apple提供的一种多线程操作的解决办法"><a href="#Grand-Central-Dispatch是Apple提供的一种多线程操作的解决办法" class="headerlink" title="Grand Central Dispatch是Apple提供的一种多线程操作的解决办法."></a>Grand Central Dispatch是Apple提供的一种多线程操作的解决办法.</h2><h3 id="GCD几种使用"><a href="#GCD几种使用" class="headerlink" title="GCD几种使用"></a>GCD几种使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//全局并发队列 第一个参数是队列优先级,第二个参数默认为0</span><br><span class="line">dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)</span><br><span class="line"></span><br><span class="line">//获取当前队列  </span><br><span class="line">dispatch_get_current_queue()</span><br><span class="line"></span><br><span class="line">//获取主线程的串行队列</span><br><span class="line">dispatch_get_main_queue()</span><br><span class="line"></span><br><span class="line">//执行队列</span><br><span class="line">dispatch_resume()</span><br><span class="line"></span><br><span class="line">//挂起队列,挂起队列并不会停止掉当前正在执行的block,而是会在block执行前或者执行后挂起</span><br><span class="line">dispatch_suspend()</span><br><span class="line"></span><br><span class="line">//后台异步运行 使用global线程队列</span><br><span class="line">dispatch_async(dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//后台异步运行,自己创建线程队列</span><br><span class="line">dispatch_queue_t myQueue = dispatch_queue_create(&quot;identifier&quot;,NULL);</span><br><span class="line">dispatch_async(myQueue,^&#123;&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//后台主线程运行</span><br><span class="line">dispatch_asycn(dispatch_get_main_queue(),^&#123;&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//一次执行,常用语单例模式</span><br><span class="line">static dispatch_once_t onceToken;</span><br><span class="line">dispatch_once(&amp;onceToken,^&#123;//只执行一次的方法&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//延迟执行</span><br><span class="line">dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW,10*NESC_PER_SEC);</span><br><span class="line">dispatch_after(delayTime,^&#123;//延迟后执行&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//异步并发任务</span><br><span class="line">dispatch_group_t myGroup = dispatch_group_create();</span><br><span class="line">dispatch_group_async(myGroup,dispatch_get_global_queue(0,0),^&#123;//执行任务1&#125;);</span><br><span class="line">dispatch_group_async(myGroup,dispatch_get_global_queue(0,0),^&#123;//执行任务2&#125;);</span><br><span class="line">dispatch_group_notify(group,dispatch_get_global_queue(0,0),^&#123;//任务执行完成后回调&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//定时循环执行 </span><br><span class="line">static dispatch_source_t source;</span><br><span class="line">source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0,0,dispatch_get_global_queue(0,0));</span><br><span class="line">dispatch_source_set_event_handler(source,^&#123;&#125;);</span><br><span class="line">dispatch_resume(source)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//信号量机制,参数代表信号值,例如传0在两个线程使用同一个资源时,可以让互斥,避免死锁</span><br><span class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(0)</span><br><span class="line"></span><br><span class="line">//释放信号,通知可用状态</span><br><span class="line">dispatch_semaphore_signal(semaphore)</span><br><span class="line"></span><br><span class="line">//监听信号量是否可用</span><br><span class="line">dispatch_semaphore_wait(semaphore,dispatch_time(DISPATCH_TIME_NOW,10*NSEC_PER_SEC));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//并发执行重复任务,替代for循环,提高效率,一般在并发队列中做 第一个参数循环次数,第二个参数所处队列,第三个参数是目前执行次数</span><br><span class="line">利用dispatch_aply(count,dispatch_get_global_queue(0,0),^(size_t doCount) &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="GCD具体实例"><a href="#GCD具体实例" class="headerlink" title="GCD具体实例"></a>GCD具体实例</h3><ol>
+<li>dispatch_async的使用</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//此操作,在主线程中执行,会造成主线程的阻塞</span><br><span class="line">- (void)downloadImage &#123;</span><br><span class="line">	NSData *imageData = [NSData URLWithString:[NSURL URLWithString:@&quot;http://www.baidu.com&quot;]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用dispatch_async解决,将下载数据放到并发队列global上去,不会阻塞主线程</span><br><span class="line">- (void)downloadImageWithGCDAsync &#123; </span><br><span class="line">	dispatch_async(dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line">		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@&quot;http://	www.baidu.com&quot;]];</span><br><span class="line">		dispatch_async(dispatch_get_main_queue(),^&#123;</span><br><span class="line">		//执行完毕,重新回到主线程,刷新页面等操作</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2.dispatch_group的使用</p>
+<ol>
+<li>dispatch_group的使用</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//我们需要下载两张图片,下载完成后同时显示,这两张图片是放在一个block中下载</span><br><span class="line">- (void)downloadTwoImage &#123;</span><br><span class="line">	dispatch_async(dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line">		NSData *imageData1 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&quot;http://www.baidu.com&quot;]];</span><br><span class="line">		NSData *imageData2 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&quot;http://www.baidu.com&quot;]];</span><br><span class="line">		dispatch_async(dispatch_get_main_queue(),^&#123;</span><br><span class="line">			//两张都下载完成 执行刷新操作</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用group,将两个下载操作分散两个异步线程中,然后统一监听回调完成,提高效率</span><br><span class="line">- (void)downloadTwoImageWithGCDGroup &#123;</span><br><span class="line">	dispatch_group_t group = dispatch_group_create();</span><br><span class="line">	dispatch_group_async(group,dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line">		NSData *imageData1 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&quot;http://www.baidu.com&quot;]];</span><br><span class="line">	&#125;)</span><br><span class="line">	dispatch_group_async(group,dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line">		NSData *imageData2 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&quot;http://www.baidu.com&quot;]];</span><br><span class="line">	&#125;)</span><br><span class="line">	dispatch_group_notify(group,dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line">		dispatch_async(dispatch_get_main_queue(),^&#123;</span><br><span class="line">			//执行下载完成的操作</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.dispatch_apply的使用</p>
+<ol>
+<li>dispatch_apply的使用</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//使用简单的for循环,重复10次任务</span><br><span class="line">- (void)testFor &#123;</span><br><span class="line">	for (int i = i,i&lt;10,i++) &#123;</span><br><span class="line">		NSLog(@&quot;do it&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//将10次任务分别扔到并发队列里去,提高效率</span><br><span class="line">- (void)testForWithGCDApply &#123;</span><br><span class="line">	size_t count = 10;//循环次数</span><br><span class="line">	dispathc_apply(count,dispatch_get_global_queue(0,0),^&#123;</span><br><span class="line">		//重复内容</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##线程同步,线程通讯</p>
-<p>###四种解决方式</p>
-<p>1.NSLock线程锁解决方法</p>
+<h2 id="线程同步-线程通讯"><a href="#线程同步-线程通讯" class="headerlink" title="线程同步,线程通讯"></a>线程同步,线程通讯</h2><ol>
+<li>NSLock线程锁解决方法</li>
+</ol>
 <p>在需要操作竞争资源的地方使用线程锁,[_lock  lock]  和 [_lock unock]</p>
-<p>2.使用@synchronized 代码块解决</p>
-<p>3.GCD中使用信号机制解决dispatch_semaphore_t</p>
+<ol>
+<li><p>使用@synchronized 代码块解决</p>
+</li>
+<li><p>GCD中使用信号机制解决dispatch_semaphore_t</p>
+</li>
+</ol>
 <p>在操作竞争资源钱使用<code>dispatch_semaphore_wait(_semaphore,DISPATCH_TIME_FOREVER)</code> 使用完成后 <code>dispatch_semaphore_signal(_semaphore)</code> 通知使用完成</p>
-<p>4.NSCondition,NSConditionLock 可以作为一种线程锁解决方式,但是其重要目的是线程之间的通讯</p>
+<ol>
+<li>NSCondition,NSConditionLock 可以作为一种线程锁解决方式,但是其重要目的是线程之间的通讯</li>
+</ol>
 <p>使用NSCondition 可以调用<code>[_condition wait]</code>方法, 知道有资源了<code>[_condition signal]</code>通知其他线程资源可用 类似GCD中的信号量机制</p>
 
       
@@ -301,22 +297,25 @@
   </div>
   
     
+<!--显示版权信息-->
+
     <div class="copyright">
-        <p><span>Title:</span><a href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">XMFraker</a></p>
-        <p><span>Created:</span>2016-04-21, 15:17:22</p>
-        <p><span>Updated:</span>2016-04-21, 15:47:58</p>
+        <p><span>本文标题:</span><a href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">XMFraker</a></p>
+        <p><span>发布时间:</span>2016-04-21, 15:17:22</p>
+        <p><span>最后更新:</span>2016-04-21, 16:31:22</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2016/04/21/iOS多线程简介/" title="iOS多线程简介">http://github.com/ws00801526/2016/04/21/iOS多线程简介/</a>
-            <span class="copy-path" data-clipboard-text="From http://github.com/ws00801526/2016/04/21/iOS多线程简介/　　By XMFraker" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/21/iOS多线程简介/" title="iOS多线程简介">http://github.com/ws00801526/2016/04/21/iOS多线程简介/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://github.com/ws00801526/2016/04/21/iOS多线程简介/　　作者: XMFraker" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
 
+<!--显示上一篇文章,下一篇文章-->
 
     <nav id="article-nav">
         
@@ -339,8 +338,8 @@
 </article>
 
     <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSThread-是一种比较方便的线程操作方式-但是需要用户自己去管理线程的周期-同步-互斥等"><span class="toc-number">1.</span> <span class="toc-text">NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用方法"><span class="toc-number"></span> <span class="toc-text">使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#动态方法"><span class="toc-number">0.0.0.1.</span> <span class="toc-text">动态方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#静态方法"><span class="toc-number">0.0.0.2.</span> <span class="toc-text">静态方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#隐式创建线程"><span class="toc-number">0.0.0.3.</span> <span class="toc-text">隐式创建线程</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSOperation-NSOperationQueue-三种NSOperation-NSOperation仅仅是创建线程操作-并非创建线程-操作在什么线程中开始-取决于NSOperation的开始方式"><span class="toc-number">1.</span> <span class="toc-text">NSOperation,NSOperationQueue,三种NSOperation,NSOperation仅仅是创建线程操作,并非创建线程,操作在什么线程中开始,取决于NSOperation的开始方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NSOperationQueue-线程队列"><span class="toc-number">1.1.</span> <span class="toc-text">NSOperationQueue 线程队列</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grand-Central-Dispatch是Apple提供的一种多线程操作的解决办法"><span class="toc-number">2.</span> <span class="toc-text">Grand Central Dispatch是Apple提供的一种多线程操作的解决办法.</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GCD几种使用"><span class="toc-number">2.1.</span> <span class="toc-text">GCD几种使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GCD具体实例"><span class="toc-number">2.2.</span> <span class="toc-text">GCD具体实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程同步-线程通讯"><span class="toc-number">3.</span> <span class="toc-text">线程同步,线程通讯</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -351,10 +350,10 @@
     }
 </style>
 
-<input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 <script>
-    var valueHide = "Hide";
-    var valueShow = "Show";
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
 
     if ($(".left-col").is(":hidden")) {
         $("#tocButton").attr("value", valueShow);
@@ -383,7 +382,7 @@
 
 
 
-    
+    <!--显示分享列-->
 <div class="share">
     
         <div class="bdsharebuttonbox">
@@ -393,11 +392,11 @@
             <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
             <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
             <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"iOS多线程简介　| Hexo　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"iOS多线程简介　| XMFraker & XMN　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -439,21 +438,21 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/04/21/ReactiveCocoa框架学习/" title="Pre: ReactiveCocoa框架学习">
+            <a href="/2016/04/21/ReactiveCocoa框架学习/" title="上一篇: ReactiveCocoa框架学习">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/04/21/iOS问题收集/" title="Next: iOS面试问题收集">
+            <a href="/2016/04/21/iOS问题收集/" title="下一篇: iOS面试问题收集">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/ReactiveCocoa框架学习/">ReactiveCocoa框架学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS问题收集/">iOS面试问题收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS框架/">iOS框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/图片选择控件/">iOS 图片选择控件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/ReactiveCocoa框架学习/">ReactiveCocoa框架学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS多线程简介/">iOS多线程简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS问题收集/">iOS面试问题收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS框架/">iOS框架</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></li></ul>
 
 
 
@@ -469,14 +468,14 @@
                 <i class="fa fa-copyright"></i> 2016 XMFraker
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visitors: 
+                        <span id="site-visit" >本站到访数: 
                             <span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
@@ -486,7 +485,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Hits: 
+                        <span id="page-visit">本页阅读量: 
                             <span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
@@ -519,9 +518,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">

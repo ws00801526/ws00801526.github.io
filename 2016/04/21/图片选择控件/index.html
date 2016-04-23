@@ -3,21 +3,38 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS仿QQ聊天框 | XMFraker &amp; XMN</title>
+  <title>iOS 图片选择控件 | XMFraker &amp; XMN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView
-具体demo,示例:XMChatBar">
+  <meta name="description" content="源码传送门
+
+一款图片,视频选择类库
+支持直接显示相册选择
+支持类似QQ方式Sheet选择
+iOS8+支持动态监测PhotoLibrary变化
+支持预览图片,预览视频">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS仿QQ聊天框">
-<meta property="og:url" content="http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/index.html">
+<meta property="og:title" content="iOS 图片选择控件">
+<meta property="og:url" content="http://github.com/ws00801526/2016/04/21/图片选择控件/index.html">
 <meta property="og:site_name" content="XMFraker & XMN">
-<meta property="og:description" content="iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView
-具体demo,示例:XMChatBar">
-<meta property="og:updated_time" content="2016-04-21T08:36:35.000Z">
+<meta property="og:description" content="源码传送门
+
+一款图片,视频选择类库
+支持直接显示相册选择
+支持类似QQ方式Sheet选择
+iOS8+支持动态监测PhotoLibrary变化
+支持预览图片,预览视频">
+<meta property="og:image" content="http://7xlt1j.com1.z0.glb.clouddn.com/XMNPhotoPickerKit-ShowController.gif">
+<meta property="og:updated_time" content="2016-04-21T08:56:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS仿QQ聊天框">
-<meta name="twitter:description" content="iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView
-具体demo,示例:XMChatBar">
+<meta name="twitter:title" content="iOS 图片选择控件">
+<meta name="twitter:description" content="源码传送门
+
+一款图片,视频选择类库
+支持直接显示相册选择
+支持类似QQ方式Sheet选择
+iOS8+支持动态监测PhotoLibrary变化
+支持预览图片,预览视频">
+<meta name="twitter:image" content="http://7xlt1j.com1.z0.glb.clouddn.com/XMNPhotoPickerKit-ShowController.gif">
   
     <link rel="alternative" href="/atom.xml" title="XMFraker &amp; XMN" type="application/atom+xml">
   
@@ -198,11 +215,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-iOS仿QQ聊天框" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-图片选择控件" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/21/iOS仿QQ聊天框/" class="article-date">
-      <time datetime="2016-04-21T06:24:55.000Z" itemprop="datePublished">2016-04-21</time>
+      <a href="/2016/04/21/图片选择控件/" class="article-date">
+      <time datetime="2016-04-21T08:44:59.000Z" itemprop="datePublished">2016-04-21</time>
 </a>
     </div>
   
@@ -216,7 +233,7 @@
 
   
     <h1 class="article-title" itemprop="name">
-      iOS仿QQ聊天框
+      iOS 图片选择控件
     </h1>
   
 
@@ -228,7 +245,7 @@
         <!--显示当前文章的标签-->
 
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/控件/">控件</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -238,217 +255,256 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView</p>
-<p>具体demo,示例:<a href="https://github.com/ws00801526/XMChatBarExample">XMChatBar</a></p>
+        <p><a href="https://github.com/ws00801526/XMNPhotoPickerFramework">源码传送门</a></p>
+<ol>
+<li>一款图片,视频选择类库</li>
+<li>支持直接显示相册选择</li>
+<li>支持类似QQ方式Sheet选择</li>
+<li>iOS8+支持动态监测PhotoLibrary变化</li>
+<li>支持预览图片,预览视频</li>
+</ol>
 <a id="more"></a>
-<h3 id="一-封装的思路"><a href="#一-封装的思路" class="headerlink" title="一:封装的思路"></a>一:封装的思路</h3><h4 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h4><table>
-<thead>
-<tr>
-<th>目标</th>
-<th>解决方法     </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>可以左右翻页</td>
-<td>使用UIScrollView 解决 </td>
-</tr>
-<tr>
-<td>每页可以根据屏幕自适应表情大小</td>
-<td>根据屏幕尺寸,定义好每一行显示几个(demo中5S=7个 6plus=8个)根据屏幕宽度计算 </td>
-</tr>
-<tr>
-<td>每页最后个是一个删除按钮</td>
-<td>计算出每页显示多少个,在每一页最后增加个删除按钮 </td>
-</tr>
-<tr>
-<td>带有pageControl指示当前是第几页</td>
-<td>使用UIPageControl </td>
-</tr>
-<tr>
-<td>有经典,最近两种选择,底部带有一个发送按钮</td>
-<td>使用UIView作为bottomView </td>
-</tr>
-<tr>
-<td>点击每个表情,可以直接将对应中文名显示在输入框,点击删除表情,可以删除上一个选择的表情</td>
-<td>每个显示表情的UIImageView添加UITapGestureRecognizer手势,增加XMChatFaceViewDelegate,重写个发送表情的代理事件 </td>
-</tr>
-<tr>
-<td>长按每个表情,可以显示一个放大预览</td>
-<td>自定义XMFacePreviewView,给UIScrollView添加UILongPressGestureRecognizer手势,根据点击的点来确定点击的是那个表情 </td>
-</tr>
-</tbody>
-</table>
-<h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><table>
-<thead>
-<tr>
-<th>前期准备</th>
-<th>解决方案</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>所有的表情图片</td>
-<td>可以从QQ,WeChat里面获取,或者网上搜索</td>
-<td></td>
-</tr>
-<tr>
-<td>表情图片对应的中文名字,对应的表情id,表情图片名称</td>
-<td>自己做个,或者网上也可以找到,推荐自己做个,比较繁琐(但是功能可以做的比较强大),保存成一个plist</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h4><h5 id="主要类"><a href="#主要类" class="headerlink" title="主要类"></a>主要类</h5><table>
-<thead>
-<tr>
-<th>类名</th>
-<th>主要功能 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>XMFaceManager</td>
-<td>获取所有的emoji的Dict,最近使用的表情dict数组,保存最近使用的表情 </td>
-</tr>
-<tr>
-<td>XMChatFaceView</td>
-<td>具体的faceView  </td>
-</tr>
-<tr>
-<td>XMFacePreviewView</td>
-<td>私有类,写在XMChatFaceView中,表情预览view </td>
-</tr>
-</tbody>
-</table>
-<h5 id="具体思路"><a href="#具体思路" class="headerlink" title="具体思路"></a>具体思路</h5><h5 id="XMFaceManager-–-表情管理manager"><a href="#XMFaceManager-–-表情管理manager" class="headerlink" title="XMFaceManager – 表情管理manager"></a>XMFaceManager – 表情管理manager</h5><ol>
-<li>可以获取所有表情的NSArray - 里面包含多个NSDictionary(包括face_id,face_name两个key-value键值对,其中face_id名就是图片名称,face_name就是图片的中文名称,<del>命名有点问题,请大家自动忽略</del>)</li>
-<li>可以通过face_id获取face_name</li>
-<li>可以通过face_name 获取 face_id</li>
-<li>可以将含有face_name的字符串转化成一个包含表情图片的NSMutableAttributedString的字符串</li>
-<li>可以获取最近使用过的表情NSArray</li>
-<li>保存一个最近使用的表情</li>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>为了兼容iOS7(<code>AssetsLibaray</code>),iOS8+(<code>PhotoKit</code>),统一使用一个单例类 <code>XMNPhotoManager</code> 来获取图片</li>
+<li>使用<code>XMNAssetModel</code> 和<code>XMNAlbumModel</code> 封装下获取的result</li>
+<li>自定义<code>XMNPhotoPickerController</code>继承<code>UINavigationController</code> 来作为选择图片的入口</li>
 </ol>
-<h5 id="XMFacePreviewView-–-表情预览View"><a href="#XMFacePreviewView-–-表情预览View" class="headerlink" title="XMFacePreviewView – 表情预览View"></a>XMFacePreviewView – 表情预览View</h5><h5 id="私有属性"><a href="#私有属性" class="headerlink" title="私有属性"></a>私有属性</h5><table>
+<h2 id="XMNPhotoPickerKit"><a href="#XMNPhotoPickerKit" class="headerlink" title="XMNPhotoPickerKit"></a>XMNPhotoPickerKit</h2><h3 id="照片管理Manager"><a href="#照片管理Manager" class="headerlink" title="照片管理Manager"></a>照片管理Manager</h3><h4 id="相关类"><a href="#相关类" class="headerlink" title="相关类"></a>相关类</h4><h5 id="XMNAlbumModel-专辑信息"><a href="#XMNAlbumModel-专辑信息" class="headerlink" title="XMNAlbumModel : 专辑信息"></a>XMNAlbumModel : 专辑信息</h5><table>
 <thead>
 <tr>
-<th>属性名</th>
-<th>作用 </th>
+<th>属性</th>
+<th>属性说明</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>faceImageView</td>
-<td>显示表情图片 </td>
+<td>name</td>
+<td></td>
+<td style="text-align:center">album 名称</td>
 </tr>
 <tr>
-<td>backgroundImageView</td>
-<td>表情图片的背景 </td>
+<td>count</td>
+<td></td>
+<td style="text-align:center">照片数量</td>
+</tr>
+<tr>
+<td>result</td>
+<td></td>
+<td style="text-align:center">包含的图片数组,PHFetchResult<phasset> or ALAssetsGroup<alasset></alasset></phasset></td>
 </tr>
 </tbody>
 </table>
-<h5 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h5><p><code>- (void)setFaceImage:(UIImage *)image</code>  – 设置表情图片,如果图片变化了 添加一个放大缩小的动画</p>
-<h5 id="XMChatFaceView"><a href="#XMChatFaceView" class="headerlink" title="XMChatFaceView"></a>XMChatFaceView</h5><h5 id="私有属性-1"><a href="#私有属性-1" class="headerlink" title="私有属性"></a>私有属性</h5><table>
+<table>
 <thead>
 <tr>
-<th>属性名</th>
+<th>方法</th>
+<th>方法说明</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>albumWithResult:</td>
+<td>Class方法</td>
+<td style="text-align:center">通过获取的PHFetchResult<phasset> or ALAssetsGroup<alasset></alasset></phasset></td>
+</tr>
+<tr>
+<td>setName:</td>
+<td>重写name的setter方法</td>
+<td style="text-align:center">设置name为中文字符串</td>
+</tr>
+</tbody>
+</table>
+<h5 id="XMNAssetModel-照片-视频等信息"><a href="#XMNAssetModel-照片-视频等信息" class="headerlink" title="XMNAssetModel : 照片,视频等信息"></a>XMNAssetModel : 照片,视频等信息</h5><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>属性说明</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>asset</td>
+<td></td>
+<td style="text-align:center">资源类型,PHAsset or ALAsset</td>
+</tr>
+<tr>
+<td>selected</td>
+<td></td>
+<td style="text-align:center">是否被选中</td>
+</tr>
+<tr>
+<td>type</td>
+<td>readonly</td>
+<td style="text-align:center">图片,视频,livePhoto,audio等</td>
+</tr>
+<tr>
+<td>timeLength</td>
+<td>readonly</td>
+<td style="text-align:center">视频长度</td>
+</tr>
+<tr>
+<td>originImage</td>
+<td>readOnly</td>
+<td style="text-align:center">原图</td>
+</tr>
+<tr>
+<td>thumbnail</td>
+<td>readonly</td>
+<td style="text-align:center">缩略图,默认大小的缩略图</td>
+</tr>
+<tr>
+<td>previewImage</td>
+<td>readonly</td>
+<td style="text-align:center">适合当前屏幕的预览图</td>
+</tr>
+<tr>
+<td>imageOrientation</td>
+<td>readonly</td>
+<td style="text-align:center">图片方向</td>
+</tr>
+</tbody>
+</table>
+<h5 id="XMNPhotoManager-获取所有专辑-专辑内照片视频等"><a href="#XMNPhotoManager-获取所有专辑-专辑内照片视频等" class="headerlink" title="XMNPhotoManager : 获取所有专辑,专辑内照片视频等"></a>XMNPhotoManager : 获取所有专辑,专辑内照片视频等</h5><ul>
+<li>iOS6,7 使用<code>AssetsLibaray</code> iOS8+使用<code>PhotoKit</code></li>
+<li>使用单例模式,并且iOS8+使用了<code>PHCachingImageManager</code>在获取图片的时候缓存,保证<code>XMNPhotoCollectionController</code>的滑动流畅</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:center">方法说明</th>
 <th>作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td> scrollView</td>
-<td>放置所有表情imageVIew的 </td>
+<td>hasAuthorized</td>
+<td style="text-align:center">classMethods</td>
+<td>判断是否授权</td>
 </tr>
 <tr>
-<td> pageControl</td>
-<td>指示当前页面的 </td>
+<td></td>
 </tr>
 <tr>
-<td> facePreviewView</td>
-<td>预览view </td>
+<td>requestOriginImageWithAsset:WithCompletion:</td>
+<td style="text-align:center">方法</td>
+<td>获取asset的原图</td>
 </tr>
 <tr>
-<td> bottomView</td>
-<td>底部view(上面有sendButton,recentButton,emojiButton) </td>
+<td>requestThumbnailWithAsset:WithCompletion:</td>
+<td style="text-align:center">方法</td>
+<td>获取asset的对应的缩略图</td>
 </tr>
 <tr>
-<td> sendButton</td>
-<td>发送按钮,点击后调用XMChatBar 发送消息 </td>
+<td>requestPreviewImageWithAsset:WithCompletion:</td>
+<td style="text-align:center">方法</td>
+<td>获取asset对应的预览图,适应当前屏幕的尺寸</td>
 </tr>
 <tr>
-<td> recentButton</td>
-<td>显示最近使用的表情 </td>
-</tr>
-<tr>
-<td> emojiButton</td>
-<td>显示所有emoji表情 </td>
-</tr>
-<tr>
-<td> maxPerLine(readOnly)</td>
-<td>设置默认每一行最多显示几个表情,因为从0开始 应该是 返回n-1个 </td>
-</tr>
-<tr>
-<td> maxLine</td>
-<td>显示多少行表情,demo中,最近表情为两行,emoji表情为3行 </td>
-</tr>
-<tr>
-<td> facePage</td>
-<td>emoji表情显示当前页,用于最近表情切换回emoji表情,自动返回到上次emoji表情浏览页 </td>
+<td>imageOrientationWithAsset:WithCompletion:</td>
+<td style="text-align:center">方法</td>
+<td>获取对应asset的图片方向</td>
 </tr>
 </tbody>
 </table>
-<h5 id="私有方法-1"><a href="#私有方法-1" class="headerlink" title="私有方法"></a>私有方法</h5><table>
+<h3 id="照片选择ViewController"><a href="#照片选择ViewController" class="headerlink" title="照片选择ViewController"></a>照片选择ViewController</h3><h4 id="XMNPhotoPickerController"><a href="#XMNPhotoPickerController" class="headerlink" title="XMNPhotoPickerController"></a>XMNPhotoPickerController</h4><ul>
+<li>继承<code>UINavigationController</code></li>
+<li>默认rootController是<code>XMNAlbumListController</code></li>
+<li>除了<code>didCancelPickingBlock</code> 会自动dismiss <code>XMNPhotoPickerController</code>,<strong>其他回调方式均不会自动dismiss,需要手动dismiss</strong></li>
+</ul>
+<table>
 <thead>
 <tr>
-<th>方法名</th>
+<th>属性</th>
+<th>属性说明</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pickingVideoEnable</td>
+<td></td>
+<td style="text-align:center">是否允许选择视频</td>
+</tr>
+<tr>
+<td>autoPushToPhotoCollection</td>
+<td></td>
+<td style="text-align:center">是否自动push到photoCollectionController界面</td>
+</tr>
+<tr>
+<td>maxCount</td>
+<td></td>
+<td style="text-align:center">最大选择数量 ,默认视频一次只能选择一个,默认选择9个</td>
+</tr>
+<tr>
+<td>photoPickerDelegate</td>
+<td></td>
+<td style="text-align:center">delegate 回调 方式</td>
+</tr>
+<tr>
+<td>didFinishPickingPhotosBlock</td>
+<td></td>
+<td style="text-align:center">确定选择图片的block回调方式</td>
+</tr>
+<tr>
+<td>didFinishPickingVideoBlock</td>
+<td></td>
+<td style="text-align:center">确定选择视频的block回调方式</td>
+</tr>
+<tr>
+<td>didCancelPickingBlock</td>
+<td>readonly</td>
+<td style="text-align:center">确定取消选择的回调方式</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:center">方法说明</th>
 <th>作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td> - (void)setup</td>
-<td>仅初始化的时候调用,完成添加bottomView,scrollView,pageControl,给scrollView添加长按手势 </td>
+<td><code>- (instancetype)initWithMaxCount:(NSUInteger)maxCount delegate:(id&lt;XMNPhotoPickerControllerDelegate&gt;)delegate NS_DESIGNATED_INITIALIZER;</code></td>
+<td style="text-align:center">初始化方法</td>
+<td>初始化XMNPhotoPickerController</td>
 </tr>
 <tr>
-<td> - (void)resetScrollView</td>
-<td>切换显示不同表情页面时候调用,更改按钮状态,删除scrollView的subViews,修改scrollView的contentSize,contentOffset </td>
+<td><code>- (void)didFinishPickingPhoto:(NSArray&lt;XMNAssetModel *&gt; *)assets;</code></td>
+<td style="text-align:center">public方法</td>
+<td>提供给viewControllers 回调,会调用自身delegate以及block 的对应回调</td>
 </tr>
 <tr>
-<td> - (void)changeFaceType:(UIButton *)button</td>
-<td>emojiButton,recentButton对应的点击事件 </td>
+<td><code>- (void)didFinishPickingVideo:(XMNAssetModel *)asset;</code></td>
+<td style="text-align:center">public方法</td>
+<td>提供给viewControllers 唤起对应delegate,block 回调</td>
 </tr>
 <tr>
-<td> - (void)sendAction:(UIButton *)button</td>
-<td>发送按钮对应点击事件 </td>
-</tr>
-<tr>
-<td> - (UIImageView *)faceViewWitnInPoint:(CGPoint)point</td>
-<td>通过点击的点,获取对应点击的具体UIImageView </td>
-</tr>
-<tr>
-<td> - (void)handleLongPress:(UILongPressGestureRecognizer *)longPress</td>
-<td>处理scrollView的长按手势 </td>
-</tr>
-<tr>
-<td> - (void)handleTap:(UITapGestureRecognizer *)tap</td>
-<td>处理所有UIImageView的点击手势 </td>
-</tr>
-<tr>
-<td> - (void)setupEmojiFaces</td>
-<td>初始化所有的emoji表情 </td>
-</tr>
-<tr>
-<td> - (void)setupRecentFaces</td>
-<td>初始化最近使用的emoji表情 </td>
+<td><code>- (void)didCancelPickingPhoto</code></td>
+<td style="text-align:center">public方法</td>
+<td>提供给viewControllers 唤起对应delegate,block回调</td>
 </tr>
 </tbody>
 </table>
-<h5 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h5><ol>
-<li>整个XMChatFaceView分成两块 UIScrollView(用来放所有的表情UIImageVIew),UIView(bottomView,用户放一些功能按钮)</li>
-<li>切换显示不同类型FaceView的时候,直接移除掉scrollView上所有子视图,重新添加即可</li>
-</ol>
-<h2 id="二-总结"><a href="#二-总结" class="headerlink" title="二: 总结"></a>二: 总结</h2><h5 id="1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅"><a href="#1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅" class="headerlink" title="1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅"></a>1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅</h5><h5 id="2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整"><a href="#2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整" class="headerlink" title="2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载demo实例,注释我已经添加了,应该算比较完整."></a>2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载<a href="https://github.com/ws00801526/XMChatBarExample">demo实例</a>,注释我已经添加了,应该算比较完整.</h5><h5 id="3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441"><a href="#3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441" class="headerlink" title="3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441"></a>3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441</h5>
+<h5 id="XMNAlbumListController"><a href="#XMNAlbumListController" class="headerlink" title="XMNAlbumListController"></a>XMNAlbumListController</h5><ul>
+<li>继承UITableViewController</li>
+<li>使用tableView 展示album相册列表</li>
+<li>点击后跳转到XMNPhotoCollectionController界面</li>
+</ul>
+<h3 id="XMNPhotoPicker-模仿QQ选择照片的Sheet-使用block回调"><a href="#XMNPhotoPicker-模仿QQ选择照片的Sheet-使用block回调" class="headerlink" title="XMNPhotoPicker - 模仿QQ选择照片的Sheet,使用block回调"></a>XMNPhotoPicker - 模仿QQ选择照片的Sheet,使用block回调</h3><ul>
+<li>推荐使用单例<code>sharePhotoPicker</code></li>
+<li>支持手势滑动发送图片</li>
+<li>支持预览图片 - <code>XMNPhotoPreviewController</code> 视频-<code>XMNVideoPreviewController</code></li>
+<li>支持使用系统相机拍照发送图片</li>
+<li>iOS8+支持动态监测系统图片变化</li>
+</ul>
+
       
     </div>
     
@@ -458,13 +514,13 @@
 <!--显示版权信息-->
 
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/04/21/iOS仿QQ聊天框/">iOS仿QQ聊天框</a></p>
+        <p><span>本文标题:</span><a href="/2016/04/21/图片选择控件/">iOS 图片选择控件</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">XMFraker</a></p>
-        <p><span>发布时间:</span>2016-04-21, 14:24:55</p>
-        <p><span>最后更新:</span>2016-04-21, 16:36:35</p>
+        <p><span>发布时间:</span>2016-04-21, 16:44:59</p>
+        <p><span>最后更新:</span>2016-04-21, 16:56:14</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/04/21/iOS仿QQ聊天框/" title="iOS仿QQ聊天框">http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/　　作者: XMFraker" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/21/图片选择控件/" title="iOS 图片选择控件">http://github.com/ws00801526/2016/04/21/图片选择控件/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://github.com/ws00801526/2016/04/21/图片选择控件/　　作者: XMFraker" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -477,12 +533,12 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/04/21/iOS框架/">
-                    iOS框架
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/04/21/ReactiveCocoa框架学习/">
+                    ReactiveCocoa框架学习
                 </a>
             </div>
-        
         
     </nav>
 
@@ -491,7 +547,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-封装的思路"><span class="toc-number">1.</span> <span class="toc-text">一:封装的思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现目标"><span class="toc-number">1.1.</span> <span class="toc-text">实现目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前期准备"><span class="toc-number">1.2.</span> <span class="toc-text">前期准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现步骤"><span class="toc-number">1.3.</span> <span class="toc-text">实现步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主要类"><span class="toc-number">1.3.1.</span> <span class="toc-text">主要类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#具体思路"><span class="toc-number">1.3.2.</span> <span class="toc-text">具体思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMFaceManager-–-表情管理manager"><span class="toc-number">1.3.3.</span> <span class="toc-text">XMFaceManager – 表情管理manager</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMFacePreviewView-–-表情预览View"><span class="toc-number">1.3.4.</span> <span class="toc-text">XMFacePreviewView – 表情预览View</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#私有属性"><span class="toc-number">1.3.5.</span> <span class="toc-text">私有属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#私有方法"><span class="toc-number">1.3.6.</span> <span class="toc-text">私有方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMChatFaceView"><span class="toc-number">1.3.7.</span> <span class="toc-text">XMChatFaceView</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#私有属性-1"><span class="toc-number">1.3.8.</span> <span class="toc-text">私有属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#私有方法-1"><span class="toc-number">1.3.9.</span> <span class="toc-text">私有方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设计思路"><span class="toc-number">1.3.10.</span> <span class="toc-text">设计思路</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-总结"><span class="toc-number"></span> <span class="toc-text">二: 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅"><span class="toc-number">0.0.1.</span> <span class="toc-text">1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整"><span class="toc-number">0.0.2.</span> <span class="toc-text">2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载demo实例,注释我已经添加了,应该算比较完整.</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441"><span class="toc-number">0.0.3.</span> <span class="toc-text">3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XMNPhotoPickerKit"><span class="toc-number">2.</span> <span class="toc-text">XMNPhotoPickerKit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#照片管理Manager"><span class="toc-number">2.1.</span> <span class="toc-text">照片管理Manager</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#相关类"><span class="toc-number">2.1.1.</span> <span class="toc-text">相关类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#XMNAlbumModel-专辑信息"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">XMNAlbumModel : 专辑信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMNAssetModel-照片-视频等信息"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">XMNAssetModel : 照片,视频等信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XMNPhotoManager-获取所有专辑-专辑内照片视频等"><span class="toc-number">2.1.1.3.</span> <span class="toc-text">XMNPhotoManager : 获取所有专辑,专辑内照片视频等</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#照片选择ViewController"><span class="toc-number">2.2.</span> <span class="toc-text">照片选择ViewController</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XMNPhotoPickerController"><span class="toc-number">2.2.1.</span> <span class="toc-text">XMNPhotoPickerController</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#XMNAlbumListController"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">XMNAlbumListController</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XMNPhotoPicker-模仿QQ选择照片的Sheet-使用block回调"><span class="toc-number">2.3.</span> <span class="toc-text">XMNPhotoPicker - 模仿QQ选择照片的Sheet,使用block回调</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -548,7 +604,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"iOS仿QQ聊天框　| XMFraker & XMN　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"iOS 图片选择控件　| XMFraker & XMN　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -564,7 +620,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/04/21/iOS仿QQ聊天框/" data-title="iOS仿QQ聊天框" data-url="http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/"></div>
+    <div class="ds-thread" data-thread-key="2016/04/21/图片选择控件/" data-title="iOS 图片选择控件" data-url="http://github.com/ws00801526/2016/04/21/图片选择控件/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -590,15 +646,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/04/21/iOS框架/" title="上一篇: iOS框架">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/04/21/ReactiveCocoa框架学习/" title="下一篇: ReactiveCocoa框架学习">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 

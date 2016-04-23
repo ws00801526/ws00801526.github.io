@@ -1042,6 +1042,7 @@ a {
   background: none;
   opacity: 0.32;
   -webkit-appearance: none;
+  display: none;
 }
 .hide-labels:hover {
   color: #88acdb;

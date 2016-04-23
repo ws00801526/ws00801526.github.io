@@ -1,0 +1,1228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>XMFraker &amp; XMN</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://github.com/ws00801526/"/>
+  <updated>2016-04-21T08:56:14.000Z</updated>
+  <id>http://github.com/ws00801526/</id>
+  
+  <author>
+    <name>XMFraker</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS 图片选择控件</title>
+    <link href="http://github.com/ws00801526/2016/04/21/%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9%E6%8E%A7%E4%BB%B6/"/>
+    <id>http://github.com/ws00801526/2016/04/21/图片选择控件/</id>
+    <published>2016-04-21T08:44:59.000Z</published>
+    <updated>2016-04-21T08:56:14.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/ws00801526/XMNPhotoPickerFramework&quot;&gt;源码传送门&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;一款图片,视频选择类库&lt;/li&gt;
+&lt;li&gt;支持直接显示相册选择&lt;/li&gt;
+&lt;li&gt;支持类似QQ方式Sheet选择&lt;/li&gt;
+&lt;li&gt;iOS8+支持动态监测PhotoLibrary变化&lt;/li&gt;
+&lt;li&gt;支持预览图片,预览视频&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;思路&quot;&gt;&lt;a href=&quot;#思路&quot; class=&quot;headerlink&quot; title=&quot;思路&quot;&gt;&lt;/a&gt;思路&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;为了兼容iOS7(&lt;code&gt;AssetsLibaray&lt;/code&gt;),iOS8+(&lt;code&gt;PhotoKit&lt;/code&gt;),统一使用一个单例类 &lt;code&gt;XMNPhotoManager&lt;/code&gt; 来获取图片&lt;/li&gt;
+&lt;li&gt;使用&lt;code&gt;XMNAssetModel&lt;/code&gt; 和&lt;code&gt;XMNAlbumModel&lt;/code&gt; 封装下获取的result&lt;/li&gt;
+&lt;li&gt;自定义&lt;code&gt;XMNPhotoPickerController&lt;/code&gt;继承&lt;code&gt;UINavigationController&lt;/code&gt; 来作为选择图片的入口&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;XMNPhotoPickerKit&quot;&gt;&lt;a href=&quot;#XMNPhotoPickerKit&quot; class=&quot;headerlink&quot; title=&quot;XMNPhotoPickerKit&quot;&gt;&lt;/a&gt;XMNPhotoPickerKit&lt;/h2&gt;&lt;h3 id=&quot;照片管理Manager&quot;&gt;&lt;a href=&quot;#照片管理Manager&quot; class=&quot;headerlink&quot; title=&quot;照片管理Manager&quot;&gt;&lt;/a&gt;照片管理Manager&lt;/h3&gt;&lt;h4 id=&quot;相关类&quot;&gt;&lt;a href=&quot;#相关类&quot; class=&quot;headerlink&quot; title=&quot;相关类&quot;&gt;&lt;/a&gt;相关类&lt;/h4&gt;&lt;h5 id=&quot;XMNAlbumModel-专辑信息&quot;&gt;&lt;a href=&quot;#XMNAlbumModel-专辑信息&quot; class=&quot;headerlink&quot; title=&quot;XMNAlbumModel : 专辑信息&quot;&gt;&lt;/a&gt;XMNAlbumModel : 专辑信息&lt;/h5&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性&lt;/th&gt;
+&lt;th&gt;属性说明&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;name&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;album 名称&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;count&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;照片数量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;result&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;包含的图片数组,PHFetchResult&lt;phasset&gt; or ALAssetsGroup&lt;alasset&gt;&lt;/alasset&gt;&lt;/phasset&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法&lt;/th&gt;
+&lt;th&gt;方法说明&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;albumWithResult:&lt;/td&gt;
+&lt;td&gt;Class方法&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;通过获取的PHFetchResult&lt;phasset&gt; or ALAssetsGroup&lt;alasset&gt;&lt;/alasset&gt;&lt;/phasset&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;setName:&lt;/td&gt;
+&lt;td&gt;重写name的setter方法&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;设置name为中文字符串&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;XMNAssetModel-照片-视频等信息&quot;&gt;&lt;a href=&quot;#XMNAssetModel-照片-视频等信息&quot; class=&quot;headerlink&quot; title=&quot;XMNAssetModel : 照片,视频等信息&quot;&gt;&lt;/a&gt;XMNAssetModel : 照片,视频等信息&lt;/h5&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性&lt;/th&gt;
+&lt;th&gt;属性说明&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;asset&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;资源类型,PHAsset or ALAsset&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;selected&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;是否被选中&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;type&lt;/td&gt;
+&lt;td&gt;readonly&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;图片,视频,livePhoto,audio等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;timeLength&lt;/td&gt;
+&lt;td&gt;readonly&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;视频长度&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;originImage&lt;/td&gt;
+&lt;td&gt;readOnly&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;原图&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;thumbnail&lt;/td&gt;
+&lt;td&gt;readonly&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;缩略图,默认大小的缩略图&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;previewImage&lt;/td&gt;
+&lt;td&gt;readonly&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;适合当前屏幕的预览图&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;imageOrientation&lt;/td&gt;
+&lt;td&gt;readonly&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;图片方向&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;XMNPhotoManager-获取所有专辑-专辑内照片视频等&quot;&gt;&lt;a href=&quot;#XMNPhotoManager-获取所有专辑-专辑内照片视频等&quot; class=&quot;headerlink&quot; title=&quot;XMNPhotoManager : 获取所有专辑,专辑内照片视频等&quot;&gt;&lt;/a&gt;XMNPhotoManager : 获取所有专辑,专辑内照片视频等&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;iOS6,7 使用&lt;code&gt;AssetsLibaray&lt;/code&gt; iOS8+使用&lt;code&gt;PhotoKit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;使用单例模式,并且iOS8+使用了&lt;code&gt;PHCachingImageManager&lt;/code&gt;在获取图片的时候缓存,保证&lt;code&gt;XMNPhotoCollectionController&lt;/code&gt;的滑动流畅&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;方法说明&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;hasAuthorized&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;classMethods&lt;/td&gt;
+&lt;td&gt;判断是否授权&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;requestOriginImageWithAsset:WithCompletion:&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;方法&lt;/td&gt;
+&lt;td&gt;获取asset的原图&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;requestThumbnailWithAsset:WithCompletion:&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;方法&lt;/td&gt;
+&lt;td&gt;获取asset的对应的缩略图&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;requestPreviewImageWithAsset:WithCompletion:&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;方法&lt;/td&gt;
+&lt;td&gt;获取asset对应的预览图,适应当前屏幕的尺寸&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;imageOrientationWithAsset:WithCompletion:&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;方法&lt;/td&gt;
+&lt;td&gt;获取对应asset的图片方向&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;照片选择ViewController&quot;&gt;&lt;a href=&quot;#照片选择ViewController&quot; class=&quot;headerlink&quot; title=&quot;照片选择ViewController&quot;&gt;&lt;/a&gt;照片选择ViewController&lt;/h3&gt;&lt;h4 id=&quot;XMNPhotoPickerController&quot;&gt;&lt;a href=&quot;#XMNPhotoPickerController&quot; class=&quot;headerlink&quot; title=&quot;XMNPhotoPickerController&quot;&gt;&lt;/a&gt;XMNPhotoPickerController&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;继承&lt;code&gt;UINavigationController&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;默认rootController是&lt;code&gt;XMNAlbumListController&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;除了&lt;code&gt;didCancelPickingBlock&lt;/code&gt; 会自动dismiss &lt;code&gt;XMNPhotoPickerController&lt;/code&gt;,&lt;strong&gt;其他回调方式均不会自动dismiss,需要手动dismiss&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性&lt;/th&gt;
+&lt;th&gt;属性说明&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;pickingVideoEnable&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;是否允许选择视频&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;autoPushToPhotoCollection&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;是否自动push到photoCollectionController界面&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;maxCount&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;最大选择数量 ,默认视频一次只能选择一个,默认选择9个&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;photoPickerDelegate&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;delegate 回调 方式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;didFinishPickingPhotosBlock&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;确定选择图片的block回调方式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;didFinishPickingVideoBlock&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;确定选择视频的block回调方式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;didCancelPickingBlock&lt;/td&gt;
+&lt;td&gt;readonly&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;确定取消选择的回调方式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;方法说明&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;- (instancetype)initWithMaxCount:(NSUInteger)maxCount delegate:(id&amp;lt;XMNPhotoPickerControllerDelegate&amp;gt;)delegate NS_DESIGNATED_INITIALIZER;&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;初始化方法&lt;/td&gt;
+&lt;td&gt;初始化XMNPhotoPickerController&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;- (void)didFinishPickingPhoto:(NSArray&amp;lt;XMNAssetModel *&amp;gt; *)assets;&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;public方法&lt;/td&gt;
+&lt;td&gt;提供给viewControllers 回调,会调用自身delegate以及block 的对应回调&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;- (void)didFinishPickingVideo:(XMNAssetModel *)asset;&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;public方法&lt;/td&gt;
+&lt;td&gt;提供给viewControllers 唤起对应delegate,block 回调&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;- (void)didCancelPickingPhoto&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;public方法&lt;/td&gt;
+&lt;td&gt;提供给viewControllers 唤起对应delegate,block回调&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;XMNAlbumListController&quot;&gt;&lt;a href=&quot;#XMNAlbumListController&quot; class=&quot;headerlink&quot; title=&quot;XMNAlbumListController&quot;&gt;&lt;/a&gt;XMNAlbumListController&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;继承UITableViewController&lt;/li&gt;
+&lt;li&gt;使用tableView 展示album相册列表&lt;/li&gt;
+&lt;li&gt;点击后跳转到XMNPhotoCollectionController界面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;XMNPhotoPicker-模仿QQ选择照片的Sheet-使用block回调&quot;&gt;&lt;a href=&quot;#XMNPhotoPicker-模仿QQ选择照片的Sheet-使用block回调&quot; class=&quot;headerlink&quot; title=&quot;XMNPhotoPicker - 模仿QQ选择照片的Sheet,使用block回调&quot;&gt;&lt;/a&gt;XMNPhotoPicker - 模仿QQ选择照片的Sheet,使用block回调&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;推荐使用单例&lt;code&gt;sharePhotoPicker&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;支持手势滑动发送图片&lt;/li&gt;
+&lt;li&gt;支持预览图片 - &lt;code&gt;XMNPhotoPreviewController&lt;/code&gt; 视频-&lt;code&gt;XMNVideoPreviewController&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;支持使用系统相机拍照发送图片&lt;/li&gt;
+&lt;li&gt;iOS8+支持动态监测系统图片变化&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/ws00801526/XMNPhotoPickerFramework&quot;&gt;源码传送门&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;一款图片,视频选择类库&lt;/li&gt;
+&lt;li&gt;支持直接显示相册选择&lt;/li&gt;
+&lt;li&gt;支持类似QQ方式Sheet选择&lt;/li&gt;
+&lt;li&gt;iOS8+支持动态监测PhotoLibrary变化&lt;/li&gt;
+&lt;li&gt;支持预览图片,预览视频&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://github.com/ws00801526/tags/iOS/"/>
+    
+      <category term="控件" scheme="http://github.com/ws00801526/tags/%E6%8E%A7%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ReactiveCocoa框架学习</title>
+    <link href="http://github.com/ws00801526/2016/04/21/ReactiveCocoa%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://github.com/ws00801526/2016/04/21/ReactiveCocoa框架学习/</id>
+    <published>2016-04-21T07:34:21.000Z</published>
+    <updated>2016-04-21T08:26:01.000Z</updated>
+    
+    <content type="html">&lt;p&gt;ReactiveCocoa一些重要类与概念&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.udpwork.com/item/12594.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.udpwork.com/item/12594.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://codeblog.shape.dk/blog/2013/12/05/reactivecocoa-essentials-understanding-and-using-raccommand/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://codeblog.shape.dk/blog/2013/12/05/reactivecocoa-essentials-understanding-and-using-raccommand/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/87ef6720a096&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/87ef6720a096&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/e10e5ca413b7&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/e10e5ca413b7&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;重要的类和协议&quot;&gt;&lt;a href=&quot;#重要的类和协议&quot; class=&quot;headerlink&quot; title=&quot;重要的类和协议&quot;&gt;&lt;/a&gt;重要的类和协议&lt;/h1&gt;&lt;h2 id=&quot;RACStream-核心-RACSignal的基类&quot;&gt;&lt;a href=&quot;#RACStream-核心-RACSignal的基类&quot; class=&quot;headerlink&quot; title=&quot;RACStream:核心,RACSignal的基类&quot;&gt;&lt;/a&gt;&lt;code&gt;RACStream&lt;/code&gt;:核心,&lt;code&gt;RACSignal&lt;/code&gt;的基类&lt;/h2&gt;&lt;h3 id=&quot;常见的RACStream操作&quot;&gt;&lt;a href=&quot;#常见的RACStream操作&quot; class=&quot;headerlink&quot; title=&quot;常见的RACStream操作&quot;&gt;&lt;/a&gt;常见的&lt;code&gt;RACStream操作&lt;/code&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;concat&lt;/code&gt;:连接信号A,B 当A信号发送completed事件时,开始接受B信号事件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flattenMap&lt;/code&gt;:将源信号转换成一个新的信号&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;map&lt;/code&gt;:将源信号的值处理成一个新的值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;then&lt;/code&gt;:信号A,信号B 当信号AsendCompleted事件后,信号B开始接收事件,信号A发送的信号会被忽略&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;merge&lt;/code&gt;:合并A,B信号, 只要有任意信号发送事件,就会被处理&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;zipWith&lt;/code&gt;:合并A,B信号,只有当A,B 都发送了sendNext事件后,合并发出的值,进行合并成一个RACTuple&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CombineLatest&lt;/code&gt;:合并A,B两个信号,将A,B两个信号最新的两个值合并&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;RACSingal-信号类-一般表示将来有数据传递，只要有数据改变，信号内部接收到数据，就会马上发出数据。&quot;&gt;&lt;a href=&quot;#RACSingal-信号类-一般表示将来有数据传递，只要有数据改变，信号内部接收到数据，就会马上发出数据。&quot; class=&quot;headerlink&quot; title=&quot;RACSingal:信号类,一般表示将来有数据传递，只要有数据改变，信号内部接收到数据，就会马上发出数据。&quot;&gt;&lt;/a&gt;&lt;code&gt;RACSingal&lt;/code&gt;:信号类,一般表示将来有数据传递，只要有数据改变，信号内部接收到数据，就会马上发出数据。&lt;/h2&gt;&lt;h3 id=&quot;注意&quot;&gt;&lt;a href=&quot;#注意&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;信号类(RACSiganl)，只是表示当数据改变时，信号内部会发出数据，它本身不具备发送信号的能力，而是交给内部一个订阅者去发出。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;默认一个信号都是冷信号，也就是值改变了，也不会触发，只有订阅了这个信号，这个信号才会变为热信号，值改变了才会触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;如何订阅信号：调用信号RACSignal的subscribeNext就能订阅。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;RACSubscriber-表示订阅者的意思，用于发送信号，这是一个协议，不是一个类，只要遵守这个协议，并且实现方法才能成为订阅者。通过create创建的信号，都有一个订阅者，帮助他发送数据。&quot;&gt;&lt;a href=&quot;#RACSubscriber-表示订阅者的意思，用于发送信号，这是一个协议，不是一个类，只要遵守这个协议，并且实现方法才能成为订阅者。通过create创建的信号，都有一个订阅者，帮助他发送数据。&quot; class=&quot;headerlink&quot; title=&quot;RACSubscriber:表示订阅者的意思，用于发送信号，这是一个协议，不是一个类，只要遵守这个协议，并且实现方法才能成为订阅者。通过create创建的信号，都有一个订阅者，帮助他发送数据。&quot;&gt;&lt;/a&gt;&lt;code&gt;RACSubscriber&lt;/code&gt;:表示订阅者的意思，用于发送信号，这是一个协议，不是一个类，只要遵守这个协议，并且实现方法才能成为订阅者。通过create创建的信号，都有一个订阅者，帮助他发送数据。&lt;/h2&gt;&lt;h2 id=&quot;RACDisposable-用于取消订阅或者清理资源，当订阅者发送完成或者发送错误的时候或者订阅者执行dealloc时，就会自动触发它。&quot;&gt;&lt;a href=&quot;#RACDisposable-用于取消订阅或者清理资源，当订阅者发送完成或者发送错误的时候或者订阅者执行dealloc时，就会自动触发它。&quot; class=&quot;headerlink&quot; title=&quot;RACDisposable:用于取消订阅或者清理资源，当订阅者发送完成或者发送错误的时候或者订阅者执行dealloc时，就会自动触发它。&quot;&gt;&lt;/a&gt;&lt;code&gt;RACDisposable&lt;/code&gt;:用于取消订阅或者清理资源，当订阅者发送完成或者发送错误的时候或者订阅者执行dealloc时，就会自动触发它。&lt;/h2&gt;&lt;h3 id=&quot;注意-1&quot;&gt;&lt;a href=&quot;#注意-1&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;每次信号被订阅时,都会产生一个RACDisposable对象,可以手动去释放订阅信号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;RACSubject-信号提供者，自己可以充当信号，又能发送信号。&quot;&gt;&lt;a href=&quot;#RACSubject-信号提供者，自己可以充当信号，又能发送信号。&quot; class=&quot;headerlink&quot; title=&quot;RACSubject:信号提供者，自己可以充当信号，又能发送信号。&quot;&gt;&lt;/a&gt;&lt;code&gt;RACSubject&lt;/code&gt;:信号提供者，自己可以充当信号，又能发送信号。&lt;/h2&gt;&lt;h2 id=&quot;RACReplaySubject-同RACSubject同样既可以充当信号-也可以充当subscriber&quot;&gt;&lt;a href=&quot;#RACReplaySubject-同RACSubject同样既可以充当信号-也可以充当subscriber&quot; class=&quot;headerlink&quot; title=&quot;RACReplaySubject:同RACSubject同样既可以充当信号,也可以充当subscriber&quot;&gt;&lt;/a&gt;&lt;code&gt;RACReplaySubject&lt;/code&gt;:同&lt;code&gt;RACSubject&lt;/code&gt;同样既可以充当信号,也可以充当subscriber&lt;/h2&gt;&lt;h3 id=&quot;注意-2&quot;&gt;&lt;a href=&quot;#注意-2&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;RACSubject&lt;/code&gt;必须先订阅信号,再发送信号,而&lt;code&gt;RACReplaySubject&lt;/code&gt;不需要&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RACReplaySubject&lt;/code&gt;会缓存之前发送出去过的值,在下次发送的时候,有新订阅者时,会将之前的值一并发送出去,可以通过&lt;code&gt;capacity&lt;/code&gt;属性设置缓存值的数量&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RACSubject&lt;/code&gt;可以用来充当代理,VC2提供一个&lt;code&gt;RACSubject&lt;/code&gt;对象,用来发送信号,VC1监听&lt;code&gt;RACSubject&lt;/code&gt;对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;RACTuple-类似NSArray-包裹RAC中值&quot;&gt;&lt;a href=&quot;#RACTuple-类似NSArray-包裹RAC中值&quot; class=&quot;headerlink&quot; title=&quot;RACTuple:类似NSArray,包裹RAC中值&quot;&gt;&lt;/a&gt;&lt;code&gt;RACTuple&lt;/code&gt;:类似NSArray,包裹RAC中值&lt;/h2&gt;&lt;h2 id=&quot;RACSequence-RAC中的集合类，用于代替NSArray-NSDictionary-可以使用它来快速遍历数组和字典。&quot;&gt;&lt;a href=&quot;#RACSequence-RAC中的集合类，用于代替NSArray-NSDictionary-可以使用它来快速遍历数组和字典。&quot; class=&quot;headerlink&quot; title=&quot;RACSequence:RAC中的集合类，用于代替NSArray,NSDictionary,可以使用它来快速遍历数组和字典。&quot;&gt;&lt;/a&gt;&lt;code&gt;RACSequence&lt;/code&gt;:RAC中的集合类，用于代替NSArray,NSDictionary,可以使用它来快速遍历数组和字典。&lt;/h2&gt;&lt;h2 id=&quot;RACCommand-RAC中用于处理事件的类，可以把事件如何处理-事件中的数据如何传递，包装到这个类中，他可以很方便的监控事件的执行过程。&quot;&gt;&lt;a href=&quot;#RACCommand-RAC中用于处理事件的类，可以把事件如何处理-事件中的数据如何传递，包装到这个类中，他可以很方便的监控事件的执行过程。&quot; class=&quot;headerlink&quot; title=&quot;RACCommand:RAC中用于处理事件的类，可以把事件如何处理,事件中的数据如何传递，包装到这个类中，他可以很方便的监控事件的执行过程。&quot;&gt;&lt;/a&gt;&lt;code&gt;RACCommand&lt;/code&gt;:RAC中用于处理事件的类，可以把事件如何处理,事件中的数据如何传递，包装到这个类中，他可以很方便的监控事件的执行过程。&lt;/h2&gt;&lt;h3 id=&quot;注意-3&quot;&gt;&lt;a href=&quot;#注意-3&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;signalBlock必须要返回一个信号，不能传nil. 如果不想返回个signal,使用&lt;code&gt;[RACSignal empty]&lt;/code&gt;返回个空信号&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RACCommand&lt;/code&gt;需要被强引用,否则无法接收到执行signal的内部signal&lt;/li&gt;
+&lt;li&gt;内部信号执行完毕的时候,必须调用&lt;code&gt;[subscribe sendComplete]&lt;/code&gt;保证让其完成任务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;RACMulticastConnection-用于当一个信号，被多次订阅时，为了保证创建信号时，避免多次调用创建信号中的block，造成副作用，可以使用这个类处理。&quot;&gt;&lt;a href=&quot;#RACMulticastConnection-用于当一个信号，被多次订阅时，为了保证创建信号时，避免多次调用创建信号中的block，造成副作用，可以使用这个类处理。&quot; class=&quot;headerlink&quot; title=&quot;RACMulticastConnection:用于当一个信号，被多次订阅时，为了保证创建信号时，避免多次调用创建信号中的block，造成副作用，可以使用这个类处理。&quot;&gt;&lt;/a&gt;&lt;code&gt;RACMulticastConnection&lt;/code&gt;:用于当一个信号，被多次订阅时，为了保证创建信号时，避免多次调用创建信号中的block，造成副作用，可以使用这个类处理。&lt;/h2&gt;&lt;h3 id=&quot;注意-4&quot;&gt;&lt;a href=&quot;#注意-4&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;先创建&lt;code&gt;RACSignal&lt;/code&gt;然后使用信号的&lt;code&gt;publish&lt;/code&gt;或者&lt;code&gt;muticast&lt;/code&gt;方法,获取&lt;code&gt;RACMulticastConnection&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;订阅信号的时候不是使用之前的信号订阅,而是使用&lt;code&gt;[connection.signal subscribeNext]&lt;/code&gt;订阅&lt;/li&gt;
+&lt;li&gt;最后调用&lt;code&gt;[connection connect]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;RVMViewModel-介绍&quot;&gt;&lt;a href=&quot;#RVMViewModel-介绍&quot; class=&quot;headerlink&quot; title=&quot;RVMViewModel 介绍&quot;&gt;&lt;/a&gt;RVMViewModel 介绍&lt;/h1&gt;&lt;h2 id=&quot;属性&quot;&gt;&lt;a href=&quot;#属性&quot; class=&quot;headerlink&quot; title=&quot;属性&quot;&gt;&lt;/a&gt;属性&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;active                   – 设置baseViewModel的状态&lt;/li&gt;
+&lt;li&gt;result                 – 接受baseViewModel的处理结果&lt;/li&gt;
+&lt;li&gt;didBecomeActiveSignal – 当active=NO变为YES时信号会sendNext&lt;/li&gt;
+&lt;li&gt;didBecomeInactiveSignal – 当active从YES变为NO时,此信号会发送sendNext事件    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;方法&quot;&gt;&lt;a href=&quot;#方法&quot; class=&quot;headerlink&quot; title=&quot;方法&quot;&gt;&lt;/a&gt;方法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;- (RACSignal *)forwardSignalWhileActive:(RACSignal *)signal;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  应用场景:当baseViewModel.active=YES的时候,baseViewModel会转发signal&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;- (RACSignal *)throttleSignalWhileInactive:(RACSignal *)signal&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  应用场景:当baseViewModel.active从YES变为NO时,会节流所有的signal,执行其中某个signal,默认节流1秒钟内的&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ReactiveCocoa一些重要类与概念&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.udpwork.com/item/12594.html&quot;&gt;http://www.udpwork.com/item/12594.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://codeblog.shape.dk/blog/2013/12/05/reactivecocoa-essentials-understanding-and-using-raccommand/&quot;&gt;http://codeblog.shape.dk/blog/2013/12/05/reactivecocoa-essentials-understanding-and-using-raccommand/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/87ef6720a096&quot;&gt;http://www.jianshu.com/p/87ef6720a096&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/e10e5ca413b7&quot;&gt;http://www.jianshu.com/p/e10e5ca413b7&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://github.com/ws00801526/tags/iOS/"/>
+    
+      <category term="ReactiveCocoa" scheme="http://github.com/ws00801526/tags/ReactiveCocoa/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS多线程简介</title>
+    <link href="http://github.com/ws00801526/2016/04/21/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AE%80%E4%BB%8B/"/>
+    <id>http://github.com/ws00801526/2016/04/21/iOS多线程简介/</id>
+    <published>2016-04-21T07:17:22.000Z</published>
+    <updated>2016-04-21T08:31:22.000Z</updated>
+    
+    <content type="html">&lt;p&gt;NSThread,GCD,NSOperation实现简单多线程&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;NSThread-是一种比较方便的线程操作方式-但是需要用户自己去管理线程的周期-同步-互斥等&quot;&gt;&lt;a href=&quot;#NSThread-是一种比较方便的线程操作方式-但是需要用户自己去管理线程的周期-同步-互斥等&quot; class=&quot;headerlink&quot; title=&quot;NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等&quot;&gt;&lt;/a&gt;NSThread 是一种比较方便的线程操作方式,但是需要用户自己去管理线程的周期,同步,互斥等&lt;/h2&gt;&lt;h1 id=&quot;使用方法&quot;&gt;&lt;a href=&quot;#使用方法&quot; class=&quot;headerlink&quot; title=&quot;使用方法&quot;&gt;&lt;/a&gt;使用方法&lt;/h1&gt;&lt;h5 id=&quot;动态方法&quot;&gt;&lt;a href=&quot;#动态方法&quot; class=&quot;headerlink&quot; title=&quot;动态方法&quot;&gt;&lt;/a&gt;动态方法&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selectore(name) object:nil];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;thread.threadPriority = 1;//设置线程的优先级&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[thread start]; //开启线程&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&quot;静态方法&quot;&gt;&lt;a href=&quot;#静态方法&quot; class=&quot;headerlink&quot; title=&quot;静态方法&quot;&gt;&lt;/a&gt;静态方法&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;+ (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(id)argument;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//调用完毕后,立刻执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&quot;隐式创建线程&quot;&gt;&lt;a href=&quot;#隐式创建线程&quot; class=&quot;headerlink&quot; title=&quot;隐式创建线程&quot;&gt;&lt;/a&gt;隐式创建线程&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;[self performSelectorInBackground:@selector(run) withObject:nil];&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;[self performSelectorOnMainThread:@selector(name) withObject:nil watiUntilDone:NO]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;[self performSelector:@selector(name) withObject:nil];&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;NSOperation-NSOperationQueue-三种NSOperation-NSOperation仅仅是创建线程操作-并非创建线程-操作在什么线程中开始-取决于NSOperation的开始方式&quot;&gt;&lt;a href=&quot;#NSOperation-NSOperationQueue-三种NSOperation-NSOperation仅仅是创建线程操作-并非创建线程-操作在什么线程中开始-取决于NSOperation的开始方式&quot; class=&quot;headerlink&quot; title=&quot;NSOperation,NSOperationQueue,三种NSOperation,NSOperation仅仅是创建线程操作,并非创建线程,操作在什么线程中开始,取决于NSOperation的开始方式&quot;&gt;&lt;/a&gt;NSOperation,NSOperationQueue,三种NSOperation,NSOperation仅仅是创建线程操作,并非创建线程,操作在什么线程中开始,取决于NSOperation的开始方式&lt;/h2&gt;&lt;p&gt;例如直接在主线程中[operation start]  = 在主线程中执行&lt;/p&gt;
+&lt;p&gt;[queue addOperation]  = 在创建的线程队列中执行&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;自定义NSOperation的子类,实现其内部方法 – 常见的是AFNetworking中的AFURLConnectionOperation&lt;/li&gt;
+&lt;li&gt;NSInvacationOpertaion,可以与已有的selector关联&lt;/li&gt;
+&lt;li&gt;NSBlockOpertaion,可以添加多个block执行任务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;线程之间的顺序通过addDependency解决&lt;br&gt;同步问题通过NSLock,NSCondition,NSConditionLock解决&lt;/p&gt;
+&lt;h3 id=&quot;NSOperationQueue-线程队列&quot;&gt;&lt;a href=&quot;#NSOperationQueue-线程队列&quot; class=&quot;headerlink&quot; title=&quot;NSOperationQueue 线程队列&quot;&gt;&lt;/a&gt;NSOperationQueue 线程队列&lt;/h3&gt;&lt;p&gt;常用于,需要用户控制线程并发数量,减小系统开销的时候,将NSOperation添加到操作队列中,&lt;/p&gt;
+&lt;h2 id=&quot;Grand-Central-Dispatch是Apple提供的一种多线程操作的解决办法&quot;&gt;&lt;a href=&quot;#Grand-Central-Dispatch是Apple提供的一种多线程操作的解决办法&quot; class=&quot;headerlink&quot; title=&quot;Grand Central Dispatch是Apple提供的一种多线程操作的解决办法.&quot;&gt;&lt;/a&gt;Grand Central Dispatch是Apple提供的一种多线程操作的解决办法.&lt;/h2&gt;&lt;h3 id=&quot;GCD几种使用&quot;&gt;&lt;a href=&quot;#GCD几种使用&quot; class=&quot;headerlink&quot; title=&quot;GCD几种使用&quot;&gt;&lt;/a&gt;GCD几种使用&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//全局并发队列 第一个参数是队列优先级,第二个参数默认为0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//获取当前队列  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_get_current_queue()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//获取主线程的串行队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_get_main_queue()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//执行队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_resume()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//挂起队列,挂起队列并不会停止掉当前正在执行的block,而是会在block执行前或者执行后挂起&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_suspend()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//后台异步运行 使用global线程队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_async(dispatch_get_global_queue(0,0),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//后台异步运行,自己创建线程队列&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_queue_t myQueue = dispatch_queue_create(&amp;quot;identifier&amp;quot;,NULL);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_async(myQueue,^&amp;#123;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//后台主线程运行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_asycn(dispatch_get_main_queue(),^&amp;#123;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//一次执行,常用语单例模式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static dispatch_once_t onceToken;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_once(&amp;amp;onceToken,^&amp;#123;//只执行一次的方法&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//延迟执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW,10*NESC_PER_SEC);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_after(delayTime,^&amp;#123;//延迟后执行&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//异步并发任务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_t myGroup = dispatch_group_create();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_async(myGroup,dispatch_get_global_queue(0,0),^&amp;#123;//执行任务1&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_async(myGroup,dispatch_get_global_queue(0,0),^&amp;#123;//执行任务2&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_notify(group,dispatch_get_global_queue(0,0),^&amp;#123;//任务执行完成后回调&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//定时循环执行 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static dispatch_source_t source;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0,0,dispatch_get_global_queue(0,0));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_source_set_event_handler(source,^&amp;#123;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_resume(source)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//信号量机制,参数代表信号值,例如传0在两个线程使用同一个资源时,可以让互斥,避免死锁&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_semaphore_t semaphore = dispatch_semaphore_create(0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//释放信号,通知可用状态&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_semaphore_signal(semaphore)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//监听信号量是否可用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_semaphore_wait(semaphore,dispatch_time(DISPATCH_TIME_NOW,10*NSEC_PER_SEC));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//并发执行重复任务,替代for循环,提高效率,一般在并发队列中做 第一个参数循环次数,第二个参数所处队列,第三个参数是目前执行次数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;利用dispatch_aply(count,dispatch_get_global_queue(0,0),^(size_t doCount) &amp;#123;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;GCD具体实例&quot;&gt;&lt;a href=&quot;#GCD具体实例&quot; class=&quot;headerlink&quot; title=&quot;GCD具体实例&quot;&gt;&lt;/a&gt;GCD具体实例&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;dispatch_async的使用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//此操作,在主线程中执行,会造成主线程的阻塞&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)downloadImage &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	NSData *imageData = [NSData URLWithString:[NSURL URLWithString:@&amp;quot;http://www.baidu.com&amp;quot;]];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//使用dispatch_async解决,将下载数据放到并发队列global上去,不会阻塞主线程&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)downloadImageWithGCDAsync &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dispatch_async(dispatch_get_global_queue(0,0),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@&amp;quot;http://	www.baidu.com&amp;quot;]];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		dispatch_async(dispatch_get_main_queue(),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		//执行完毕,重新回到主线程,刷新页面等操作&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;dispatch_group的使用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//我们需要下载两张图片,下载完成后同时显示,这两张图片是放在一个block中下载&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)downloadTwoImage &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dispatch_async(dispatch_get_global_queue(0,0),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		NSData *imageData1 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&amp;quot;http://www.baidu.com&amp;quot;]];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		NSData *imageData2 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&amp;quot;http://www.baidu.com&amp;quot;]];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		dispatch_async(dispatch_get_main_queue(),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			//两张都下载完成 执行刷新操作&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//使用group,将两个下载操作分散两个异步线程中,然后统一监听回调完成,提高效率&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)downloadTwoImageWithGCDGroup &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dispatch_group_t group = dispatch_group_create();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dispatch_group_async(group,dispatch_get_global_queue(0,0),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		NSData *imageData1 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&amp;quot;http://www.baidu.com&amp;quot;]];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dispatch_group_async(group,dispatch_get_global_queue(0,0),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		NSData *imageData2 = [NSData dataWithContentsOfURL:[NSURL 	URLWithString:@&amp;quot;http://www.baidu.com&amp;quot;]];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dispatch_group_notify(group,dispatch_get_global_queue(0,0),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		dispatch_async(dispatch_get_main_queue(),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			//执行下载完成的操作&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;dispatch_apply的使用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//使用简单的for循环,重复10次任务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)testFor &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	for (int i = i,i&amp;lt;10,i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		NSLog(@&amp;quot;do it&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//将10次任务分别扔到并发队列里去,提高效率&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)testForWithGCDApply &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	size_t count = 10;//循环次数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	dispathc_apply(count,dispatch_get_global_queue(0,0),^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		//重复内容&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;线程同步-线程通讯&quot;&gt;&lt;a href=&quot;#线程同步-线程通讯&quot; class=&quot;headerlink&quot; title=&quot;线程同步,线程通讯&quot;&gt;&lt;/a&gt;线程同步,线程通讯&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;NSLock线程锁解决方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在需要操作竞争资源的地方使用线程锁,[_lock  lock]  和 [_lock unock]&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;使用@synchronized 代码块解决&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;GCD中使用信号机制解决dispatch_semaphore_t&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在操作竞争资源钱使用&lt;code&gt;dispatch_semaphore_wait(_semaphore,DISPATCH_TIME_FOREVER)&lt;/code&gt; 使用完成后 &lt;code&gt;dispatch_semaphore_signal(_semaphore)&lt;/code&gt; 通知使用完成&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;NSCondition,NSConditionLock 可以作为一种线程锁解决方式,但是其重要目的是线程之间的通讯&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;使用NSCondition 可以调用&lt;code&gt;[_condition wait]&lt;/code&gt;方法, 知道有资源了&lt;code&gt;[_condition signal]&lt;/code&gt;通知其他线程资源可用 类似GCD中的信号量机制&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;NSThread,GCD,NSOperation实现简单多线程&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://github.com/ws00801526/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS面试问题收集</title>
+    <link href="http://github.com/ws00801526/2016/04/21/iOS%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86/"/>
+    <id>http://github.com/ws00801526/2016/04/21/iOS问题收集/</id>
+    <published>2016-04-21T07:16:13.000Z</published>
+    <updated>2016-04-21T08:33:11.000Z</updated>
+    
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;Objective-C支持多重继承么?可以实现多个接口么?Category是什么?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:Objective-C不支持多重继承,通过实现多个接口来达到多重继承的目的,Category是类别的意思,用来给类添加方法,而不影响类和其他类的关系.&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;Objective-C部分&quot;&gt;&lt;a href=&quot;#Objective-C部分&quot; class=&quot;headerlink&quot; title=&quot;Objective-C部分&quot;&gt;&lt;/a&gt;Objective-C部分&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Objective-C支持多重继承么?可以实现多个接口么?Category是什么?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:Objective-C不支持多重继承,通过实现多个接口来达到多重继承的目的,Category是类别的意思,用来给类添加方法,而不影响类和其他类的关系.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;#import #include @class #import&amp;lt;&amp;gt; 四者的区别&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;区别     &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;import “”&lt;/td&gt;
+&lt;td&gt;导入用户普通头文件   =  #include #pargam once ,保证只导入一次 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;import &amp;lt;&amp;gt;&lt;/td&gt;
+&lt;td&gt;导入系统framework 头文件 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;include&lt;/td&gt;
+&lt;td&gt;导入c++文件头文件,也可以导入普通头文件 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@class&lt;/td&gt;
+&lt;td&gt;只是告诉编译器某个类已经声明了,只有在运行时,才会检查类的具体实现,主要用来解决类的相互包含&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ol&gt;
+&lt;li&gt;readwrite，readonly，assign，retain, strong, weak，copy，nonatomic 几者的作用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;readwrite&lt;/td&gt;
+&lt;td&gt;声明属性是可读可写的&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;readonly&lt;/td&gt;
+&lt;td&gt;声明属性是只读的&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;assign&lt;/td&gt;
+&lt;td&gt;赋值属性,调用setter方法的时候,将参数直接赋值给实例变量&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;retain&lt;/td&gt;
+&lt;td&gt;非ARC时使用的,调用setter方法时,会将参数retainCount+1,然后赋值给实例变量&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;strong&lt;/td&gt;
+&lt;td&gt;ARC时使用,类似非ARC时的retain&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;weak&lt;/td&gt;
+&lt;td&gt;ARC时使用,类似assign,但是声明的是弱引用类型,如果指向不存在,则自动赋值为nil,assign不会,锁一assign再次调用会崩溃,而声明成nil的则不会,weak == _unsafe_assign&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;copy&lt;/td&gt;
+&lt;td&gt;将参数copy一份,在赋值给实例变量&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;nonatomic&lt;/td&gt;
+&lt;td&gt;非原子性,在非多线程操作情况下提升性能,但是不是线程安全&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;pre&gt;&lt;code&gt;理解:retain,strong 相当于 多把钥匙,一个房间  某把钥匙摧毁了,但是其他钥匙仍然能使用
+ assign  相当于,一把钥匙 一个房间,   钥匙摧毁了,则房间就再也不能使用了
+ weak    相当于备份钥匙,  备份钥匙呗摧毁了,但是还有一把本来就存在的钥匙,
+ copy   相当于 多吧钥匙 对应多个房间  每个都是1对1
+ assign 主要用于NSInteger,CGFloat
+ copy 用于NSArray,NSDictionary,NSData,NSString等类型,但是可变的集合类型只能用strong
+ strong 用于NSObject 及其其他子类,用户自定义的类
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;声明retain的setter方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)setName:(NSString *)name &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	[_name release];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	[name retain];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	_name = name;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;常见的Objective-C的数据类型, NSInteger和 int 区别&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答: 基础数据类型 : NSInteger,CGFloat,枚举&lt;/p&gt;
+&lt;p&gt;   构造数据类型 : 数组类型,结构体类型&lt;/p&gt;
+&lt;p&gt;   NSInteger会根据系统判断是64位的long  还是 32位的int  可以查看NSInteger的定义,就是个typedef  重命名&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;id 声明的对象有什么特性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:运行时确定具体类型的特性,多态性&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Objective-C中创建线程的方法有哪些?如何在主线程中执行方法?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答: NSThread,GCD,或者NSOperation(实例一个NSOperation然后加入到NSOperationQueue队列中)&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//主线程执行方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_async(dispatch_get_main_queue(), ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; [self performSelectorOnMainThread:&amp;lt;#(nonnull SEL)#&amp;gt; withObject:&amp;lt;#(nullable id)#&amp;gt; waitUntilDone:&amp;lt;#(BOOL)#&amp;gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//延迟执行方法    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(&amp;lt;#delayInSeconds#&amp;gt; * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;#code to be executed after a specified delay#&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[self performSelector:&amp;lt;#(nonnull SEL)#&amp;gt; withObject:&amp;lt;#(nullable id)#&amp;gt; afterDelay:&amp;lt;#(NSTimeInterval)#&amp;gt;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;深复制,浅复制区别&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:浅复制,只复制指针,不会复制指针指向的对象&lt;br&gt;   深复制,在复制对象指针的同时也会复制指针指向的对象&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Category详解&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:category,类别的意思,可以给类添加方法  优点有以下三点&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1. 分散了类的实现,更加细化
+2. 在不不需要知道源码的情况下,可以给类添加方法,利用runtime可以添加属性
+3. 非正式协议的一种实现
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;Protocol – 正式协议&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:Objective-C的协议关键字,用来定义一个方法列表,要求实现该协议的必须实现方法,否则编译器报错,警告,可以通过添加关键字&lt;code&gt;@required&lt;/code&gt;或者&lt;code&gt;@optional&lt;/code&gt; 来区别是否要求实现类必须实现协议方法&lt;/p&gt;
+&lt;p&gt;需要注意的是 协议也可以定义属性,但只是的属性没有对应的变量,只是个名称,需要绑定一个变量到此属性上,一般使用&lt;code&gt;@synthesize 属性名 = _属性名&lt;/code&gt; 将属性绑定到对应的变量上,或者自己实现属性的getter,setter方法&lt;/p&gt;
+&lt;p&gt;与java的interface 区别  – 基本概念相同,Objective-C中可以通过关键字,定义那些方法不是必须实现&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;KVC,KVO&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:KVO ==  Key-Value-Observing 键值对观察,定义一个observer观察某个对象的某个值是否关改变,发出通知&lt;/p&gt;
+&lt;p&gt;KVC == Key-Value-Coding 不通过getter,setter方法,取而代之通过提供key值来访问类属性,或者实例变量  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Delegate&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:代理模式,一种设计模式,用协议来实现,改变或传递控制链,提供回调的监听&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;NSNotification 和Delegate区别&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:delegate 有控制链的关系,是一对一关系,但是通知没有,通知是一对多关系&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Responder Chain 响应控制链&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:包括点击事件,刷屏事件等,UIResponser,主要几个方法是 &lt;code&gt;touchbegin,touchend&lt;/code&gt;等&lt;/p&gt;
+&lt;h2 id=&quot;进阶面试题&quot;&gt;&lt;a href=&quot;#进阶面试题&quot; class=&quot;headerlink&quot; title=&quot;进阶面试题&quot;&gt;&lt;/a&gt;进阶面试题&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;数据化持久方案有哪些&lt;/p&gt;
+&lt;p&gt; 1.Sqlite 数据库&lt;br&gt; 2.本地文件&lt;br&gt; 3.CoreData&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;+(volid)load&lt;/code&gt;和&lt;code&gt;+(void)initialize&lt;/code&gt;两者区别,有什么用处&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:load iOS启动时会加载所有类 此时load会被调用&lt;br&gt;   initialize 会在类第一次被使用时调用&lt;br&gt;   两者的共同点都是 只会被系统调用一次&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Method Swizzling&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:Objective-C hook技术的以后实现,可以替换已有方法的实现,或者改变已有方法的实现&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;method_exchangeImplementations(oriMethod,newMethod)//交换两个方法的实现&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;method_setImplementation(Method, IMP) //更改一个方法的实现&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;网络搜集面试题&quot;&gt;&lt;a href=&quot;#网络搜集面试题&quot; class=&quot;headerlink&quot; title=&quot;网络搜集面试题&quot;&gt;&lt;/a&gt;网络搜集面试题&lt;/h2&gt;&lt;p&gt;[※]weak属性需要在dealloc中置nil么？&lt;/p&gt;
+&lt;p&gt;答:不需要&lt;/p&gt;
+&lt;p&gt;[※]什么时候使用weak?weak与assign有什么不同?&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;代理模式时使用weak&lt;/li&gt;
+&lt;li&gt;防止循环引用&lt;/li&gt;
+&lt;li&gt;自定义IBOutlet&lt;/li&gt;
+&lt;li&gt;weak设置新值时,既不保有新值,也不负责释放,当指针指向对象释放时,weak会自动指向nil,assign则不会&lt;/li&gt;
+&lt;li&gt;assign可以修饰所有类别,OC对象或者非OC对象比如CGFloat  weak只能修饰OC对象&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[※※]什么时候使用copy?如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;NSArray,NSDictionary,NSString,Block,NSData,使用copy,是为了防止对象被随意更改&lt;/li&gt;
+&lt;li&gt;让类实现NSCopying协议,重写copyWithZone方法&lt;/li&gt;
+&lt;li&gt;_name = [name copy];&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//可以看到使用copy 以下代码在更改了aArray后 bArray内内容不会变化&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//@property (strong, nonatomic) NSArray *bArray;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//@property (copy, nonatomic) NSArray *bArray;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;如下,如果定义成strong,则可以发现bArray与aArray同一指针且类型为NSArrayM,如果修改aArray则bArray也会跟着变化,但是如果定义成copy,b会成为NSArrayI&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   NSMutableArray *aArray = [NSMutableArray arrayWithArray:@[@&amp;quot;1&amp;quot;,@&amp;quot;2&amp;quot;,@&amp;quot;3&amp;quot;,@&amp;quot;4&amp;quot;]];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   self.bArray = aArray;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   NSLog(@&amp;quot;aArray :%@&amp;quot;,aArray);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   [aArray removeLastObject];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   NSLog(@&amp;quot;aArray :%@&amp;quot;,aArray);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   NSLog(@&amp;quot;bArray :%@&amp;quot;,self.bArray);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;[※※]在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？&lt;/p&gt;
+&lt;p&gt;答:以下场景不会自动合成,或者想要合成属性跟变量名不太一致(不推荐)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;自己重写getter,setter方法&lt;/li&gt;
+&lt;li&gt;重写了只读属性的getter  理由同1&lt;/li&gt;
+&lt;li&gt;使用了@dynamic&lt;/li&gt;
+&lt;li&gt;在@protocol中定义的属性 &lt;/li&gt;
+&lt;li&gt;在category中定义的属性    &lt;/li&gt;
+&lt;li&gt;重载的属性,在父类中定义的属性,此时父类会合成变量,但是此变量属性父类,子类调用不到&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[※※]@synthesize和@dynamic分别有什么作用？&lt;/p&gt;
+&lt;p&gt;答:&lt;br&gt;@property默认对应@synthesize 属性=_属性&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;@synthesize 合成变量,声明getter,setter&lt;/li&gt;
+&lt;li&gt;@dynamic 告诉编译器,不需要自动合成,用户会自己实现getter,setter&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[※※]@property 的本质是什么？&lt;/p&gt;
+&lt;p&gt;答:本质 = 自动合成变量 + getter + setter&lt;/p&gt;
+&lt;p&gt;[※※※]ARC下，不显式指定任何属性关键字时，默认的关键字都有哪些？&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;普通OC对象  atomic,readwrite,strong&lt;/li&gt;
+&lt;li&gt;基础数据对象 atomic,readwrite,assign&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[※※※]用@property声明的NSString（或NSArray，NSDictionary）经常使用copy关键字，为什么？如果改&lt;br&gt;用strong关键字，可能造成什么问题？&lt;/p&gt;
+&lt;p&gt;[※※※]@property (copy) NSMutableArray *array;&lt;br&gt;答:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1. copy复制的就是一个不可变对象,所以在进行添加,移除操作时实际上操作的是NSArray 崩溃
+2. 如果不考虑多线程的话,使用atomic 影响性能
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[※※※]@synthesize合成实例变量的规则是什么？假如property名为foo，存在一个名为_foo的实例变量，那&lt;br&gt;么还会自动合成新变量么？&lt;/p&gt;
+&lt;p&gt;答:如果存在&lt;em&gt;属性名则合成&lt;/em&gt;属性名,如果不存在,则创建&lt;/p&gt;
+&lt;p&gt;[※※]objc中向一个nil对象发送消息将会发生什么？&lt;/p&gt;
+&lt;p&gt;答: 不会发生什么,在运行时,会被系统忽略&lt;/p&gt;
+&lt;p&gt;[※※※]objc中向一个对象发送消息[obj foo]和objc_msgSend()函数之间有什么关系？&lt;/p&gt;
+&lt;p&gt;答:在运行时,[obj foo]会转换成 obj_msgSend(obj,@selector(foo))&lt;/p&gt;
+&lt;p&gt;[※※※]什么时候会报unrecognized selector的异常？&lt;/p&gt;
+&lt;p&gt;答:想一个对象发送消息,方法没有具体实现的时候,可以通过消息转发解决,以下三种&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Method Resolve 重写resolveIntanseMethod 或者resolveClassMethod,可以添加一个其他方法实现,让消息重新启动次&lt;/li&gt;
+&lt;li&gt;Fasting forward 重写 forwardTargetforSelector,将此方法讲给其他对象调用&lt;/li&gt;
+&lt;li&gt;Normal forward 重写 methodSignatureForSelector和forwardInvocation,重新启动转发流程&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[※※※※]一个objc对象如何进行内存布局？（考虑有父类的情况）&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;p&gt;每个OC对象都有一个isa指针,这个指针指向它的类对象(例如类也有对象,它的isa指针指向类对象又叫MetaClass),每个类对象都有方法列表,属性列表,变量列表&lt;/p&gt;
+&lt;p&gt;[※※※※]一个objc对象的isa的指针指向什么？有什么作用？&lt;/p&gt;
+&lt;p&gt;答:isa指向自己的类对象,可以找到类方法,属性,变量等&lt;/p&gt;
+&lt;p&gt;[※※※※]下面的代码输出什么？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@implementation Son : Father&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (id)init&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    self = [super init];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (self) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;%@&amp;quot;, NSStringFromClass([self class]));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;%@&amp;quot;, NSStringFromClass([super class]));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return self;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;答:都会输出Son&lt;/p&gt;
+&lt;p&gt;[※※※※]runtime如何通过selector找到对应的IMP地址？（分别考虑类方法和实例方法）&lt;/p&gt;
+&lt;p&gt;答:每一个类对象都有个methodList,methodList里面包含了Selector,IMP,methodType,selector就相当于一个key,类方法就是到类的MetaClass的方法列表中寻找&lt;/p&gt;
+&lt;p&gt;[※※※※]使用runtime Associate方法关联的对象，需要在主对象dealloc的时候释放么？&lt;/p&gt;
+&lt;p&gt;答:都不需要&lt;/p&gt;
+&lt;p&gt;[※※※※※]objc中的类方法和实例方法有什么本质区别和联系？&lt;/p&gt;
+&lt;p&gt;答:类方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;类方法是属于类的&lt;/li&gt;
+&lt;li&gt;类方法只能通过类调用&lt;/li&gt;
+&lt;li&gt;类方法中self是类对象&lt;/li&gt;
+&lt;li&gt;类方法中可以调用其他的类方法&lt;/li&gt;
+&lt;li&gt;类方法中不能访问类的成员变量,属性,对象方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实例方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实例方法属于类的实例对象&lt;/li&gt;
+&lt;li&gt;实例方法只能通过对象调用&lt;/li&gt;
+&lt;li&gt;实例方法中self 是对象&lt;/li&gt;
+&lt;li&gt;实例方法中可以通过[类名 类方法]调用类的方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[※※※※※]_objc_msgForward函数是做什么的，直接调用它将会发生什么？&lt;/p&gt;
+&lt;p&gt;答:启动消息转发机制,即告诉编译器,没有找到obj对应的方法实现,启动消息转发机制,从别的对象,或者找别的方法实现来代替&lt;/p&gt;
+&lt;p&gt;[※※※※※]runtime如何实现weak属性?&lt;/p&gt;
+&lt;p&gt;答: 在runtime中注册类时,会进行布局,runtime会将weak属性存放在一个hash表内,以对象地址为key,属性名为value,当对象释放时,runtime会查找hash表,将所有的value置为nil&lt;/p&gt;
+&lt;p&gt;// 对象的内存销毁时间表&lt;br&gt;// &lt;a href=&quot;http://weibo.com/luohanchenyilong/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://weibo.com/luohanchenyilong/&lt;/a&gt; (微博@iOS程序犭袁)&lt;br&gt;// &lt;a href=&quot;https://github.com/ChenYilong&quot;&gt;https://github.com/ChenYilong&lt;/a&gt;&lt;br&gt;// 根据 WWDC 2011, Session 322 (36分22秒)中发布的内存销毁时间表 &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;调用 -release ：引用计数变为零&lt;ul&gt;
+&lt;li&gt;对象正在被销毁，生命周期即将结束.&lt;/li&gt;
+&lt;li&gt;不能再有新的 __weak 弱引用， 否则将指向 nil.&lt;/li&gt;
+&lt;li&gt;调用 [self dealloc] &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;父类 调用 -dealloc&lt;ul&gt;
+&lt;li&gt;继承关系中最底层的父类 在调用 -dealloc&lt;/li&gt;
+&lt;li&gt;如果是 MRC 代码 则会手动释放实例变量们（iVars）&lt;/li&gt;
+&lt;li&gt;继承关系中每一层的父类 都在调用 -dealloc&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;NSObject 调 -dealloc&lt;ul&gt;
+&lt;li&gt;只做一件事：调用 Objective-C runtime 中的 object_dispose() 方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;调用 object_dispose()&lt;ul&gt;
+&lt;li&gt;为 C++ 的实例变量们（iVars）调用 destructors &lt;/li&gt;
+&lt;li&gt;为 ARC 状态下的 实例变量们（iVars） 调用 -release &lt;/li&gt;
+&lt;li&gt;解除所有使用 runtime Associate方法关联的对象&lt;/li&gt;
+&lt;li&gt;解除所有 __weak 引用&lt;/li&gt;
+&lt;li&gt;调用 free()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[※※※※※]runtime如何实现weak变量的自动置nil？&lt;/p&gt;
+&lt;p&gt;答:runtime 对注册的类， 会进行布局，对于 weak 对象会放入一个 hash 表中。 用 weak 指向的对象内存地址作为 key，当此对象的引用计数为0的时候会 dealloc，假如 weak 指向的对象内存地址是a，那么就会以a为键， 在这个 weak 表中搜索，找到所有以a为键的 weak 对象，从而设置为 nil。&lt;/p&gt;
+&lt;p&gt;[※※※※※]能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;因为编译后的类已经注册在 runtime 中，类结构体中的 objc_ivar_list 实例变量的链表 和 instance_size 实例变量的内存大小已经确定，同时runtime 会调用 class_setIvarLayout 或 class_setWeakIvarLayout 来处理 strong weak 引用。所以不能向存在的类中添加实例变量；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;运行时创建的类是可以添加实例变量，调用 class_addIvar 函数。但是得在调用 objc_allocateClassPair 之后，objc_registerClassPair 之前，原因同上。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[※※※]runloop和线程有什么关系？&lt;/p&gt;
+&lt;p&gt;答:runLoop是一个循环,主线程的runLoop在是默认开启的,其他线程关闭,runLoop可以保证线程一直运行,直到用户通知线程关闭&lt;/p&gt;
+&lt;p&gt;[※※※]runloop的mode作用是什么？&lt;/p&gt;
+&lt;p&gt;答: model 主要是用来指定事件在运行循环中的优先级的，分为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NSDefaultRunLoopMode（kCFRunLoopDefaultMode）：默认，空闲状态&lt;/li&gt;
+&lt;li&gt;UITrackingRunLoopMode：ScrollView滑动时&lt;/li&gt;
+&lt;li&gt;UIInitializationRunLoopMode：启动时&lt;/li&gt;
+&lt;li&gt;NSRunLoopCommonModes（kCFRunLoopCommonModes）：Mode集合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;苹果公开提供的 Mode 有两个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NSDefaultRunLoopMode（kCFRunLoopDefaultMode）&lt;/li&gt;
+&lt;li&gt;NSRunLoopCommonModes（kCFRunLoopCommonModes）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[※※※※]以+ scheduledTimerWithTimeInterval…的方式触发的timer，在滑动页面上的列表时，timer会暂定回调，为什么？如何解决？&lt;/p&gt;
+&lt;p&gt;答:以scheduledTimer启动的timer 他的runloop model 是默认的NSDefaultRunLoopMode,优先级比scrollView滑动的优先级要低,所以系统优先响应scrollView的滑动,timer暂停回调&lt;/p&gt;
+&lt;p&gt;NSRunLoop,定制其model位NSRunLoopCommonModes&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;   //一:定制一个timer,然后再添加到NSRunLoopCommonModes里,此时timer优先级要比ScrollView高&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   NSTimer *timer = [NSTimer timerWithTimeInterval:1.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                            target:self&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                          selector:@selector(timerTick:)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                          userInfo:nil&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                           repeats:YES];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//二:重新启动个子线程,在子线程中将runloop启动,需要注意是,一必须在autoreleasepool中,二runloop必须拥有一个输入源(timer,port,或者自定义的都可以)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[NSThread detachNewThreadWithSelector:@selector(newThread) toTarget:self waitUntilDone:YES];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)newThread &amp;#123;		&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       [NSTimer scheduledTiemrWithTimeInterval:1 target:self selector:selector userInfo:nil repeats:YES];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	[[NSRunLoop currentLoop] run]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//三,使用GCD dispatch_source&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;[※※※※※]猜想runloop内部是如何实现的？&lt;/p&gt;
+&lt;p&gt;答:一个无限循环的方法&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)loop &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	while(loopRuning) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		waitEventSignal();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		doEvent();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;; [※]objc使用什么机制管理对象内存？&lt;/p&gt;
+&lt;p&gt;答:retainCount,每次runLoop检查retainCount 为0则释放对象&lt;/p&gt;
+&lt;p&gt;[※※※※]ARC通过什么方式帮助开发者管理内存？&lt;/p&gt;
+&lt;p&gt;答:自动引用计数技术&lt;/p&gt;
+&lt;p&gt;[※※※※]不手动指定autoreleasepool的前提下，一个autorealese对象在什么时刻释放？（比如在一个vc的&lt;br&gt;viewDidLoad中创建）&lt;/p&gt;
+&lt;p&gt;答:每个线程的runloop在运行是,会执行创建autoreleasepool和释放autoreleasepool两步&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;指定autoreleasepool  则该autoreleasepool出了作用域就释放了,在ARC下 autoreleasepool的主要作用是防止内存峰值过大&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//方法执行完毕后,autoreleasepool就会释放&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)doSomething &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@autoreleasepool &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		//doSomething&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;不指定autoreleasepool,会在系统最近创建的一个autoreleasepool内添加上对下,然后runloop执行到下次释放对象的时机,释放&lt;/li&gt;
+&lt;li&gt;NSOperation,NSThread 必须手动创建 例如在NSOperation的main方法 和NSThread方法中添加@autoreleasepool&lt;br&gt;&lt;img src=&quot;http://7xlt1j.com1.z0.glb.clouddn.com/iOSautorelease.png&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;[※※※※]BAD_ACCESS在什么情况下出现？&lt;/p&gt;
+&lt;p&gt;答:访问了野指针&lt;/p&gt;
+&lt;p&gt;[※※※※※]苹果是如何实现autoreleasepool的？&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;objc_autoreleasepoolpush:&lt;/li&gt;
+&lt;li&gt;objc_autoreleasepoolpop &lt;/li&gt;
+&lt;li&gt;objc_autorelease : 释放对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[※※]使用block时什么情况会发生引用循环，如何解决？&lt;/p&gt;
+&lt;p&gt;答: 发生双向强引用的情况下就会造成引用循环&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;__weak __typeof(&amp;amp;*self)weakSelf = self  定义weakself在block中引用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__strong __typeof(&amp;amp;*self) self = weakSelf(在block中重新定义strongself,防止过早释放)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;_block = ^()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	[self doSomething];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;_block()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;[※※]在block内如何修改block外部变量？&lt;/p&gt;
+&lt;p&gt;答:使用修饰符 __block修饰需要修改的外部变量&lt;/p&gt;
+&lt;p&gt;[※※※]使用系统的某些block api（如UIView的block版本写动画时），是否也考虑引用循环问题？&lt;/p&gt;
+&lt;p&gt;答:动画一类的单项强引用不必考虑&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;///可以注意到下面三种都是单项强引用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[UIView animateWithDuration:duration animations:^&amp;#123; [self.superview layoutIfNeeded]; &amp;#125;]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[[NSOperationQueue mainQueue] addOperationWithBlock:^&amp;#123; self.someProperty = xyz; &amp;#125;]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[[NSNotificationCenter defaultCenter] addObserverForName:@&amp;quot;someNotification&amp;quot; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                                  object:nil &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                           queue:[NSOperationQueue mainQueue]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                              usingBlock:^(NSNotification * notification) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                                    self.someProperty = xyz; &amp;#125;]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                                    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                                    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;///如果使用了变量的进行双向强引用的 则要注意了&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;///下面 self-&amp;gt;_operationGroup -&amp;gt; block -&amp;gt; self&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__weak __typeof__(self) weakSelf = self;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dispatch_group_async(_operationsGroup, _operationsQueue, ^&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__typeof__(self) strongSelf = weakSelf;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[strongSelf doSomething];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[strongSelf doSomethingElse];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125; );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;///例如下面  self -&amp;gt;observer -&amp;gt; block -&amp;gt; self 就会造成循环引用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; __weak __typeof__(self) weakSelf = self;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  _observer = [[NSNotificationCenter defaultCenter] addObserverForName:@&amp;quot;testKey&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                                                object:nil&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                                                 queue:nil&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                                            usingBlock:^(NSNotification *note) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      __typeof__(self) strongSelf = weakSelf;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      [strongSelf dismissModalViewControllerAnimated:YES];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;[※※]GCD的队列（dispatch_queue_t）分哪两种类型？&lt;/p&gt;
+&lt;p&gt;答:串行,并发&lt;/p&gt;
+&lt;p&gt;[※※※※]如何用GCD同步若干个异步调用？（如根据若干个url异步加载多张图片，然后在都下载完成后合成一张整图）&lt;/p&gt;
+&lt;p&gt;答:dispatch_group_async,dispatch_group_notify&lt;/p&gt;
+&lt;p&gt;[※※※※]dispatch_barrier_async的作用是什么？&lt;/p&gt;
+&lt;p&gt;答:可以控制线程顺序,避免资源竞争,保证只有此任务在运行,需要注意的是 必须配合自定义的dispatch_queue_t 使用&lt;/p&gt;
+&lt;p&gt;[※※※※※]苹果为什么要废弃dispatch_get_current_queue？&lt;/p&gt;
+&lt;p&gt;答:容易造成死锁&lt;/p&gt;
+&lt;p&gt;[※※※※※]一个app默认除了主线程还有那些线程&lt;/p&gt;
+&lt;p&gt;答:还有个GCD global线程&lt;/p&gt;
+&lt;p&gt;[※※※※※]以下代码运行结果如何？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)viewDidLoad&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [super viewDidLoad];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@&amp;quot;1&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dispatch_sync(dispatch_get_main_queue(), ^&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        NSLog(@&amp;quot;2&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    NSLog(@&amp;quot;3&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;答:主线程卡死,GCD主线程队列FIFO,原则,调用了sync会卡死主线程&lt;/p&gt;
+&lt;p&gt;[※※]addObserver:forKeyPath:options:context:各个参数的作用分别是什么，observer中需要实现哪个方法才能获得KVO回调？&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 添加键值观察&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1 观察者，负责处理监听事件的对象&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2 观察的属性	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3 观察的选项,初始化,更新&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4 上下文&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[self.person addObserver:self forKeyPath:@&amp;quot;name&amp;quot; options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:@&amp;quot;Person Name&amp;quot;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 所有的 kvo 监听到事件，都会调用此方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 1. 观察的属性&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 2. 观察的对象&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 3. change 属性变化字典（新／旧）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 4. 上下文，与监听的时候传递的一致&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;[※※※]如何手动触发一个value的KVO&lt;/p&gt;
+&lt;p&gt;答:原理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;willChangeValueForKey 改变之前调用&lt;/li&gt;
+&lt;li&gt;didChangeValueForKey 改变之后调用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实现,通过重写NSObject的&lt;code&gt;+(BOOL)automaticallyNotifiesObserversForKey:(NSString *)key&lt;/code&gt;方法,然后再去重写setter方法,否则会造成obserValueForKeyPath两次调用&lt;/p&gt;
+&lt;p&gt;[※※※]若一个类有实例变量NSString *_foo，调用setValue:forKey:时，可以以foo还是_foo作为key？&lt;/p&gt;
+&lt;p&gt;答: 都可以&lt;/p&gt;
+&lt;p&gt;[※※※※]KVC的keyPath中的集合运算符如何使用？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;必须用在集合对象上或普通对象的集合属性上&lt;/li&gt;
+&lt;li&gt;简单集合运算符有@avg， @count ， @max ， @min ，@sum，&lt;/li&gt;
+&lt;li&gt;格式 @”@sum.age”或 @”集合属性.@max.age”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[※※※※]KVC和KVO的keyPath一定是属性么？&lt;/p&gt;
+&lt;p&gt;答:变量也可以&lt;/p&gt;
+&lt;p&gt;[※※※※※]如何关闭默认的KVO的默认实现，并进入自定义的KVO实现？&lt;/p&gt;
+&lt;p&gt;答:重写NSObject的&lt;code&gt;+(BOOL)automaticallyNotifiesObserversForKey:(NSString *)key&lt;/code&gt;,关闭所有的KVO实现,参考applie实现KVO的方式,利用runtime实现&lt;/p&gt;
+&lt;p&gt;[※※※※※]apple用什么方式实现对一个对象的KVO？&lt;/p&gt;
+&lt;p&gt;答:当定义观察者观察某个类时,runtime会定义该类的子类,并且重写setter方法,达到kvo的目的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xlt1j.com1.z0.glb.clouddn.com/iOSKVO.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;[※※]IBOutlet连出来的视图属性为什么可以被设置成weak?&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;p&gt;[※※※※※]IB中User Defined Runtime Attributes如何使用？&lt;/p&gt;
+&lt;p&gt;[※※※]如何调试BAD_ACCESS错误&lt;/p&gt;
+&lt;p&gt;答:Xcode 7 直接使用address sanitizer功能,Xcode7以下则打开Zombine调试功能&lt;/p&gt;
+&lt;p&gt;[※※※]lldb（gdb）常用的调试命令？&lt;/p&gt;
+&lt;p&gt;答:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;breakpoint 设置断点定位到某一个函数&lt;/li&gt;
+&lt;li&gt;n 断点指针下一步&lt;/li&gt;
+&lt;li&gt;po打印对象&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Objective-C支持多重继承么?可以实现多个接口么?Category是什么?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;答:Objective-C不支持多重继承,通过实现多个接口来达到多重继承的目的,Category是类别的意思,用来给类添加方法,而不影响类和其他类的关系.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://github.com/ws00801526/tags/iOS/"/>
+    
+      <category term="面试" scheme="http://github.com/ws00801526/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS框架</title>
+    <link href="http://github.com/ws00801526/2016/04/21/iOS%E6%A1%86%E6%9E%B6/"/>
+    <id>http://github.com/ws00801526/2016/04/21/iOS框架/</id>
+    <published>2016-04-21T06:35:55.000Z</published>
+    <updated>2016-04-21T08:35:31.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Cocoa Touch,Media,Core Service框架简介&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;Cocoa Touch&lt;/p&gt;
+&lt;h2 id=&quot;Cocoa-Touch层包含创建-iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。&quot;&gt;&lt;a href=&quot;#Cocoa-Touch层包含创建-iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。&quot; class=&quot;headerlink&quot; title=&quot;Cocoa Touch层包含创建 iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。&quot;&gt;&lt;/a&gt;Cocoa Touch层包含创建 iOS应用程序所需的关键框架。上至实现应用程序可视界面，下至与高级系统服务交互，都需要该层技术提供底层基础。&lt;/h2&gt;&lt;h4 id=&quot;高级特性&quot;&gt;&lt;a href=&quot;#高级特性&quot; class=&quot;headerlink&quot; title=&quot;高级特性&quot;&gt;&lt;/a&gt;高级特性&lt;/h4&gt;&lt;h5 id=&quot;多任务&quot;&gt;&lt;a href=&quot;#多任务&quot; class=&quot;headerlink&quot; title=&quot;多任务&quot;&gt;&lt;/a&gt;多任务&lt;/h5&gt;&lt;p&gt;应用程序进入后台后,不会被消除,用户可以在程序进入后台后&lt;/p&gt;
+&lt;h5 id=&quot;数据保护&quot;&gt;&lt;a href=&quot;#数据保护&quot; class=&quot;headerlink&quot; title=&quot;数据保护&quot;&gt;&lt;/a&gt;数据保护&lt;/h5&gt;&lt;h5 id=&quot;苹果推送通知&quot;&gt;&lt;a href=&quot;#苹果推送通知&quot; class=&quot;headerlink&quot; title=&quot;苹果推送通知&quot;&gt;&lt;/a&gt;苹果推送通知&lt;/h5&gt;&lt;h5 id=&quot;本地通知&quot;&gt;&lt;a href=&quot;#本地通知&quot; class=&quot;headerlink&quot; title=&quot;本地通知&quot;&gt;&lt;/a&gt;本地通知&lt;/h5&gt;&lt;h5 id=&quot;手势识别&quot;&gt;&lt;a href=&quot;#手势识别&quot; class=&quot;headerlink&quot; title=&quot;手势识别&quot;&gt;&lt;/a&gt;手势识别&lt;/h5&gt;&lt;p&gt;提供UIGestureRecognizer&lt;/p&gt;
+&lt;h5 id=&quot;文件共享支持&quot;&gt;&lt;a href=&quot;#文件共享支持&quot; class=&quot;headerlink&quot; title=&quot;文件共享支持&quot;&gt;&lt;/a&gt;文件共享支持&lt;/h5&gt;&lt;h5 id=&quot;点对点服务&quot;&gt;&lt;a href=&quot;#点对点服务&quot; class=&quot;headerlink&quot; title=&quot;点对点服务&quot;&gt;&lt;/a&gt;点对点服务&lt;/h5&gt;&lt;h5 id=&quot;标准视图控制器&quot;&gt;&lt;a href=&quot;#标准视图控制器&quot; class=&quot;headerlink&quot; title=&quot;标准视图控制器&quot;&gt;&lt;/a&gt;标准视图控制器&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;选择照片,视频,拍照,录制视频 - UIImagePickerController&lt;/li&gt;
+&lt;li&gt;显示编辑联系人页面 - 参考Contacts,或者AddressBookUI框架&lt;/li&gt;
+&lt;li&gt;显示发送短信,邮件页面 - 参考MessageUIKit框架&lt;/li&gt;
+&lt;li&gt;显示日历事件编辑,修改页面 -  参考EventUIKit框架&lt;h5 id=&quot;外部设备支持&quot;&gt;&lt;a href=&quot;#外部设备支持&quot; class=&quot;headerlink&quot; title=&quot;外部设备支持&quot;&gt;&lt;/a&gt;外部设备支持&lt;/h5&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;Cocoa-Touch层包含的框架&quot;&gt;&lt;a href=&quot;#Cocoa-Touch层包含的框架&quot; class=&quot;headerlink&quot; title=&quot;Cocoa Touch层包含的框架&quot;&gt;&lt;/a&gt;Cocoa Touch层包含的框架&lt;/h4&gt;&lt;h5 id=&quot;UIKit-UIKit-Framework-Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础-具有以下核心功能&quot;&gt;&lt;a href=&quot;#UIKit-UIKit-Framework-Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础-具有以下核心功能&quot; class=&quot;headerlink&quot; title=&quot;UIKit(UIKit.Framework):Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础,具有以下核心功能&quot;&gt;&lt;/a&gt;UIKit(UIKit.Framework):Objective-C编程接口提供iOS应用程序的图形及事件驱动的所有关键基础,具有以下核心功能&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;应该用程序管理  - UIApplication&lt;/li&gt;
+&lt;li&gt;用户界面管理 - UIWindow&lt;/li&gt;
+&lt;li&gt;图形,窗口支持 - UIWindow&lt;/li&gt;
+&lt;li&gt;多任务支持&lt;/li&gt;
+&lt;li&gt;处理触摸,移动 - UIResponser&lt;/li&gt;
+&lt;li&gt;标准视图控件 - UIView 等等&lt;/li&gt;
+&lt;li&gt;文本,webView等操作 - UILabel,UIWebView&lt;/li&gt;
+&lt;li&gt;使用动画&lt;/li&gt;
+&lt;li&gt;调用相机,设备支持&lt;/li&gt;
+&lt;li&gt;加速器数据&lt;/li&gt;
+&lt;li&gt;用户图片库&lt;/li&gt;
+&lt;li&gt;远程通知,本地通知&lt;h5 id=&quot;AddressBookUI-AddressBookUI-Framework-iOS9弃用-提供选择联系人-编辑联系人界面接口&quot;&gt;&lt;a href=&quot;#AddressBookUI-AddressBookUI-Framework-iOS9弃用-提供选择联系人-编辑联系人界面接口&quot; class=&quot;headerlink&quot; title=&quot;AddressBookUI(AddressBookUI.Framework)-iOS9弃用:提供选择联系人,编辑联系人界面接口&quot;&gt;&lt;/a&gt;AddressBookUI(AddressBookUI.Framework)-iOS9弃用:提供选择联系人,编辑联系人界面接口&lt;/h5&gt;&lt;h5 id=&quot;Contacts-Contacts-Framework-iOS8-替代AddressBookUI-提供选择-编辑联系人界面的接口&quot;&gt;&lt;a href=&quot;#Contacts-Contacts-Framework-iOS8-替代AddressBookUI-提供选择-编辑联系人界面的接口&quot; class=&quot;headerlink&quot; title=&quot;Contacts(Contacts.Framework)-iOS8+:替代AddressBookUI,提供选择,编辑联系人界面的接口&quot;&gt;&lt;/a&gt;Contacts(Contacts.Framework)-iOS8+:替代AddressBookUI,提供选择,编辑联系人界面的接口&lt;/h5&gt;&lt;h5 id=&quot;EventUIKit-EventUIKit-Framework-提供日历事件编辑-添加接口&quot;&gt;&lt;a href=&quot;#EventUIKit-EventUIKit-Framework-提供日历事件编辑-添加接口&quot; class=&quot;headerlink&quot; title=&quot;EventUIKit(EventUIKit.Framework):提供日历事件编辑,添加接口&quot;&gt;&lt;/a&gt;EventUIKit(EventUIKit.Framework):提供日历事件编辑,添加接口&lt;/h5&gt;&lt;h5 id=&quot;MapKit-MapKit-Framework-提供地图编程接口&quot;&gt;&lt;a href=&quot;#MapKit-MapKit-Framework-提供地图编程接口&quot; class=&quot;headerlink&quot; title=&quot;MapKit(MapKit.Framework):提供地图编程接口&quot;&gt;&lt;/a&gt;MapKit(MapKit.Framework):提供地图编程接口&lt;/h5&gt;&lt;h5 id=&quot;MessageUIKit-MessageUIKit-提供信息-邮件发送界面接口&quot;&gt;&lt;a href=&quot;#MessageUIKit-MessageUIKit-提供信息-邮件发送界面接口&quot; class=&quot;headerlink&quot; title=&quot;MessageUIKit(MessageUIKit):提供信息,邮件发送界面接口&quot;&gt;&lt;/a&gt;MessageUIKit(MessageUIKit):提供信息,邮件发送界面接口&lt;/h5&gt;&lt;h5 id=&quot;PhotosUI-PhotosUI-提供图片选择界面接口&quot;&gt;&lt;a href=&quot;#PhotosUI-PhotosUI-提供图片选择界面接口&quot; class=&quot;headerlink&quot; title=&quot;PhotosUI(PhotosUI):提供图片选择界面接口&quot;&gt;&lt;/a&gt;PhotosUI(PhotosUI):提供图片选择界面接口&lt;/h5&gt;&lt;h5 id=&quot;WatchKit-苹果手表开发接口&quot;&gt;&lt;a href=&quot;#WatchKit-苹果手表开发接口&quot; class=&quot;headerlink&quot; title=&quot;WatchKit:苹果手表开发接口&quot;&gt;&lt;/a&gt;WatchKit:苹果手表开发接口&lt;/h5&gt;&lt;h5 id=&quot;Twitter-推特编程相关接口&quot;&gt;&lt;a href=&quot;#Twitter-推特编程相关接口&quot; class=&quot;headerlink&quot; title=&quot;Twitter:推特编程相关接口&quot;&gt;&lt;/a&gt;Twitter:推特编程相关接口&lt;/h5&gt;&lt;h5 id=&quot;iAd-广告编程接口-使用苹果广告服务&quot;&gt;&lt;a href=&quot;#iAd-广告编程接口-使用苹果广告服务&quot; class=&quot;headerlink&quot; title=&quot;iAd:广告编程接口,使用苹果广告服务&quot;&gt;&lt;/a&gt;iAd:广告编程接口,使用苹果广告服务&lt;/h5&gt;&lt;h5 id=&quot;NotificationCenter-系统通知&quot;&gt;&lt;a href=&quot;#NotificationCenter-系统通知&quot; class=&quot;headerlink&quot; title=&quot;NotificationCenter 系统通知&quot;&gt;&lt;/a&gt;NotificationCenter 系统通知&lt;/h5&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Media 媒体服务接口层&lt;/p&gt;
+&lt;h2 id=&quot;媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。&quot;&gt;&lt;a href=&quot;#媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。&quot; class=&quot;headerlink&quot; title=&quot;媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。&quot;&gt;&lt;/a&gt;媒体层包含图形技术、音频技术和视频技术，这些技术相互结合就可为移动设备带来最好的多媒体体验，更重要的是，它们让创建外观音效俱佳的应用程序变得更加容易。您可以使用iOS的高级框架更快速地创建高级的图形和动画，也可以通过底层框架访问必要的工具，从而以某种特定的方式完成某种任务。&lt;/h2&gt;&lt;h4 id=&quot;高级特性-1&quot;&gt;&lt;a href=&quot;#高级特性-1&quot; class=&quot;headerlink&quot; title=&quot;高级特性&quot;&gt;&lt;/a&gt;高级特性&lt;/h4&gt;&lt;h5 id=&quot;图形技术&quot;&gt;&lt;a href=&quot;#图形技术&quot; class=&quot;headerlink&quot; title=&quot;图形技术&quot;&gt;&lt;/a&gt;图形技术&lt;/h5&gt;&lt;p&gt;高质量的图形是iOS应用程序的重要组成部分。创建应用程序最简单最有效的方法是使用事先渲染过的图片，搭配上标准视图以及UIKit框架的控件，然后把绘制任务交给系统来执行。但是在某些情况下，您可能需要一些UIKit所不具有的功能，而且需要定制某些行为。在这种情况下，您可以使用下述技术管理应用程序的图形内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Core Graphics (也被称为Quartz)，用于处理本地2D向量渲染和图片渲染。&lt;/li&gt;
+&lt;li&gt;Core Animation ( Quartz Core框架的一部分)，为动画视图和其他内容提供更高级别支持。&lt;/li&gt;
+&lt;li&gt;OpenGL ES，为使用硬件加速接口的2D和3D渲染提供支持。&lt;/li&gt;
+&lt;li&gt;Core Text，提供一个精密的文本布局和渲染引擎。&lt;/li&gt;
+&lt;li&gt;Image I/O，提供读取及编写大多数图形格式的接口。&lt;/li&gt;
+&lt;li&gt;资产库框架（Assets Library framework），可用于访问用户照片库中的照片和视频。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5 id=&quot;音频技术&quot;&gt;&lt;a href=&quot;#音频技术&quot; class=&quot;headerlink&quot; title=&quot;音频技术&quot;&gt;&lt;/a&gt;音频技术&lt;/h5&gt;&lt;p&gt;iOS音频技术可帮助您为用户提供丰富多彩的音响体验。您可以使用音频技术来播放或录制高质量的音频，也可以用于触发发设备的震动功能（具有震动功能的设备）。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;媒体播放器框架。该框架可以让访问用户的iTune库变得很容易，并且支持播放曲目和播放列表。&lt;/li&gt;
+&lt;li&gt;AV Foundation框架。它提供一组简单易用的Objective-C接口，可用于管理音频的播放或录制。.&lt;/li&gt;
+&lt;li&gt;OpenAL框架。它提供一组跨平台，用于发布方位音频的接口。&lt;/li&gt;
+&lt;li&gt;Core Audio框架。它提供的接口简单而精密，可用于播放或录制音频内容。您可以使用这些接口播放系统的警报声音、触发备的震动功能、管理多声道的缓冲和播放、对音频内容进行流化处理。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5 id=&quot;视频技术&quot;&gt;&lt;a href=&quot;#视频技术&quot; class=&quot;headerlink&quot; title=&quot;视频技术&quot;&gt;&lt;/a&gt;视频技术&lt;/h5&gt;&lt;p&gt;iOS有数种技术可用于播放应用程序包的电影文件以及来自网络的数据流内容。如果设备具有合适的视频硬件，这些技术也可用于捕捉视频，并可将捕获到的视频集成到应用程序。&lt;/p&gt;
+&lt;p&gt;系统提供也提供多种方法用于播放或录制视频内容，您可以根据需要选择。选择视频技术的时候，请尽可能选择高级框架，因为高级框架可以简化为提供对某种功能的支持所需的工作。下面列出的框架由高级到低级排列。其中，媒体播放器框架提供最高级的接口：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;媒体播放器模块:提供一组易用的接口,播放音视频文件&lt;/li&gt;
+&lt;li&gt;AVFoundation:提供一组Objective-C接口,用户自定义接口,播放音视频,也可以捕捉音视频数据&lt;/li&gt;
+&lt;li&gt;CoreMedia:底层的音视频C语言接口&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;媒体层包含的常用框架&quot;&gt;&lt;a href=&quot;#媒体层包含的常用框架&quot; class=&quot;headerlink&quot; title=&quot;媒体层包含的常用框架&quot;&gt;&lt;/a&gt;媒体层包含的常用框架&lt;/h4&gt;&lt;h5 id=&quot;AssetsLibrary-iOS8-推荐使用Photo&quot;&gt;&lt;a href=&quot;#AssetsLibrary-iOS8-推荐使用Photo&quot; class=&quot;headerlink&quot; title=&quot;AssetsLibrary(iOS8+推荐使用Photo):&quot;&gt;&lt;/a&gt;AssetsLibrary(iOS8+推荐使用Photo):&lt;/h5&gt;&lt;p&gt;该框架提供一个查询界面，您可以通过它查找用户照片和数据。通过使用该框架，您可以访问Photos管理的资产，包括用户保存的相册以及导入到设备中的图片或视频。而且您也可以将照片或者视频保存到用户的相册&lt;/p&gt;
+&lt;h5 id=&quot;AVFoundation&quot;&gt;&lt;a href=&quot;#AVFoundation&quot; class=&quot;headerlink&quot; title=&quot;AVFoundation:&quot;&gt;&lt;/a&gt;AVFoundation:&lt;/h5&gt;&lt;p&gt;该框架包含的Objective-C 类可用于播放音频内容。通过使用该框架，您可以播放声音文件或播放内存中的音频数据，也可以同时播放多个声音，并对各个声音的播放特定进行控制。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;媒体数据管理&lt;/li&gt;
+&lt;li&gt;媒体编辑&lt;/li&gt;
+&lt;li&gt;音视频捕捉&lt;/li&gt;
+&lt;li&gt;音视频播放&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5 id=&quot;CoreGraphics&quot;&gt;&lt;a href=&quot;#CoreGraphics&quot; class=&quot;headerlink&quot; title=&quot;CoreGraphics:&quot;&gt;&lt;/a&gt;CoreGraphics:&lt;/h5&gt;&lt;p&gt;包含Quartz 2D绘图API接口 。Quartz 是Mac OS X系统使用的向量绘图引擎，它支持基于路径绘图、抗锯齿渲染、渐变、图片、颜色、坐标空间转换、PDF文件的创建、显示和解析。虽然API基于C语言，但是它使用基于对象的抽象以表示基本绘图对象，这样可以让开发者可以更方便地保存并复用图像内容。&lt;/p&gt;
+&lt;h5 id=&quot;CoreText框架&quot;&gt;&lt;a href=&quot;#CoreText框架&quot; class=&quot;headerlink&quot; title=&quot;CoreText框架:&quot;&gt;&lt;/a&gt;CoreText框架:&lt;/h5&gt;&lt;p&gt;Core Text框架提供一个完整的文本布局引擎，您可以通过它管理文本在屏幕上的摆放。所管理的文本也可以使用不同的字体和渲染属性。该框架专为诸如字处理程序这类需要具有精密文本处理功能的应用程序而设计。如果您的应用程序只需要一种文本输入和显示，则应使用UIKit框架中已有的类。&lt;/p&gt;
+&lt;h5 id=&quot;媒体播放框架-MediaPlayer-iOS9-推荐AVKit&quot;&gt;&lt;a href=&quot;#媒体播放框架-MediaPlayer-iOS9-推荐AVKit&quot; class=&quot;headerlink&quot; title=&quot;媒体播放框架(MediaPlayer-iOS9+推荐AVKit):&quot;&gt;&lt;/a&gt;媒体播放框架(MediaPlayer-iOS9+推荐AVKit):&lt;/h5&gt;&lt;p&gt;媒体播放器框架 (MediaPlayer.framework)为应用程序播放视频和音频内容提供高级支持。通过该框架，您就可以使用标准系统界面播放视频。 iOS 3.0增加了对访问用户iTune库的支持。因此，您可以利用该框架播放音乐曲目、播放列表、搜索歌曲并向用户显示媒体选取界面。&lt;/p&gt;
+&lt;p&gt;在 iOS 3.2系统中，该框架发生了变化，开始支持在可改变尺寸的视图中播放视频（之前只支持全屏）。另外还新增数个界面用于支持配置和管理电影播放。&lt;/p&gt;
+&lt;p&gt;如需进一步了解媒体播放器框架中的类，请查看媒体播放器框架参考 。如需了解如何使用该框架访问用户的 iTunes库，请查看iPod 库访问编程指南。&lt;/p&gt;
+&lt;h5 id=&quot;QuartzCore框架&quot;&gt;&lt;a href=&quot;#QuartzCore框架&quot; class=&quot;headerlink&quot; title=&quot;QuartzCore框架:&quot;&gt;&lt;/a&gt;QuartzCore框架:&lt;/h5&gt;&lt;p&gt;Quartz Core框架 (QuartzCore.framework)包含Core Animation接口。Core Animation是高级动画制作和混合技术，它使用经过优化的渲染路径实现复杂的动画和视觉效果。它提供的高级Objective-C接口可对动画效果进行配置，然后在设备硬件中进行渲染，以此来提高程序的性能。Core Animation框架被整合到iOS的许多部分（包括UIKit框架中的许多类（如UIView）），可以为多种系统行为提供动画效果。您也可以使用该框架中的Objective-C接口直接创建定制动画。&lt;/p&gt;
+&lt;p&gt;CoreService 层&lt;/p&gt;
+&lt;h2 id=&quot;Core-Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。&quot;&gt;&lt;a href=&quot;#Core-Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。&quot; class=&quot;headerlink&quot; title=&quot;Core Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。&quot;&gt;&lt;/a&gt;Core Services层为所有的应用程序提供基础系统服务。可能应用程序并不直接使用这些服务，但它们是系统很多部分赖以建构的基础。&lt;/h2&gt;&lt;h4 id=&quot;高阶特性&quot;&gt;&lt;a href=&quot;#高阶特性&quot; class=&quot;headerlink&quot; title=&quot;高阶特性&quot;&gt;&lt;/a&gt;高阶特性&lt;/h4&gt;&lt;h5 id=&quot;块对象&quot;&gt;&lt;a href=&quot;#块对象&quot; class=&quot;headerlink&quot; title=&quot;块对象&quot;&gt;&lt;/a&gt;块对象&lt;/h5&gt;&lt;p&gt;引入block概念,从本质上说，块对象本质上是一个匿名函数加上该函数的伴随数据。有些时候，其他语言也称块对象为 closure或者lambda。块对象非常适用于回调函数。如果您需要有很便捷的方法将执行代码和相关数据组合在一起，块对象也是很好的选择。&lt;/p&gt;
+&lt;p&gt;在 iOS系统中，块对象通常用于下述场合：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作为委托或委托方法的替代品。&lt;/li&gt;
+&lt;li&gt;作为回调函数的替代品。&lt;/li&gt;
+&lt;li&gt;用于实现一次性操作的完成处理器。&lt;/li&gt;
+&lt;li&gt;简化在群体所有子项上迭代执行某种任务的操作。&lt;/li&gt;
+&lt;li&gt;配合分发队列。可用于执行异步任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&quot;Grand-Central-Dispatch-GCD&quot;&gt;&lt;a href=&quot;#Grand-Central-Dispatch-GCD&quot; class=&quot;headerlink&quot; title=&quot;Grand Central Dispatch (GCD):&quot;&gt;&lt;/a&gt;Grand Central Dispatch (GCD):&lt;/h5&gt;&lt;p&gt;iOS 4.0引入了 Grand Central Dispatch (GCD)，它是BSD级别的技术，可用于在应用程序内管理多个任务的执行。GCD技术将异步编程模型和高度优化内核结合在一起，可作为多线程的便捷（且更高效）替代。同时，它也为许多种底层任务（ 例如读写文件描述符、实现定时器、监视信号和处理事件等）提供替代方案。&lt;/p&gt;
+&lt;h5 id=&quot;应用内付费购买&quot;&gt;&lt;a href=&quot;#应用内付费购买&quot; class=&quot;headerlink&quot; title=&quot;应用内付费购买:&quot;&gt;&lt;/a&gt;应用内付费购买:&lt;/h5&gt;&lt;p&gt;iOS 3.0引入了应用程序内购买功能。通过该功能，您可以在应用程序内出售内容或服务。该功能使用Store Kit框架来实现，它可以为使用iTunes账户进行的财务交易的处理提供基础支持，应用程序只需处理用户体验及待售内容或服务的展现。&lt;/p&gt;
+&lt;h5 id=&quot;定位服务&quot;&gt;&lt;a href=&quot;#定位服务&quot; class=&quot;headerlink&quot; title=&quot;定位服务:&quot;&gt;&lt;/a&gt;定位服务:&lt;/h5&gt;&lt;p&gt;应用程序可使用Core Location框架提供的接口追踪用户位置。此框架利用当前可用的硬件无线电波（包括Wi-Fi、蜂窝无线或者GPS）定位用户的当前位置。应用程序可以对框架提供的信息进行裁剪，然后再将其发送给客户， 或是用于实现某些特定功能。举个例子，社交应用程序允许您找到附近其他应用程序用户，然后再与之进行通讯。&lt;/p&gt;
+&lt;h5 id=&quot;SQLite&quot;&gt;&lt;a href=&quot;#SQLite&quot; class=&quot;headerlink&quot; title=&quot;SQLite:&quot;&gt;&lt;/a&gt;SQLite:&lt;/h5&gt;&lt;p&gt;SQLite库允许开发者将一个轻量级SQL数据库嵌入到应用程序，而且开发者不需要运行独立的远程数据库服务器进程。在此之后，开发者可以在应用程序中创建本地数据库文件，管理文件中的表和记录。虽然SQLite数据库出于通用目的而设计，但它还是针对数据库记录的快速访问做过优化。&lt;/p&gt;
+&lt;h5 id=&quot;XML-支持&quot;&gt;&lt;a href=&quot;#XML-支持&quot; class=&quot;headerlink&quot; title=&quot;XML 支持&quot;&gt;&lt;/a&gt;XML 支持&lt;/h5&gt;&lt;p&gt;Foundation框架支持使用NSXMLParser 类从XML文档中解析元素，而libXML2库则为操作XML内容提供支持。 libXML2库是开源的，它可以让您快速地解析或写入任意的XML数据，也可将XML内容转化为HTML文件。&lt;/p&gt;
+&lt;h4 id=&quot;Core-Service层包含的常用框架&quot;&gt;&lt;a href=&quot;#Core-Service层包含的常用框架&quot; class=&quot;headerlink&quot; title=&quot;Core Service层包含的常用框架&quot;&gt;&lt;/a&gt;Core Service层包含的常用框架&lt;/h4&gt;&lt;h5 id=&quot;AddressBook&quot;&gt;&lt;a href=&quot;#AddressBook&quot; class=&quot;headerlink&quot; title=&quot;AddressBook:&quot;&gt;&lt;/a&gt;AddressBook:&lt;/h5&gt;&lt;p&gt;支持编程访问存储于用户设备中的联系人信息。如果应用程序使用到联系人信息，则可通过该框架访问并修改用户联系人数据库的记录。举个例子，通过使用该框架，聊天程序可以获取一个联系人列表，利用此列表初始化聊天会话，并在联系人视图显示列表的联系人。&lt;/p&gt;
+&lt;h5 id=&quot;CFNetwork&quot;&gt;&lt;a href=&quot;#CFNetwork&quot; class=&quot;headerlink&quot; title=&quot;CFNetwork&quot;&gt;&lt;/a&gt;CFNetwork&lt;/h5&gt;&lt;p&gt;CFNetwork框架 (CFNetwork.framework)提供一组高性能基于C语言的接口，它们为使用网络协议提供面向对象抽象。通过这些抽象，您可以对协议栈进行更精细的控制，而且可以使用诸如 BSD socket这类底层结构。您也可以通过该框架简化诸如与FTP或HTTP服务器通讯以及DNS主机解析这类任务。下面列举一些可以使用 CFNetwork框架执行的任务：&lt;/p&gt;
+&lt;h5 id=&quot;Core-Data-框架&quot;&gt;&lt;a href=&quot;#Core-Data-框架&quot; class=&quot;headerlink&quot; title=&quot;Core Data 框架&quot;&gt;&lt;/a&gt;Core Data 框架&lt;/h5&gt;&lt;p&gt;iOS提供的一种MV应用程序存储方案&lt;/p&gt;
+&lt;h5 id=&quot;CoreFoundation&quot;&gt;&lt;a href=&quot;#CoreFoundation&quot; class=&quot;headerlink&quot; title=&quot;CoreFoundation:&quot;&gt;&lt;/a&gt;CoreFoundation:&lt;/h5&gt;&lt;p&gt;提供Foundation的C语言实现&lt;/p&gt;
+&lt;h5 id=&quot;CoreLocation框架&quot;&gt;&lt;a href=&quot;#CoreLocation框架&quot; class=&quot;headerlink&quot; title=&quot;CoreLocation框架:&quot;&gt;&lt;/a&gt;CoreLocation框架:&lt;/h5&gt;&lt;p&gt;Core Location框架 (CoreLocation.framework)可用于定位某个设备当前经纬度。它可以利用设备具备的硬件，通过附近的GPS、蜂窝基站或者WiFi信号等信息计算用户方位。Maps应用程序就是利用此功能在地图上显示用户当前位置。您可以将此技术结合到应用程序，以此向用户提供方位信息。例如，应用程序可根据用户当前位置搜索附近饭店、商店或其他设施 。&lt;br&gt;在iOS 3.0系统中，该框架开始支持访问iOS设备（具有相应硬件的设备）的方向信息。&lt;br&gt;在iOS 4.0系统中，该框架开始支持低能耗的方位监视服务，该服务利用蜂窝基站跟踪用户方位。&lt;/p&gt;
+&lt;h5 id=&quot;Core-Media-框架&quot;&gt;&lt;a href=&quot;#Core-Media-框架&quot; class=&quot;headerlink&quot; title=&quot;Core Media 框架&quot;&gt;&lt;/a&gt;Core Media 框架&lt;/h5&gt;&lt;p&gt;iOS 4.0引入了Core Media框架 (CoreMedia.framework)。此框架提供AV Foundation框架使用的底层媒体类型。只有少数需要对音频或视频创建及展示进行精确控制的应用程序才会涉及该框架，其他大部分应用程序应该都用不上。&lt;/p&gt;
+&lt;p&gt;如需进一步了解此框架的函数和数据类型，请阅读Core Media 框架参考。&lt;/p&gt;
+&lt;h5 id=&quot;Core-Telephony-框架&quot;&gt;&lt;a href=&quot;#Core-Telephony-框架&quot; class=&quot;headerlink&quot; title=&quot;Core Telephony 框架&quot;&gt;&lt;/a&gt;Core Telephony 框架&lt;/h5&gt;&lt;p&gt;iOS 4.0引入了Core Telephony框架(CoreTelephony.framework)。此框架为访问具有蜂窝无线的设备上的电话信息提供接口，应用程序可通过它获取用户蜂窝无线服务的提供商信息。如果应用程序对于电话呼叫感兴趣，也可以在相应事件发生时得到通知。&lt;/p&gt;
+&lt;h5 id=&quot;Event-Kit-框架&quot;&gt;&lt;a href=&quot;#Event-Kit-框架&quot; class=&quot;headerlink&quot; title=&quot;Event Kit 框架&quot;&gt;&lt;/a&gt;Event Kit 框架&lt;/h5&gt;&lt;p&gt;iOS 4.0引入了 Event Kit框架 (EventKit.framework)。此框架为访问用户设备的日历事件提供接口。您可以通过该框架访问用户日历中现有事件，可以增加新事件。日历事件可包含闹铃，而且可以配置闹铃激活规则。&lt;/p&gt;
+&lt;h5 id=&quot;Foundation-框架&quot;&gt;&lt;a href=&quot;#Foundation-框架&quot; class=&quot;headerlink&quot; title=&quot;Foundation 框架&quot;&gt;&lt;/a&gt;Foundation 框架&lt;/h5&gt;&lt;p&gt;Foundation框架 (Foundation.framework)为 Core Foundation框架的许多功能提供Objective-C封装。您可以参考Core Foundation框架了解前面对Core Foundation框架的描述。 &lt;/p&gt;
+&lt;h5 id=&quot;Mobile-Core-Services-框架&quot;&gt;&lt;a href=&quot;#Mobile-Core-Services-框架&quot; class=&quot;headerlink&quot; title=&quot;Mobile Core Services 框架&quot;&gt;&lt;/a&gt;Mobile Core Services 框架&lt;/h5&gt;&lt;p&gt;iOS 3.0引入了Mobile Core Services框架 (MobileCoreServices.framework)。此框架定义统一类型标识符 (UTIs)使用的底层类型。&lt;/p&gt;
+&lt;h5 id=&quot;Quick-Look-框架&quot;&gt;&lt;a href=&quot;#Quick-Look-框架&quot; class=&quot;headerlink&quot; title=&quot;Quick Look 框架&quot;&gt;&lt;/a&gt;Quick Look 框架&lt;/h5&gt;&lt;p&gt;iOS 4.0引入Quick Look框架(QuickLook.framework），应用程序可以用过该框架预览无法直接支持查看的文件内容。如果应用程序从网络下载文件或者需处理来源未知的文件，则非常适合使用此框架。因为应用程序只要在获得文件后，调用框架提供的视图控制器就可以直接在界面中显示文件的内容。&lt;/p&gt;
+&lt;h5 id=&quot;Store-Kit-框架&quot;&gt;&lt;a href=&quot;#Store-Kit-框架&quot; class=&quot;headerlink&quot; title=&quot;Store Kit 框架&quot;&gt;&lt;/a&gt;Store Kit 框架&lt;/h5&gt;&lt;p&gt;iOS 3.0引入Store Kit 框架(StoreKit.framework)，此框架为iOS应用程序内购买内容或服务提供支持。例如，开发者可以利用此框架允许用户解锁应用程序的额外功能。或者假设您是一名游戏开发人员，则可使用此特性向玩家出售附加游戏级别。在上述的两种情况中，Store Kit 框架会处于交易过程中和财务相关的事件，包括处理用户通过 iTunes Store账号发出的支付请求并且向应用程序提供交易相关信息。&lt;/p&gt;
+&lt;p&gt;Store Kit框架主要关注交易过程中和财务相关的事务，目的是为了确保交易安全准确。应用程序需要处理交易事物的其他因素，包括购买界面和下载（或者解锁）恰当的内容。通过这种任务划分方式，您就拥有购买内容的控制权，可以决定希望展示给用户的购买界面以及何时向用户展示这些界面，同时也可以决定和应用程序最匹配的交付机制。&lt;/p&gt;
+&lt;h5 id=&quot;System-Configuration-框架&quot;&gt;&lt;a href=&quot;#System-Configuration-框架&quot; class=&quot;headerlink&quot; title=&quot;System Configuration 框架&quot;&gt;&lt;/a&gt;System Configuration 框架&lt;/h5&gt;&lt;p&gt;System Configuration框架(SystemConfiguration.framework) 可用于确定设备的网络配置。您可以使用该框架判断Wi-Fi或者蜂窝连接是否正在使用中，也可以用于判断某个主机服务是否可以使用。&lt;/p&gt;
+&lt;h5 id=&quot;HomeKit&quot;&gt;&lt;a href=&quot;#HomeKit&quot; class=&quot;headerlink&quot; title=&quot;HomeKit&quot;&gt;&lt;/a&gt;HomeKit&lt;/h5&gt;&lt;p&gt;iOS8引入,智能家居控制&lt;/p&gt;
+&lt;h5 id=&quot;HealthKit&quot;&gt;&lt;a href=&quot;#HealthKit&quot; class=&quot;headerlink&quot; title=&quot;HealthKit&quot;&gt;&lt;/a&gt;HealthKit&lt;/h5&gt;&lt;p&gt;iOS8引入的,基于设备管理用户健康数据&lt;/p&gt;
+&lt;h5 id=&quot;PassKit&quot;&gt;&lt;a href=&quot;#PassKit&quot; class=&quot;headerlink&quot; title=&quot;PassKit&quot;&gt;&lt;/a&gt;PassKit&lt;/h5&gt;&lt;p&gt;pass凭证相关接口&lt;/p&gt;
+&lt;p&gt;Core OS&lt;/p&gt;
+&lt;h2 id=&quot;Core-OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。&quot;&gt;&lt;a href=&quot;#Core-OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。&quot; class=&quot;headerlink&quot; title=&quot;Core OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。&quot;&gt;&lt;/a&gt;Core OS层的底层功能是很多其他技术的构建基础。通常情况下，这些功能不会直接应用于应用程序，而是应用于其他框架。但是，在直接处理安全事务或和某个外设通讯的时候，则必须要应用到该层的框架。&lt;/h2&gt;&lt;h4 id=&quot;Core-OS层包含的框架&quot;&gt;&lt;a href=&quot;#Core-OS层包含的框架&quot; class=&quot;headerlink&quot; title=&quot;Core OS层包含的框架&quot;&gt;&lt;/a&gt;Core OS层包含的框架&lt;/h4&gt;&lt;h5 id=&quot;Security-框架&quot;&gt;&lt;a href=&quot;#Security-框架&quot; class=&quot;headerlink&quot; title=&quot;Security 框架&quot;&gt;&lt;/a&gt;Security 框架&lt;/h5&gt;&lt;p&gt;iOS系统不但提供内建的安全功能，还提供Security框架（Security.framework）用于保证应用程序所管理之数据的安全。该框架提供的接口可用于管理证书、公钥、私钥以及信任策略。它支持生成加密的安全伪随机数。同时，它也支持对证书和Keychain密钥进行保存，是用户敏感数据的安全仓库。&lt;/p&gt;
+&lt;p&gt;CommonCrypto接口另外还支持对称加密、HMAC以及Digests。实际上，Digests的功能实和OpenSSL库常用的功能兼容，但是iOS无法使用OpenSSL库。&lt;/p&gt;
+&lt;p&gt;在 iOS 3.0及其后续版本的系统中， 您可以让所创建的多个应用程序共享某些Keychain项，这样可以让相同套件内的应用程序的互用更流畅。举个例子，您可以在应用程序间共享用户密码和及其他元素。通过这种方法，您就不需要在每个应用程序单独对用户作出提示。如应用程序需要共享数据，则每个应用程序的Xcode工程必须配备恰当的资格。&lt;/p&gt;
+&lt;h5 id=&quot;CoreBlueTooth&quot;&gt;&lt;a href=&quot;#CoreBlueTooth&quot; class=&quot;headerlink&quot; title=&quot;CoreBlueTooth&quot;&gt;&lt;/a&gt;CoreBlueTooth&lt;/h5&gt;&lt;p&gt;底层蓝牙编程实现模块&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Cocoa Touch,Media,Core Service框架简介&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://github.com/ws00801526/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS仿QQ聊天框</title>
+    <link href="http://github.com/ws00801526/2016/04/21/iOS%E4%BB%BFQQ%E8%81%8A%E5%A4%A9%E6%A1%86/"/>
+    <id>http://github.com/ws00801526/2016/04/21/iOS仿QQ聊天框/</id>
+    <published>2016-04-21T06:24:55.000Z</published>
+    <updated>2016-04-21T08:36:35.000Z</updated>
+    
+    <content type="html">&lt;p&gt;iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView&lt;/p&gt;
+&lt;p&gt;具体demo,示例:&lt;a href=&quot;https://github.com/ws00801526/XMChatBarExample&quot;&gt;XMChatBar&lt;/a&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;一-封装的思路&quot;&gt;&lt;a href=&quot;#一-封装的思路&quot; class=&quot;headerlink&quot; title=&quot;一:封装的思路&quot;&gt;&lt;/a&gt;一:封装的思路&lt;/h3&gt;&lt;h4 id=&quot;实现目标&quot;&gt;&lt;a href=&quot;#实现目标&quot; class=&quot;headerlink&quot; title=&quot;实现目标&quot;&gt;&lt;/a&gt;实现目标&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;目标&lt;/th&gt;
+&lt;th&gt;解决方法     &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;可以左右翻页&lt;/td&gt;
+&lt;td&gt;使用UIScrollView 解决 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;每页可以根据屏幕自适应表情大小&lt;/td&gt;
+&lt;td&gt;根据屏幕尺寸,定义好每一行显示几个(demo中5S=7个 6plus=8个)根据屏幕宽度计算 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;每页最后个是一个删除按钮&lt;/td&gt;
+&lt;td&gt;计算出每页显示多少个,在每一页最后增加个删除按钮 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;带有pageControl指示当前是第几页&lt;/td&gt;
+&lt;td&gt;使用UIPageControl &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;有经典,最近两种选择,底部带有一个发送按钮&lt;/td&gt;
+&lt;td&gt;使用UIView作为bottomView &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;点击每个表情,可以直接将对应中文名显示在输入框,点击删除表情,可以删除上一个选择的表情&lt;/td&gt;
+&lt;td&gt;每个显示表情的UIImageView添加UITapGestureRecognizer手势,增加XMChatFaceViewDelegate,重写个发送表情的代理事件 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;长按每个表情,可以显示一个放大预览&lt;/td&gt;
+&lt;td&gt;自定义XMFacePreviewView,给UIScrollView添加UILongPressGestureRecognizer手势,根据点击的点来确定点击的是那个表情 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&quot;前期准备&quot;&gt;&lt;a href=&quot;#前期准备&quot; class=&quot;headerlink&quot; title=&quot;前期准备&quot;&gt;&lt;/a&gt;前期准备&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;前期准备&lt;/th&gt;
+&lt;th&gt;解决方案&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;所有的表情图片&lt;/td&gt;
+&lt;td&gt;可以从QQ,WeChat里面获取,或者网上搜索&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;表情图片对应的中文名字,对应的表情id,表情图片名称&lt;/td&gt;
+&lt;td&gt;自己做个,或者网上也可以找到,推荐自己做个,比较繁琐(但是功能可以做的比较强大),保存成一个plist&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&quot;实现步骤&quot;&gt;&lt;a href=&quot;#实现步骤&quot; class=&quot;headerlink&quot; title=&quot;实现步骤&quot;&gt;&lt;/a&gt;实现步骤&lt;/h4&gt;&lt;h5 id=&quot;主要类&quot;&gt;&lt;a href=&quot;#主要类&quot; class=&quot;headerlink&quot; title=&quot;主要类&quot;&gt;&lt;/a&gt;主要类&lt;/h5&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;类名&lt;/th&gt;
+&lt;th&gt;主要功能 &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;XMFaceManager&lt;/td&gt;
+&lt;td&gt;获取所有的emoji的Dict,最近使用的表情dict数组,保存最近使用的表情 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;XMChatFaceView&lt;/td&gt;
+&lt;td&gt;具体的faceView  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;XMFacePreviewView&lt;/td&gt;
+&lt;td&gt;私有类,写在XMChatFaceView中,表情预览view &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;具体思路&quot;&gt;&lt;a href=&quot;#具体思路&quot; class=&quot;headerlink&quot; title=&quot;具体思路&quot;&gt;&lt;/a&gt;具体思路&lt;/h5&gt;&lt;h5 id=&quot;XMFaceManager-–-表情管理manager&quot;&gt;&lt;a href=&quot;#XMFaceManager-–-表情管理manager&quot; class=&quot;headerlink&quot; title=&quot;XMFaceManager – 表情管理manager&quot;&gt;&lt;/a&gt;XMFaceManager – 表情管理manager&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;可以获取所有表情的NSArray - 里面包含多个NSDictionary(包括face_id,face_name两个key-value键值对,其中face_id名就是图片名称,face_name就是图片的中文名称,&lt;del&gt;命名有点问题,请大家自动忽略&lt;/del&gt;)&lt;/li&gt;
+&lt;li&gt;可以通过face_id获取face_name&lt;/li&gt;
+&lt;li&gt;可以通过face_name 获取 face_id&lt;/li&gt;
+&lt;li&gt;可以将含有face_name的字符串转化成一个包含表情图片的NSMutableAttributedString的字符串&lt;/li&gt;
+&lt;li&gt;可以获取最近使用过的表情NSArray&lt;/li&gt;
+&lt;li&gt;保存一个最近使用的表情&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5 id=&quot;XMFacePreviewView-–-表情预览View&quot;&gt;&lt;a href=&quot;#XMFacePreviewView-–-表情预览View&quot; class=&quot;headerlink&quot; title=&quot;XMFacePreviewView – 表情预览View&quot;&gt;&lt;/a&gt;XMFacePreviewView – 表情预览View&lt;/h5&gt;&lt;h5 id=&quot;私有属性&quot;&gt;&lt;a href=&quot;#私有属性&quot; class=&quot;headerlink&quot; title=&quot;私有属性&quot;&gt;&lt;/a&gt;私有属性&lt;/h5&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性名&lt;/th&gt;
+&lt;th&gt;作用 &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;faceImageView&lt;/td&gt;
+&lt;td&gt;显示表情图片 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;backgroundImageView&lt;/td&gt;
+&lt;td&gt;表情图片的背景 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;私有方法&quot;&gt;&lt;a href=&quot;#私有方法&quot; class=&quot;headerlink&quot; title=&quot;私有方法&quot;&gt;&lt;/a&gt;私有方法&lt;/h5&gt;&lt;p&gt;&lt;code&gt;- (void)setFaceImage:(UIImage *)image&lt;/code&gt;  – 设置表情图片,如果图片变化了 添加一个放大缩小的动画&lt;/p&gt;
+&lt;h5 id=&quot;XMChatFaceView&quot;&gt;&lt;a href=&quot;#XMChatFaceView&quot; class=&quot;headerlink&quot; title=&quot;XMChatFaceView&quot;&gt;&lt;/a&gt;XMChatFaceView&lt;/h5&gt;&lt;h5 id=&quot;私有属性-1&quot;&gt;&lt;a href=&quot;#私有属性-1&quot; class=&quot;headerlink&quot; title=&quot;私有属性&quot;&gt;&lt;/a&gt;私有属性&lt;/h5&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性名&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt; scrollView&lt;/td&gt;
+&lt;td&gt;放置所有表情imageVIew的 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; pageControl&lt;/td&gt;
+&lt;td&gt;指示当前页面的 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; facePreviewView&lt;/td&gt;
+&lt;td&gt;预览view &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; bottomView&lt;/td&gt;
+&lt;td&gt;底部view(上面有sendButton,recentButton,emojiButton) &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; sendButton&lt;/td&gt;
+&lt;td&gt;发送按钮,点击后调用XMChatBar 发送消息 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; recentButton&lt;/td&gt;
+&lt;td&gt;显示最近使用的表情 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; emojiButton&lt;/td&gt;
+&lt;td&gt;显示所有emoji表情 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; maxPerLine(readOnly)&lt;/td&gt;
+&lt;td&gt;设置默认每一行最多显示几个表情,因为从0开始 应该是 返回n-1个 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; maxLine&lt;/td&gt;
+&lt;td&gt;显示多少行表情,demo中,最近表情为两行,emoji表情为3行 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; facePage&lt;/td&gt;
+&lt;td&gt;emoji表情显示当前页,用于最近表情切换回emoji表情,自动返回到上次emoji表情浏览页 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;私有方法-1&quot;&gt;&lt;a href=&quot;#私有方法-1&quot; class=&quot;headerlink&quot; title=&quot;私有方法&quot;&gt;&lt;/a&gt;私有方法&lt;/h5&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法名&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)setup&lt;/td&gt;
+&lt;td&gt;仅初始化的时候调用,完成添加bottomView,scrollView,pageControl,给scrollView添加长按手势 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)resetScrollView&lt;/td&gt;
+&lt;td&gt;切换显示不同表情页面时候调用,更改按钮状态,删除scrollView的subViews,修改scrollView的contentSize,contentOffset &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)changeFaceType:(UIButton *)button&lt;/td&gt;
+&lt;td&gt;emojiButton,recentButton对应的点击事件 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)sendAction:(UIButton *)button&lt;/td&gt;
+&lt;td&gt;发送按钮对应点击事件 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (UIImageView *)faceViewWitnInPoint:(CGPoint)point&lt;/td&gt;
+&lt;td&gt;通过点击的点,获取对应点击的具体UIImageView &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)handleLongPress:(UILongPressGestureRecognizer *)longPress&lt;/td&gt;
+&lt;td&gt;处理scrollView的长按手势 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)handleTap:(UITapGestureRecognizer *)tap&lt;/td&gt;
+&lt;td&gt;处理所有UIImageView的点击手势 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)setupEmojiFaces&lt;/td&gt;
+&lt;td&gt;初始化所有的emoji表情 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt; - (void)setupRecentFaces&lt;/td&gt;
+&lt;td&gt;初始化最近使用的emoji表情 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;设计思路&quot;&gt;&lt;a href=&quot;#设计思路&quot; class=&quot;headerlink&quot; title=&quot;设计思路&quot;&gt;&lt;/a&gt;设计思路&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;整个XMChatFaceView分成两块 UIScrollView(用来放所有的表情UIImageVIew),UIView(bottomView,用户放一些功能按钮)&lt;/li&gt;
+&lt;li&gt;切换显示不同类型FaceView的时候,直接移除掉scrollView上所有子视图,重新添加即可&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;二-总结&quot;&gt;&lt;a href=&quot;#二-总结&quot; class=&quot;headerlink&quot; title=&quot;二: 总结&quot;&gt;&lt;/a&gt;二: 总结&lt;/h2&gt;&lt;h5 id=&quot;1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅&quot;&gt;&lt;a href=&quot;#1-这篇blog也是我刚开始写blog-文字不顺-请大家原谅&quot; class=&quot;headerlink&quot; title=&quot;1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅&quot;&gt;&lt;/a&gt;1.这篇blog也是我刚开始写blog,文字不顺,请大家原谅&lt;/h5&gt;&lt;h5 id=&quot;2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整&quot;&gt;&lt;a href=&quot;#2-整篇文章没有太多代码-我这里只写了当时写这个的时候的一些思考方法-思路-具体代码的话-大家下载demo实例-注释我已经添加了-应该算比较完整&quot; class=&quot;headerlink&quot; title=&quot;2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载demo实例,注释我已经添加了,应该算比较完整.&quot;&gt;&lt;/a&gt;2.整篇文章没有太多代码,我这里只写了当时写这个的时候的一些思考方法,思路,具体代码的话,大家下载&lt;a href=&quot;https://github.com/ws00801526/XMChatBarExample&quot;&gt;demo实例&lt;/a&gt;,注释我已经添加了,应该算比较完整.&lt;/h5&gt;&lt;h5 id=&quot;3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441&quot;&gt;&lt;a href=&quot;#3-如果demo使用过程中有什么问题-欢迎大家指出-修改-也欢迎大家一起讨论iOS开发过程中遇到的问题-QQ-3057600441&quot; class=&quot;headerlink&quot; title=&quot;3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441&quot;&gt;&lt;/a&gt;3.如果demo使用过程中有什么问题,欢迎大家指出,修改,也欢迎大家一起讨论iOS开发过程中遇到的问题,QQ:3057600441&lt;/h5&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;iOS仿QQ聊天框XMChatBar系列之一 – 封装XMChatFaceView&lt;/p&gt;
+&lt;p&gt;具体demo,示例:&lt;a href=&quot;https://github.com/ws00801526/XMChatBarExample&quot;&gt;XMChatBar&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://github.com/ws00801526/tags/iOS/"/>
+    
+  </entry>
+  
+</feed>
